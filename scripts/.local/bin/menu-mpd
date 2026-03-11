@@ -1,0 +1,144 @@
+#!/bin/sh
+# A simple menu-driven frontend for mpd via playerctl and mpc
+set -e
+
+playlists=$(mpc -q lsplaylists)
+queue=$(mpc -q playlist)
+database=$(mpc -q ls)
+
+spawn_menu()
+{
+    printf '%s' "$1" | bemenu --prompt "$2" --list 20
+}
+
+playerctl_make_active()
+{
+    # change volume ever so slightly to focus mpd
+    VOL=$(playerctl -p mpd volume)
+    is_max=$(echo "$VOL" | awk '{if ($1 >= 1.0) print "true"; else print "false"}')
+    if [ "$is_max" = "true" ]; then
+        playerctl -s -p mpd volume 0.01- && playerctl -s -p mpd volume 0.01+
+    else
+        playerctl -s -p mpd volume 0.01+ && playerctl -s -p mpd volume 0.01-
+    fi
+}
+
+choose_album()
+{
+    album=$(spawn_menu "$database" 'Choose an album:')
+    echo "$album"
+}
+
+album_choose_song()
+{
+    album="$1"
+    songs=$(mpc -q ls "$album" | sed 's|.*/||' | sort -V)
+    song=$(spawn_menu "$songs" 'Choose a song:')
+    echo "$album/$song"
+}
+
+queue_choose_song()
+{
+    song=$(spawn_menu "$queue" 'Choose a song:')
+    echo "$song"
+}
+
+queue_get_song_position()
+{
+    song="$1"
+    song_pos=$(echo "$queue" | grep -n "$song" | sed 's|:.*||')
+    echo "$song_pos"
+}
+
+choose_playlist()
+{
+    playlist=$(spawn_menu "$playlists" 'Choose a playlist:')
+    echo "$playlist"
+}
+
+run_queue_command()
+{
+    options=$(printf "%s\n" \
+                     'Add an album to the queue' \
+                     'Add a song to the queue' \
+                     'Insert a song to the queue' \
+                     'Jump to a song in the queue' \
+                     'Remove a song from the queue' \
+                     'Load a playlist' \
+                     'Clear the queue' \
+                     'Crop the queue' \
+                     'Update the database')
+
+    current_song=$(mpc current)
+    response=$(spawn_menu "$options" "Current song: $current_song")
+    case "$response" in
+        'Add an album to the queue')
+            album=$(choose_album)
+            mpc -q add "$album" ;;
+        'Add a song to the queue')
+            album=$(choose_album)
+            song=$(album_choose_song "$album")
+            mpc -q add "$song" ;;
+        'Insert a song to the queue')
+            album=$(choose_album)
+            song=$(album_choose_song "$album")
+            mpc -q insert "$song" ;;
+        'Jump to a song in the queue')
+            song=$(queue_choose_song)
+            song_pos=$(queue_get_song_position "$song")
+            mpc -q play "$song_pos" ;;
+        'Remove a song from the queue')
+            song=$(queue_choose_song)
+            song_pos=$(queue_get_song_position "$song")
+            mpc -q del "$song_pos" ;;
+        'Load a playlist')
+            playlist=$(choose_playlist)
+            mpc -q load "$playlist" ;;
+        'Clear the queue') mpc -q clear ;;
+        'Crop the queue') mpc -q crop ;;
+        'Update the database') mpc -q update ;;
+    esac
+}
+
+run_player_command()
+{
+    options=$(printf '%s\n' \
+                     'Toggle play/pause' \
+                     'Next song' \
+                     'Previous song' \
+                     'Next album' \
+                     'Previous album' \
+                     'Toggle repeat' \
+                     'Toggle single')
+
+    # TODO: display something when nothing is playing
+    # status format:
+    # [playing] volume:33% repeat:on random:off single:off consume:off
+    status=$(mpc status | sed -n 's|].*|]|; s| \+| |g; s|: |:|g; 2p; 3p')
+    response=$(spawn_menu "$options" "$status")
+    case "$response" in
+        'Toggle play/pause') mpc -q toggle;;
+        'Next song') mpc -q next ;;
+        'Previous song') mpc -q prev ;;
+        'Next album') mpd-next-album ;;
+        'Previous album') mpd-prev-album ;;
+        'Toggle repeat') mpc -q repeat ;;
+        'Toggle single') mpc -q single ;;
+    esac
+}
+
+main()
+{
+    options=$(printf '%s\n' \
+                     'Queue commands' \
+                     'Player commands')
+    response=$(spawn_menu "$options" 'Send a queue or a player command?')
+    case "$response" in
+        'Queue commands') run_queue_command ;;
+        'Player commands') run_player_command ;;
+    esac
+
+    playerctl_make_active
+}
+
+main "$@"

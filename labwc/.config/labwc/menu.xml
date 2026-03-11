@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labwc:menu xmlns:labwc="https://labwc.github.io/labwc">
+  <theme>
+    <name>default</name>
+    <iconTheme>Delft-Dark</iconTheme>
+  </theme>
+
+  <menu id="root-menu" label="Root Menu">
+    <item label="foot" icon="foot">
+      <action name="Execute">
+        <command>foot</command>
+      </action>
+    </item>
+
+    <item label="qutebrowser" icon="qutebrowser">
+      <action name="Execute">
+        <command>qutebrowser</command>
+      </action>
+    </item>
+
+    <item label="emacs" icon="emacs">
+      <action name="Execute">
+        <command>emacsclient -c -a ''</command>
+      </action>
+    </item>
+
+    <separator/>
+
+    <item label="Reconfigure">
+      <action name="Reconfigure"/>
+    </item>
+
+    <item label="Exit">
+      <action name="Exit"/>
+    </item>
+
+  </menu>
+</labwc:menu>
+

@@ -1,0 +1,75 @@
+general {
+        colors = true
+        color_good = "#b8bb26"
+        color_bad = "#fb4934"
+        color_degraded = "#fabd2f"
+        interval = 5
+}
+
+order += "volume master"
+order += "read_file kbd_layout"
+order += "read_file mako_dnd_status"
+order += "ipv6"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "disk /"
+order += "memory"
+order += "battery all"
+order += "tztime local"
+
+volume master {
+        format = "♪: %volume"
+        format_muted = "♪: muted (%volume)"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+read_file kbd_layout {
+        path = "~/.local/state/current_kbd_layout"
+        color_good = "#ebdbb2"
+}
+
+read_file mako_dnd_status {
+        path = "~/.local/state/mako_dnd_status"
+        format = "Notif: %content"
+        color_good = "#ebdbb2"
+}
+
+ipv6 {
+        format_up = "%iface: %ip"
+        format_down = "IPv6: down"
+}
+
+wireless _first_ {
+        format_up = "W: (%quality at %essid) %ip"
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+disk "/" {
+        format = "%avail"
+}
+
+memory {
+        format = "%available | %total"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+battery all {
+        format = "%status %percentage %remaining"
+}
+
+
+load {
+        format = "%1min"
+}
+
+tztime local {
+        format = "%d-%m-%Y %H:%M:%S"
+}

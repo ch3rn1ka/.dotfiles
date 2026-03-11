@@ -1,0 +1,42 @@
+#!/bin/sh
+
+clean_path() {
+    path="$1"
+    if [ -e "$path" ]; then
+        echo "rm -rf $path"
+        rm -rf "$path"
+    fi
+}
+
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}"
+CACHE="${XDG_CACHE_HOME:-$HOME/.cache}"
+
+if [ $# -gt 0 ]; then
+    PKGS="$@"
+else
+    printf "%s" "Do you want to clean data and cache for ALL packages in the repo? [y/N] "
+    IFS= read -r yn
+    [ ! "$yn" = 'y' ] && [ ! "$yn" = 'Y' ] && exit 0
+    PKGS="nvim emacs qutebrowser zsh"
+fi
+
+for pkg in $PKGS; do
+    case "$pkg" in
+        emacs)
+            clean_path "$STATE/eshell_history"
+            ;;
+        zsh)
+            clean_path "$STATE/zsh_history"
+            clean_path "$CACHE/zsh_zcompdump"
+            ;;
+        sway | labwc)
+            clean_path "$STATE/current_kbd_layout"
+            ;;
+        *) ;;
+    esac
+
+    clean_path "$DATA/$pkg"
+    clean_path "$STATE/$pkg"
+    clean_path "$CACHE/$pkg"
+done

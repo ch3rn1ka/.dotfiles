@@ -1,0 +1,74 @@
+#!/bin/sh
+# My pocket script to save the contents of $HOME i care about to a usb
+# or whatever via rsync.
+# Some paths are hardcoded. Symlinks are ignored.
+
+PROJECTS="$HOME/projects"
+MUSIC=$(xdg-user-dir MUSIC)
+DOCS=$(xdg-user-dir DOCUMENTS)
+PASS="$PASSWORD_STORE_DIR"
+UNI="$HOME/uni"
+
+backup_projects()
+{
+    printf '%s\n' "Backing up $PROJECTS"
+
+    dest="$BACKUP_ROOT/clonebay"
+    [ -d "$dest" ] || mkdir "$dest"
+
+    for repo in "$PROJECTS/"*/; do
+        repo_name=$(printf '%s\n' "$repo" | sed 's|.$||; s|.*/||g')
+        printf '\t%s\n' "Creating a bundle for $repo_name"
+        git -C "$repo" bundle create "$repo_name.bundle" --all >/dev/null 2>&1
+        rsync -q "$repo/$repo_name.bundle" "$dest"
+        rm "$repo/$repo_name.bundle"
+    done
+}
+
+backup_music()
+{
+    printf '%s\n' "Backing up $MUSIC"
+    rsync -q --archive "$MUSIC" "$BACKUP_ROOT"
+}
+
+backup_docs()
+{
+    printf '%s\n' "Backing up $DOCS"
+    rsync -q --archive --no-links "$DOCS" "$BACKUP_ROOT"
+}
+
+backup_pass()
+{
+    printf '%s\n' "Backing up $PASS"
+    rsync -q --archive --no-links "$PASS" "$BACKUP_ROOT"
+}
+
+backup_uni()
+{
+    printf '%s\n' "Backing up $UNI"
+    rsync -q --archive --no-links "$UNI" "$BACKUP_ROOT"
+}
+
+main()
+{
+    [ $# -eq 0 ] || [ $# -gt 1 ] && {
+        printf '%s\n' "Usage: ./create-backup DEST"
+        exit 1
+    }
+
+    BACKUP_ROOT="$1"
+    [ -d "$BACKUP_ROOT" ] && [ -w "$BACKUP_ROOT" ] || {
+        printf '%s\n' "Cannot write to $path. Make sure the path is correct, and check permissions"
+        exit 1
+    }
+
+    printf '%s\n' "Target: $BACKUP_ROOT"
+    backup_projects
+    backup_music
+    backup_docs
+    backup_pass
+    backup_uni
+    printf '%s\n' 'Finished.'
+}
+
+main "$@"

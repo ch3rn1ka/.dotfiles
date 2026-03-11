@@ -1,0 +1,10 @@
+#!/bin/sh
+
+gateway=$(ip route | head -n 1 | awk '{print $3}')
+while getopts "ct" opt; do
+    case "$opt" in
+        c) printf "%s" "$gateway" | wl-copy ;;
+        t) sleep 0.4; printf "%s" "$gateway" | ydotool type -d 1 --file - ;;
+        *) ;;
+    esac
+done

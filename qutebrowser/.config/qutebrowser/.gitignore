@@ -1,0 +1,6 @@
+*
+!.gitignore
+!config.py
+!qutemacs.py
+!gruvbox.py
+!startpage.html
