@@ -32,7 +32,7 @@ ttf-ubuntu-nerd
 ttf-ubuntu-mono-nerd
 noto-fonts
 mpd
-mpd-mpris
+mpdris2-rs
 mpc
 playerctl
 neomutt
