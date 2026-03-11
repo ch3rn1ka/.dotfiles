@@ -1,0 +1,17 @@
+#!/bin/sh
+
+current_album="$(playerctl -s -p mpd metadata -f '{{ album }}')"
+
+while true; do
+    playerctl -s -p mpd previous >/dev/null || exit 1
+    new_album="$(mpc current --format "%album%")"
+    [ "$new_album" != "$current_album" ] && break
+done
+
+while true; do
+    playerctl -s -p mpd previous >/dev/null || break
+    if [ "$(playerctl -s -p mpd metadata -f '{{ album }}')" != "$new_album" ]; then
+        playerctl -s -p mpd next >/dev/null
+        break
+    fi
+done

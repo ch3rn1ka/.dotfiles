@@ -1,0 +1,18 @@
+source profiles/primary
+source colors
+
+macro index <f2> "<enter-command>source $XDG_CONFIG_HOME/neomutt/profiles/primary<enter><change-folder>!<enter>"
+macro index <f3> "<enter-command>source $XDG_CONFIG_HOME/neomutt/profiles/secondary<enter><change-folder>!<enter>"
+macro index <f4> "<enter-command>source $XDG_CONFIG_HOME/neomutt/profiles/anonymous<enter><change-folder>!<enter>"
+macro index <f5> "<enter-command>source $XDG_CONFIG_HOME/neomutt/profiles/throwaway<enter><change-folder>!<enter>"
+
+set crypt_use_gpgme = yes
+set pgp_check_exit = yes
+
+set sidebar_visible = yes
+set sidebar_width = 25
+set sidebar_short_path = yes
+
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open

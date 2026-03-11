@@ -1,0 +1,10 @@
+#!/bin/sh
+# TODO: fix bug with infinite loop when there's only one album in the queue
+
+current_album="$(playerctl -s -p mpd metadata -f '{{ album }}')"
+
+while true; do
+    playerctl -s -p mpd next >/dev/null || exit 1
+    new_album="$(playerctl -s -p mpd metadata -f '{{ album }}')"
+    [ "$new_album" != "$current_album" ] && break
+done

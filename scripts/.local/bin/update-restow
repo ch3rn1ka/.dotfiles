@@ -1,0 +1,28 @@
+#!/bin/sh
+
+sudo pacman -Syu || {
+    echo "Some packages couldn't be updated!"
+}
+
+while true; do
+    printf "\nDo you wish to restow the dotfiles? [Y/n] "
+    IFS= read -r yn
+
+    case $yn in
+        [Nn]* ) exit;;
+        * ) 
+            command -v stow >/dev/null 2>&1 || {
+                echo "'stow' executable not found."
+                exit 1
+            }
+
+            cd "$DOTFILES" || "$HOME/.dotfiles" || {
+                echo "Can't find the ~/.dotfiles folder."
+                exit 1 
+            }
+            
+            stow --restow --ignore "README.md" --verbose 1 */
+
+            break;;
+    esac
+done

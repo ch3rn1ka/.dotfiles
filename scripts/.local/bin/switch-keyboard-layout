@@ -1,0 +1,15 @@
+#!/bin/sh
+# This script switches kbd layout via swaymsg and updates
+# $XDG_STATE_HOME/current_layout so that it could be sourced by
+# programs like i3status
+
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}"
+
+# TODO: add support for labwc
+swaymsg input 'type:keyboard' xkb_switch_layout next && {
+    current_kbd_layout=$(swaymsg -t get_inputs | jq 'map(select(has("xkb_active_layout_name")))[0].xkb_active_layout_name' | sed 's|"||g; s| (.*||')
+    echo "$current_kbd_layout" > "$STATE_DIR/current_kbd_layout"
+}
+
+# update i3status
+killall -USR1 i3status

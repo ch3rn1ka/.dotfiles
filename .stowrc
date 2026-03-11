@@ -1,0 +1,7 @@
+--ignore "README.md"
+--ignore ".*~$"
+--ignore "^~.*"
+--ignore "^#.*#$"
+--ignore "^\.#.*"
+--verbose 1
+--target "$HOME"
