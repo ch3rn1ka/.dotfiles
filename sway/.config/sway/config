@@ -48,6 +48,8 @@ exec mako >/dev/null 2>&1
 exec emacs --daemon >/dev/null 2>&1
 exec wl-paste --watch cliphist store
 exec ydotoold >/dev/null 2>&1
+exec mpdris2-rs >/dev/null 2>&1
+exec playerctld daemon >/dev/null 2>&1
 exec swayidle -w \
       timeout 1200 "swaylock -f -c 282828" \
       timeout 4800 "swaymsg 'output * power off'" resume "swaymsg 'output * power on'" \
