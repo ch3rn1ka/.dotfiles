@@ -5,3 +5,5 @@ mako >/dev/null 2>&1 &
 emacs --daemon >/dev/null 2>&1 &
 wl-paste --watch cliphist store &
 ydotoold >/dev/null 2>&1 &
+mpdris2-rs >/dev/null 2>&1 &
+playerctld daemon >/dev/null 2>&1 &
