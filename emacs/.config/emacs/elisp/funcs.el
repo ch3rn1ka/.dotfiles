@@ -64,15 +64,4 @@
     (yank)
     (indent-region beg (point))))
 
-(defun rc/toggle-gruvbox-theme ()
-  "Toggle between gruvbox-dark-medium and gruvbox-light-medium."
-  (interactive)
-  (if (member 'gruvbox-dark-medium custom-enabled-themes)
-      (progn
-        (disable-theme 'gruvbox-dark-medium)
-        (load-theme 'gruvbox-light-medium t))
-    (progn
-      (disable-theme 'gruvbox-light-medium)
-      (load-theme 'gruvbox-dark-medium t))))
-
 (provide 'funcs)

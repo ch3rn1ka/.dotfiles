@@ -29,7 +29,6 @@
 (require 'funcs)
 (global-set-key (kbd "C-c r") 'recompile)
 (global-set-key (kbd "C-c c") 'rc/copy-files-to-clipboard)
-(global-set-key (kbd "C-c t") 'rc/toggle-gruvbox-theme)
 (global-set-key (kbd "C-c k") 'rc/close-other-buffers)
 (global-set-key (kbd "C-c y") 'rc/yank-and-indent)
 (global-set-key (kbd "C-,") 'rc/duplicate-line)
