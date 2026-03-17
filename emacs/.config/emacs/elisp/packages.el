@@ -13,9 +13,6 @@
 ;;; External packages
 (setq use-package-always-ensure t)
 
-(use-package gruvbox-theme
-  :config (load-theme 'gruvbox-dark-medium))
-
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -34,11 +31,53 @@
   :hook (eshell-mode . eshell-syntax-highlighting-mode))
 
 (use-package eat
+  :ensure t
   :hook
   (eshell-load . eat-eshell-mode)
-  (eshell-load . eat-eshell-visual-command-mode))
+  (eshell-load . eat-eshell-visual-command-mode)
+  :config
+  (defun rc/set-eat-gruvbox-dark-colors ()
+    (set-face-attribute 'eat-term-color-black nil :foreground "#282828")
+    (set-face-attribute 'eat-term-color-red nil :foreground "#cc241d")
+    (set-face-attribute 'eat-term-color-green nil :foreground "#98971a")
+    (set-face-attribute 'eat-term-color-yellow nil :foreground "#d79921")
+    (set-face-attribute 'eat-term-color-blue nil :foreground "#458588")
+    (set-face-attribute 'eat-term-color-magenta nil :foreground "#b16286")
+    (set-face-attribute 'eat-term-color-cyan nil :foreground "#689d6a")
+    (set-face-attribute 'eat-term-color-white nil :foreground "#a89984")
 
-(use-package vterm)
+    (set-face-attribute 'eat-term-color-bright-black nil :foreground "#928374")
+    (set-face-attribute 'eat-term-color-bright-red nil :foreground "#fb4934")
+    (set-face-attribute 'eat-term-color-bright-green nil :foreground "#b8bb26")
+    (set-face-attribute 'eat-term-color-bright-yellow nil :foreground "#fabd2f")
+    (set-face-attribute 'eat-term-color-bright-blue nil :foreground "#83a598")
+    (set-face-attribute 'eat-term-color-bright-magenta nil :foreground "#d3869b")
+    (set-face-attribute 'eat-term-color-bright-cyan nil :foreground "#8ec07c")
+    (set-face-attribute 'eat-term-color-bright-white nil :foreground "#ebdbb2"))
+
+  (rc/set-eat-gruvbox-dark-colors))
+
+(use-package vterm
+  :ensure t
+  :custom-face
+  (vterm-color-black ((t :foreground "#282828" :background "#282828")))
+  (vterm-color-red ((t :foreground "#cc241d" :background "#cc241d")))
+  (vterm-color-green ((t :foreground "#98971a" :background "#98971a")))
+  (vterm-color-yellow ((t :foreground "#d79921" :background "#d79921")))
+  (vterm-color-blue ((t :foreground "#458588" :background "#458588")))
+  (vterm-color-magenta ((t :foreground "#b16286" :background "#b16286")))
+  (vterm-color-cyan ((t :foreground "#689d6a" :background "#689d6a")))
+  (vterm-color-white ((t :foreground "#a89984" :background "#a89984")))
+
+  (vterm-color-bright-black ((t :foreground "#928374" :background "#928374")))
+  (vterm-color-bright-red ((t :foreground "#fb4934" :background "#fb4934")))
+  (vterm-color-bright-green ((t :foreground "#b8bb26" :background "#b8bb26")))
+  (vterm-color-bright-yellow ((t :foreground "#fabd2f" :background "#fabd2f")))
+  (vterm-color-bright-blue ((t :foreground "#83a598" :background "#83a598")))
+  (vterm-color-bright-magenta ((t :foreground "#d3869b" :background "#d3869b")))
+  (vterm-color-bright-cyan ((t :foreground "#8ec07c" :background "#8ec07c")))
+  (vterm-color-bright-white ((t :foreground "#ebdbb2" :background "#ebdbb2"))))
+
 (use-package magit)
 
 (use-package lua-mode
@@ -58,6 +97,17 @@
 
 (use-package haskell-mode)
 (use-package tuareg)
+
+(use-package doom-themes
+  :ensure t
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  :config
+  (load-theme 'doom-gruvbox t)
+
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 
 ;;; Built-ins
 (setq use-package-always-ensure nil)
