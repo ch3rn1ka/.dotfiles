@@ -24,7 +24,6 @@ zsh-syntax-highlighting
 neovim-nightly-bin
 fzf
 emacs-wayland
-libvterm
 foot
 tmux
 fastfetch
