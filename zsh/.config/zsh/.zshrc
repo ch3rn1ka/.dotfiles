@@ -1,3 +1,7 @@
+setopt share_history
+setopt extendedglob
+setopt NO_CASE_GLOB
+
 HISTFILE="$XDG_STATE_HOME/zsh_history"
 HISTSIZE=5000
 SAVEHIST=5000
@@ -5,10 +9,6 @@ SAVEHIST=5000
 export LESS='-R --use-color -Dd+c$Du+b$'
 export MANROFFOPT='-P -c'
 export GPG_TTY=$(tty)
-
-setopt share_history
-setopt extendedglob
-setopt NO_CASE_GLOB
 
 alias ls='ls --color=auto'
 alias ll='ls -lAh --color=auto --sort=extension --group-directories-first'
@@ -41,21 +41,6 @@ ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#fb4934'
 
 # zsh-autosuggestions
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# vterm integration
-vterm_printf() {
-    if [ -n "$TMUX" ] && [ "${TERM%%-*}" = "tmux" ]; then
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-
-vterm_prompt_end() {
-    vterm_printf "51;A$(whoami)@$(cat /etc/hostname):$(pwd)"
-}
-setopt PROMPT_SUBST
-PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 
 # eat-shell integration
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
