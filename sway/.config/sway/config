@@ -22,7 +22,7 @@ font pango:"UbuntuMono Nerd Font" 10
 # Colors:
 #
 # class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #fbf1c7 #2e9ef4   #4c7899
+client.focused          #458588 #285577 #fbf1c7 #2e9ef4   #4c7899
 client.focused_inactive #7c6f64 #504945 #ebdbb2 #484e50   #7c6f64
 client.unfocused        #32302f #222222 #a89984 #292d2e   #222222
 client.urgent           #fb4934 #cc241d #fbf1c7 #cc241d   #fb4934
