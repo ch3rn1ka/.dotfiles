@@ -4,9 +4,9 @@ STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}"
 
 if [ "$(makoctl mode)" = "dnd" ]; then
     makoctl mode -r dnd
-    echo 'off' > "$STATE_DIR/mako_dnd_status"
-else
     echo ' on' > "$STATE_DIR/mako_dnd_status"
+else
+    echo 'off' > "$STATE_DIR/mako_dnd_status"
     makoctl mode -s dnd
 fi
 
