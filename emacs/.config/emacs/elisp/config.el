@@ -4,7 +4,7 @@
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(scroll-bar-mode -12)
+(scroll-bar-mode -1)
 (delete-selection-mode 1)
 (global-font-lock-mode 1)
 (column-number-mode 1)
