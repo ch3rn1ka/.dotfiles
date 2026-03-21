@@ -36,6 +36,7 @@
     <keybind key="W-["><action name="Execute" command="emacsclient -c -a ''" /></keybind>
     <keybind key="W-]"><action name="Execute" command="emacsclient -c -a '' -e '(eshell)'" /></keybind>
     <keybind key="W-`"><action name="Execute" command="hyprpicker -a ''" /></keybind>
+    <keybind key="W-S-`"><action name="Execute" command="menu-gruvbox" /></keybind>
     <keybind key="W-d"><action name="Execute" command="bemenu-run -p 'Run a program:'" /></keybind>
     <keybind key="W-x"><action name="Execute" command="menu-kill -a -s 15" /></keybind>
     <keybind key="W-S-x"><action name="Execute" command="menu-kill -a" /></keybind>

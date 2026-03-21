@@ -91,7 +91,6 @@ bindsym --locked $mod+Space exec switch-keyboard-layout
 bindsym $mod+bracketleft exec emacsclient -c -a ''
 bindsym $mod+bracketright exec emacsclient -c -a '' -e '(eshell)'
 
-bindsym $mod+grave exec hyprpicker -a ''
 bindsym $mod+Return exec foot
 bindsym $mod+n exec mako-toggle-dnd
 bindsym $mod+d exec bemenu-run -p 'Run a program:'
@@ -107,6 +106,9 @@ bindsym $mod+Shift+v exec menu-pass
 
 bindsym $mod+m exec menu-mpd
 bindsym $mod+Shift+m exec mpc clear
+
+bindsym $mod+grave exec hyprpicker -a ''
+bindsym $mod+Shift+grave exec menu-gruvbox
 
 bindsym $mod+g exec get-default-gateway -t
 bindsym $mod+Shift+g exec get-default-gateway -c
