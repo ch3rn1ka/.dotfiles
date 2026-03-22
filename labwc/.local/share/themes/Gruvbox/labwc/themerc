@@ -1,4 +1,6 @@
+window.active.title.bg: Gradient Vertical
 window.active.title.bg.color: #3c3836
+window.active.title.bg.colorTo: #32302f
 window.active.label.text.color: #fbf1c7
 window.inactive.title.bg.color: #282828
 window.inactive.label.text.color: #a89984
