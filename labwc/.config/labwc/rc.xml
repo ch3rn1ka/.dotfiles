@@ -19,42 +19,49 @@
     <keybind key="W-w"><action name="ToggleMaximize" /></keybind>
     <keybind key="W-e"><action name="Iconify" /></keybind>
 
+    <keybind key="W-S-e"><action name="Exit" /></keybind>
+    <keybind key="W-S-r"><action name="Reconfigure" /></keybind>
+    <keybind key="W-S-u"><action name="Execute" command="swaylock -f -c 282828" /></keybind>
+
     <keybind key="W-a"><action name="Raise" /></keybind>
     <keybind key="W-z"><action name="Lower" /></keybind>
-
-    <keybind key="W-Tab"><action name="NextWindow" /></keybind>
-    <keybind key="W-S-Tab"><action name="PreviousWindow" /></keybind>
-    <keybind key="W-n"><action name="NextWindow" /></keybind>
-    <keybind key="W-p"><action name="PreviousWindow" /></keybind>
 
     <keybind key="W-h"><action name="ToggleSnapToEdge" direction="left" combine="yes" /></keybind>
     <keybind key="W-l"><action name="ToggleSnapToEdge" direction="right" combine="yes" /></keybind>
     <keybind key="W-j"><action name="ToggleSnapToEdge" direction="down" combine="yes" /></keybind>
     <keybind key="W-k"><action name="ToggleSnapToEdge" direction="up" combine="yes" /></keybind>
 
+    <keybind key="W-Tab"><action name="NextWindow" /></keybind>
+    <keybind key="W-S-Tab"><action name="PreviousWindow" /></keybind>
+    <keybind key="W-n"><action name="NextWindow" /></keybind>
+    <keybind key="W-p"><action name="PreviousWindow" /></keybind>
+
     <keybind key="W-Return"><action name="Execute" command="foot" /></keybind>
+    <keybind key="W-d"><action name="Execute" command="bemenu-run -p 'Run a program:'" /></keybind>
+
     <keybind key="W-["><action name="Execute" command="emacsclient -c -a ''" /></keybind>
     <keybind key="W-]"><action name="Execute" command="emacsclient -c -a '' -e '(eshell)'" /></keybind>
+
     <keybind key="W-`"><action name="Execute" command="hyprpicker -a ''" /></keybind>
     <keybind key="W-S-`"><action name="Execute" command="menu-gruvbox" /></keybind>
-    <keybind key="W-d"><action name="Execute" command="bemenu-run -p 'Run a program:'" /></keybind>
+
     <keybind key="W-x"><action name="Execute" command="menu-kill -a -s 15" /></keybind>
     <keybind key="W-S-x"><action name="Execute" command="menu-kill -a" /></keybind>
+
     <keybind key="W-c"><action name="Execute" command="menu-clip" /></keybind>
     <keybind key="W-S-c"><action name="Execute" command="cliphist wipe" /></keybind>
+
     <keybind key="W-v"><action name="Execute" command="menu-pass --type -p 'Select a password:'" /></keybind>
     <keybind key="W-S-v"><action name="Execute" command="menu-pass" /></keybind>
+
     <keybind key="W-m"><action name="Execute" command="menu-mpd" /></keybind>
     <keybind key="W-S-m"><action name="Execute" command="mpc clear" /></keybind>
+
     <keybind key="W-g"><action name="Execute" command="get-default-gateway -t" /></keybind>
     <keybind key="W-S-g"><action name="Execute" command="get-default-gateway -c" /></keybind>
 
     <keybind key="Print"><action name="Execute" command="screenshot-section" /></keybind>
     <keybind key="S-Print"><action name="Execute" command="screenshot-full" /></keybind>
-
-    <keybind key="W-S-r"><action name="Reconfigure" /></keybind>
-    <keybind key="W-S-e"><action name="Exit" /></keybind>
-    <keybind key="W-S-u"><action name="Execute" command="swaylock -f -c 282828" /></keybind>
 
     <keybind key="W-1"><action name="GoToDesktop" to="1" /></keybind>
     <keybind key="W-2"><action name="GoToDesktop" to="2" /></keybind>
@@ -94,6 +101,44 @@
     <repeatDelay>400</repeatDelay>
     <repeatRate>40</repeatRate>
   </keyboard>
+
+  <windowRules>
+    <windowRule identifier="*qutebrowser*">
+      <action name="SendToDesktop" to="1" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*emacs*">
+      <action name="SendToDesktop" to="2" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*telegram*">
+      <action name="SendToDesktop" to="3" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*discord*">
+      <action name="SendToDesktop" to="4" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*libreoffice*">
+      <action name="SendToDesktop" to="5" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*gimp*">
+      <action name="SendToDesktop" to="6" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*Ardour*">
+      <action name="SendToDesktop" to="7" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*steam*">
+      <action name="SendToDesktop" to="8" follow="no" />
+    </windowRule>
+
+    <windowRule identifier="*obsproject*">
+      <action name="SendToDesktop" to="9" follow="no" />
+    </windowRule>
+  </windowRules>
 
   <mouse>
     <default />
