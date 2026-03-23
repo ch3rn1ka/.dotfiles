@@ -53,7 +53,10 @@
     (set-face-attribute 'eat-term-color-bright-magenta nil :foreground "#d3869b")
     (set-face-attribute 'eat-term-color-bright-cyan nil :foreground "#8ec07c")
     (set-face-attribute 'eat-term-color-bright-white nil :foreground "#ebdbb2"))
-  (rc/set-eat-gruvbox-dark-colors))
+  (rc/set-eat-gruvbox-dark-colors)
+  :custom
+  (eat-enable-shell-prompt-annotation t)
+  (eat-shell-prompt-annotation-position 'right-margin))
 
 (use-package magit)
 
