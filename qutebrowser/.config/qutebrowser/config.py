@@ -13,6 +13,8 @@ c.url.start_pages = ["~/.config/qutebrowser/startpage.html"]
 c.url.searchengines = { "DEFAULT":  "https://www.duckduckgo.com/lite/?q={}" }
 
 c.content.blocking.method = "both"
+c.content.headers.referer = "same-domain"
+c.content.cookies.store = False
 c.content.javascript.enabled = False
 
 # Add something like https://*.youtube.com/* to js_whitelist.txt to enable
