@@ -34,16 +34,13 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
-
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#fb4934'
 
-# zsh-autosuggestions
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # eat-shell integration
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] &&
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 # ocaml package manager
