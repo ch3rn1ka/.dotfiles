@@ -127,11 +127,35 @@
 
 (use-package cc-mode
   :custom
-  (c-default-style "gnu")
-  (fill-column 80)
+  (c-default-style "linux")
+  (c-backspace-function 'delete-backward-char)
   :config
-  (setq-default comment-multi-line t)
-  (auto-fill-mode 1))
+  (defun rc/c-lineup-arglist-smart-offset (langelem)
+    (save-excursion
+      (let* ((paren-pos (c-langelem-pos langelem))
+             (base-indent
+              (save-excursion
+                (goto-char paren-pos)
+                (back-to-indentation)
+                (current-column)))
+             (is-block
+              (save-excursion
+                (goto-char paren-pos)
+                (if (c-syntactic-re-search-forward "[{;]" nil t)
+                    (string= (match-string 0) "{")
+                  nil))))
+        (if is-block
+            (vector (+ base-indent (* 2 c-basic-offset)))
+          (vector (+ base-indent c-basic-offset))))))
+
+  (defun rc/c-mode-setup ()
+    (c-set-offset 'arglist-intro 'rc/c-lineup-arglist-smart-offset)
+    (c-set-offset 'arglist-cont-nonempty 'rc/c-lineup-arglist-smart-offset)
+    (c-set-offset 'arglist-close 0)
+    (c-set-offset 'substatement '+)
+    (c-set-offset 'statement-block-intro '+))
+
+  (add-hook 'c-mode-common-hook 'rc/c-mode-setup))
 
 (use-package which-key
   :init (which-key-mode 1))
