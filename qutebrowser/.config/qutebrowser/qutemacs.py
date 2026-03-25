@@ -1,7 +1,8 @@
 # emacs-like binds for qutebrowser by Kaligule <code@schauderbasis.de>
 #
-# Taken from https://gitlab.com/Kaligule/qutebrowser-emacs-config/blob/master/config.py
-# and slightly modified since the command naming is different now
+# Taken from
+# https://gitlab.com/Kaligule/qutebrowser-emacs-config/blob/master/config.py
+# and slightly modified since many of the commands got renamed
 
 config.unbind("<Ctrl-x>")
 config.unbind("<Ctrl-u>")
@@ -10,10 +11,14 @@ config.bind("<Ctrl-x><Ctrl-l>", "config-source")
 
 config.bind("<Ctrl-e>", "edit-text", mode="insert")
 config.bind("<Ctrl-g>", "mode-leave", mode="insert")
+config.bind("<Alt-b>", "fake-key <Ctrl-Left>", mode="insert")
+config.bind("<Alt-f>", "fake-key <Ctrl-Right>", mode="insert")
+config.bind("<Alt-d>", "fake-key <Ctrl-Delete>", mode="insert")
+config.bind("<Alt-Backspace>", "fake-key <Ctrl-Backspace>", mode="insert")
+config.bind("<Ctrl-Shift>Backspace", "fake-key <Home><Shift-End><Delete>", mode="insert")
 
-# note: it's impossible to bind Alt-Shift-, and Alt-Shift-.
-# because the < and > characters are reserved for bind syntax
-# and you can't even escape them
+# Note: it's impossible to bind Alt-Shift-, and Alt-Shift-. because the < and >
+# characters are reserved for bind syntax, and you can't even escape them
 config.bind("<Alt-,>", "scroll-to-perc 0")
 config.bind("<Alt-.>", "scroll-to-perc")
 
@@ -105,7 +110,8 @@ config.bind("<Ctrl-u><Alt-w>d", "yank domain")
 config.bind("<Ctrl-u><Alt-w>p", "yank pretty-url")
 config.bind("<Ctrl-u><Alt-w>t", "yank title")
 
-config.bind("<Ctrl-x>c", "config-cycle colors.webpage.darkmode.enabled true false")
+config.bind("<Ctrl-x>c",
+            "config-cycle colors.webpage.darkmode.enabled true false")
 
 config.bind("<Ctrl-x><Ctrl-m>", "spawn mpv {url}")
 config.bind("<Ctrl-u><Ctrl-x><Ctrl-m>", "hint links spawn mpv {hint-url}")
