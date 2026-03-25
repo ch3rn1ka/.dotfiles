@@ -10,7 +10,7 @@ c.editor.command = ["emacsclient", "-c", "-a ''", "{file}"]
 
 c.url.default_page = "~/.config/qutebrowser/startpage.html"
 c.url.start_pages = ["~/.config/qutebrowser/startpage.html"]
-c.url.searchengines = { "DEFAULT":  "https://www.duckduckgo.com/lite/?q={}" }
+c.url.searchengines = { "DEFAULT": "https://www.duckduckgo.com/lite/?q={}" }
 
 c.content.blocking.method = "both"
 c.content.headers.referer = "same-domain"
