@@ -7,7 +7,7 @@
 config.unbind("<Ctrl-x>")
 config.unbind("<Ctrl-u>")
 
-### Normal mode binds
+### Normal mode
 config.bind("<Ctrl-x><Ctrl-l>", "config-source")
 config.bind("<Ctrl-g>", "fake-key --global <Escape>")
 
@@ -48,8 +48,6 @@ config.bind("<Ctrl-Alt-e>", "tab-move +")
 
 config.bind("<Ctrl-s>", "cmd-set-text /")
 config.bind("<Ctrl-r>", "cmd-set-text ?")
-config.bind("<Ctrl-s>", "search-next", mode="command")
-config.bind("<Ctrl-r>", "search-prev", mode="command")
 
 config.bind("+", "zoom-in")
 config.bind("-", "zoom-out")
@@ -65,11 +63,12 @@ config.bind("<Ctrl-x>c",
 config.bind("<Ctrl-x><Ctrl-m>", "spawn mpv {url}")
 config.bind("<Ctrl-u><Ctrl-x><Ctrl-m>", "hint links spawn mpv {hint-url}")
 
-### Insert mode binds
+### Insert mode
 config.bind("<Ctrl-m>", "mode-enter insert")
 config.bind("<Ctrl-g>", "mode-leave", mode="insert")
 
 config.bind("<Alt-w>", "fake-key <Ctrl-c>", mode="insert")
+config.bind("<Ctrl-w>", "fake-key <Ctrl-x>", mode="insert")
 config.bind("<Ctrl-y>", "fake-key <Ctrl-v>", mode="insert")
 config.bind("<Ctrl-/>", "fake-key <Ctrl-z>", mode="insert")
 config.bind("<Alt-Backspace>", "fake-key <Ctrl-Backspace>", mode="insert")
@@ -80,27 +79,31 @@ config.bind("<Ctrl-Shift-Backspace>", "fake-key <Home><Shift-End><Delete>", mode
 config.bind("<Ctrl-Alt-Space>", "fake-key <Ctrl-Shift-Right>", mode="insert")
 config.bind("<Ctrl-h>", "edit-text", mode="insert")
 
-config.bind("<Alt-b>", "fake-key <Ctrl-Left>", mode="insert")
-config.bind("<Alt-f>", "fake-key <Ctrl-Right>", mode="insert")
-config.bind("<Ctrl-b>", "fake-key <Left>", mode="insert")
+config.bind("<Ctrl-e>", "fake-key <End>", mode="insert")
+config.bind("<Ctrl-a>", "fake-key <Home>", mode="insert")
 config.bind("<Ctrl-n>", "fake-key <Down>", mode="insert")
 config.bind("<Ctrl-p>", "fake-key <Up>", mode="insert")
+config.bind("<Alt-f>", "fake-key <Ctrl-Right>", mode="insert")
+config.bind("<Alt-b>", "fake-key <Ctrl-Left>", mode="insert")
 config.bind("<Ctrl-f>", "fake-key <Right>", mode="insert")
-config.bind("<Ctrl-a>", "fake-key <Home>", mode="insert")
-config.bind("<Ctrl-e>", "fake-key <End>", mode="insert")
+config.bind("<Ctrl-b>", "fake-key <Left>", mode="insert")
+config.bind("<Alt-.>", "fake-key <Ctrl-End>", mode="insert")
+config.bind("<Alt-,>", "fake-key <Ctrl-Home>", mode="insert")
 
 # Since there are no marks in texboxes, I'm forced to use these awkward binds
 # to continiously select text (I wonder if nyxt can do it any better)
-config.bind("<Alt-Shift-b>", "fake-key <Ctrl-Shift-Left>", mode="insert")
-config.bind("<Alt-Shift-f>", "fake-key <Ctrl-Shift-Right>", mode="insert")
-config.bind("<Ctrl-Shift-b>", "fake-key <Shift-Left>", mode="insert")
-config.bind("<Ctrl-Shift-n>", "fake-key <Shift-Down>", mode="insert")
-config.bind("<Ctrl-Shift-p>", "fake-key <Shift-Up>", mode="insert")
-config.bind("<Ctrl-Shift-f>", "fake-key <Shift-Right>", mode="insert")
-config.bind("<Ctrl-Shift-a>", "fake-key <Shift-Home>", mode="insert")
 config.bind("<Ctrl-Shift-e>", "fake-key <Shift-End>", mode="insert")
+config.bind("<Ctrl-Shift-a>", "fake-key <Shift-Home>", mode="insert")
+config.bind("<Alt-Shift-f>", "fake-key <Ctrl-Shift-Right>", mode="insert")
+config.bind("<Alt-Shift-b>", "fake-key <Ctrl-Shift-Left>", mode="insert")
+config.bind("<Ctrl-Shift-n>", "fake-key <Shift-Down>", mode="insert")
+config.bind("<Ctrl-Shift-b>", "fake-key <Shift-Left>", mode="insert")
+config.bind("<Ctrl-Shift-f>", "fake-key <Shift-Right>", mode="insert")
+config.bind("<Ctrl-Shift-p>", "fake-key <Shift-Up>", mode="insert")
+config.bind("<Alt-Ctrl-.>", "fake-key <Ctrl-Shift-End>", mode="insert")
+config.bind("<Alt-Ctrl-,>", "fake-key <Ctrl-Shift-Home>", mode="insert")
 
-### Caret mode binds
+### Caret mode
 config.bind("<Ctrl-Space>", "mode-enter caret")
 config.bind("<Ctrl-g>", "mode-leave", mode="caret")
 
@@ -110,18 +113,18 @@ config.bind("<Ctrl-n>", "move-to-next-line", mode="caret")
 config.bind("<Ctrl-p>", "move-to-prev-line", mode="caret")
 config.bind("<Alt-f>", "move-to-end-of-word", mode="caret")
 config.bind("<Alt-b>", "move-to-prev-word", mode="caret")
-config.bind("<Ctrl-b>", "move-to-prev-char", mode="caret")
 config.bind("<Ctrl-f>", "move-to-next-char", mode="caret")
+config.bind("<Ctrl-b>", "move-to-prev-char", mode="caret")
 config.bind("<Alt-a>", "move-to-start-of-prev-block", mode="caret")
 config.bind("<Alt-e>", "move-to-end-of-next-block", mode="caret")
 config.bind("<Alt-.>", "move-to-end-of-document", mode="caret")
 config.bind("<Alt-,>", "move-to-start-of-document", mode="caret")
 
-### *mark modes binds
+### *mark modes
 config.bind("<Ctrl-x>r ", "mode-enter set_mark")
 config.bind("<Ctrl-x>rj", "mode-enter jump_mark")
 
-### Command mode binds
+### Command mode
 config.bind("<Alt-x>", "cmd-set-text :")
 config.bind("<Ctrl-g>", "mode-leave", mode="command")
 
@@ -135,8 +138,12 @@ config.bind("<Shift-Tab>", "completion-item-focus prev", mode="command")
 config.bind("<Ctrl-p>", "completion-item-focus prev", mode="command")
 config.bind("<Tab>", "completion-item-focus next", mode="command")
 config.bind("<Ctrl-n>", "completion-item-focus next", mode="command")
+config.bind("<Ctrl-y>", "fake-key --global <Ctrl-v>", mode="command")
 
-### Hint mode binds
+config.bind("<Ctrl-s>", "search-next", mode="command")
+config.bind("<Ctrl-r>", "search-prev", mode="command")
+
+### Hint mode
 config.bind("<Ctrl-w>", "hint")
 config.bind("<Ctrl-g>", "mode-leave", mode="hint")
 
@@ -146,5 +153,5 @@ config.bind("<Ctrl-F>", "hint links", mode="hint")
 config.bind("<Return>", "follow-hint", mode="hint")
 config.bind("<Ctrl-m>", "follow-hint", mode="hint")
 
-### Passthrough mode binds
+### Passthrough mode
 config.bind("<Ctrl-g>", "mode-leave", mode="passthrough")
