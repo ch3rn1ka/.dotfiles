@@ -79,7 +79,6 @@
 (use-package tuareg)
 
 (use-package doom-themes
-  :ensure t
   :custom
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
@@ -89,11 +88,23 @@
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
 
+
+(use-package elfeed
+  :custom
+  (elfeed-db-directory (expand-file-name "elfeed/" user-emacs-directory))
+  ;; template for yt videos rss stream (replace CHANNEL_ID with actual id):
+  ;; https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
+  (elfeed-feeds
+      '("https://archlinux.org/feeds/news/"
+        "https://9to5linux.com/feed/atom"))
+  :config
+  (global-set-key (kbd "C-c e") 'elfeed))
+
 ;;; Built-ins
 (setq use-package-always-ensure nil)
 
 (use-package recentf
-  :bind ("C-x C-r" . recentf-open-files)
+  :bind ("C-c o" . recentf-open-files)
   :custom (recentf-max-menu-items 25)
   :init (recentf-mode 1))
 
