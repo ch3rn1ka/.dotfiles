@@ -9,8 +9,8 @@ vim.opt.autochdir = true
 vim.opt.wrap = false
 vim.opt.laststatus = 3
 vim.opt.termguicolors = true
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
-require("plugins")
-require("autocmds")
-require("binds")
+require('plugins')
+require('autocmds')
+require('binds')
