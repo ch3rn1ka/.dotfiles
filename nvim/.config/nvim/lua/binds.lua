@@ -24,14 +24,14 @@ vim.keymap.set("n", "<leader>o", "<CMD>vsplit<CR>", { desc = "split window horiz
 vim.keymap.set("n", "<leader>pu", "<CMD>lua vim.pack.update()<CR>", { desc = "update installed plugins" })
 
 -- quickfix binds
-vim.keymap.set('n', '<A-l>',
+vim.keymap.set("n", "<A-l>",
     function()
         for _,w in ipairs(vim.fn.getwininfo()) do
             if w.quickfix == 1 then
-                return vim.cmd('cclose')
+                return vim.cmd("cclose")
             end
-        end vim.cmd('copen')
-    end, { desc = 'Toggle quickfix list' })
+        end vim.cmd("copen")
+    end, { desc = "Toggle quickfix list" })
 vim.keymap.set("n", "<A-j>", "<CMD>cnext<CR>", { desc = "next item in quickfix list" })
 vim.keymap.set("n", "<A-k>", "<CMD>cprev<CR>", { desc = "previous item in quickfix list" })
 
@@ -53,7 +53,6 @@ vim.keymap.set("n", "<leader>bd", "<CMD>bdelete!<CR>", { desc = "kill focused bu
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "open Oil in cwd" })
 
 -- fzf binds
-vim.keymap.set("n", "<leader>fh", "<CMD>FzfLua files cwd='~'<CR>", { desc = "files in ~" })
 vim.keymap.set("n", "<leader>fc", "<CMD>FzfLua files cwd='~/.config'<CR>", { desc = "files in ~/.config" })
 vim.keymap.set("n", "<leader>ff", "<CMD>FzfLua files<CR>", { desc = "files in current directory" })
 vim.keymap.set("n", "<leader>fb", "<CMD>FzfLua buffers<CR>", { desc = "buffer list" })
@@ -61,12 +60,19 @@ vim.keymap.set("n", "<leader>fq", "<CMD>FzfLua quickfix<CR>", { desc = "quickfix
 vim.keymap.set("n", "<leader>ft", "<CMD>FzfLua tabs<CR>", { desc = "opened tabs" })
 vim.keymap.set("n", "<leader>fo", "<CMD>FzfLua oldfiles<CR>", { desc = "recently opened files" })
 
+vim.keymap.set("n", "<leader>fh", 
+    function()
+        require("fzf-lua").files({
+            cwd = "~",
+            fd_opts = [[--type f --exclude ".*"]],
+        })
+    end, { desc = "files in ~" })
+
 vim.keymap.set("n", "<leader>fr",
     function()
         local root = vim.fs.root(0, ".git") or vim.loop.cwd()
         require("fzf-lua").files({
-            cwd = root,
-            fd_opts = [[--type f --exclude .git --exclude '.*']],
+            cwd = root
         })
     end, { desc = "files from git root" })
 
