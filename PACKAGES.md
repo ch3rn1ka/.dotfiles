@@ -29,7 +29,6 @@ tmux
 fastfetch
 ttf-ubuntu-nerd
 ttf-ubuntu-mono-nerd
-noto-fonts
 mpd
 mpdris2-rs
 mpc
