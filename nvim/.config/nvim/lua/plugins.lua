@@ -12,14 +12,8 @@ require("guess-indent").setup()
 require("which-key").setup({ delay = 1000 })
 require("fzf-lua").setup({
     files = {
-        fd_opts = [[--type f --exclude .git --exclude '.*']],
+        fd_opts = [[--hidden --type f --exclude ".git"]],
         follow = true
-    },
-    keymap = {
-        builtin = {
-            ["<C-j>"] = "down",
-            ["<C-k>"] = "up",
-        }
     },
     fzf_colors = {
         ["pointer"] = "#b16286",
