@@ -1,32 +1,24 @@
 {
   "plugins": {
     "fzf-lua": {
-      "rev": "72ec224172eea757eab6b349775ad5bada7521d7",
+      "rev": "c9e7b7bfbd01f949164988ee1684035468e1995c",
       "src": "https://github.com/ibhagwan/fzf-lua.git"
     },
     "gruvbox.nvim": {
-      "rev": "561126520034a1dac2f78ab063db025d12555998",
+      "rev": "334d5fd49fc8033f26408425366c66c6390c57bb",
       "src": "https://github.com/ellisonleao/gruvbox.nvim.git"
     },
     "guess-indent.nvim": {
       "rev": "84a4987ff36798c2fc1169cbaff67960aed9776f",
       "src": "https://github.com/NMAC427/guess-indent.nvim.git"
     },
-    "leap.nvim": {
-      "rev": "b81866399072af08195ebfbcfea9d3dcab970972",
-      "src": "https://codeberg.org/andyg/leap.nvim"
-    },
     "nvim-web-devicons": {
-      "rev": "746ffbb17975ebd6c40142362eee1b0249969c5c",
+      "rev": "d7462543c9e366c0d196c7f67a945eaaf5d99414",
       "src": "https://github.com/nvim-tree/nvim-web-devicons.git"
     },
     "oil.nvim": {
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "https://github.com/stevearc/oil.nvim.git"
-    },
-    "solarized.nvim": {
-      "rev": "c0dfe1cbfabd93b546baf5f1408f5df7e02e2050",
-      "src": "https://github.com/maxmx03/solarized.nvim.git"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
