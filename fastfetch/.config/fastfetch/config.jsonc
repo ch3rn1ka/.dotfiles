@@ -1,0 +1,40 @@
+{
+  "logo": { 
+    "source": "$XDG_CONFIG_HOME/fastfetch/plan9.txt",
+    "color": {
+      "1": "reset_light_white"
+    },
+    "padding": {
+      "left": 2,
+      "right": 4
+    }
+  },
+  "display": {
+    "separator": "> ",
+    "color": {
+      "keys": "reset_white",
+      "title": "reset_white"
+    }
+  },
+  "modules": [
+    "title",
+    "separator",
+    {
+      "type": "os",
+      "key": "syst"
+    },
+    {
+      "type": "packages",
+      "key": "pkgs"
+    },
+    {
+      "type": "wm",
+      "key": "wmgr"
+    },
+    {
+      "type": "terminal",
+      "key": "term"
+    },
+    "break"
+  ]
+}
