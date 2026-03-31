@@ -34,4 +34,5 @@ mpdris2-rs
 mpc
 playerctl
 neomutt
+rsync
 stow
