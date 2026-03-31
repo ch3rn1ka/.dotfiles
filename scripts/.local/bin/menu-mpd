@@ -46,7 +46,7 @@ queue_choose_song()
 queue_get_song_position()
 {
     song="$1"
-    song_pos=$(echo "$queue" | grep -n "$song" | sed 's|:.*||')
+    song_pos=$(echo "$queue" | grep -F -n "$song" | sed 's|:.*||')
     echo "$song_pos"
 }
 
