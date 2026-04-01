@@ -9,7 +9,7 @@ select_file()
 {
     dir=$(select_dir)
     file=$(ls "$dir" | bemenu)
-    echo "$file"
+    echo "$dir/$file"
 }
 
 select_dir()

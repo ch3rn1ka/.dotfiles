@@ -96,6 +96,9 @@ bindsym $mod+Shift+v exec menu-pass
 bindsym $mod+m exec menu-mpd
 bindsym $mod+Shift+m exec mpc clear
 
+bindsym $mod+y exec menu-mpv
+bindsym $mod+Shift+y exec killall mpv
+
 bindsym $mod+grave exec hyprpicker -a ''
 bindsym $mod+Shift+grave exec menu-gruvbox
 
