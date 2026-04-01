@@ -57,6 +57,9 @@
     <keybind key="W-m"><action name="Execute" command="menu-mpd" /></keybind>
     <keybind key="W-S-m"><action name="Execute" command="mpc clear" /></keybind>
 
+    <keybind key="W-y"><action name="Execute" command="menu-mpv" /></keybind>
+    <keybind key="W-S-y"><action name="Execute" command="killall mpv" /></keybind>
+
     <keybind key="W-g"><action name="Execute" command="get-default-gateway -t" /></keybind>
     <keybind key="W-S-g"><action name="Execute" command="get-default-gateway -c" /></keybind>
 
