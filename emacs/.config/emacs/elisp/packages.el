@@ -100,6 +100,8 @@
   :config
   (global-set-key (kbd "C-c e") 'elfeed))
 
+(use-package markdown-mode)
+
 ;;; Built-ins
 (setq use-package-always-ensure nil)
 
