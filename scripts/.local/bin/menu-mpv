@@ -1,0 +1,39 @@
+#!/bin/sh
+
+spawn_menu()
+{
+    printf '%s' "$1" | bemenu --prompt "$2" --list 20
+}
+
+select_file()
+{
+    dir=$(select_dir)
+    file=$(ls "$dir" | bemenu)
+    echo "$file"
+}
+
+select_dir()
+{
+    vidsdir=$(xdg-user-dir VIDEOS)
+    dir=$(ls -d "$vidsdir"/* | bemenu)
+    echo "$dir"
+}
+
+main()
+{
+    options=$(printf '%s\n' 'Select a file' 'Select a directory')
+    response=$(spawn_menu "$options" 'Play one or multiple files?')
+    selection=''
+    case "$response" in
+        'Select a file')
+            selection=$(select_file)
+            echo "$file" ;;
+        'Select a directory')
+            selection=$(select_dir)
+            echo "$dir";;
+    esac
+
+    mpv "$selection" >/dev/null 2>&1
+}
+
+main "$@"
