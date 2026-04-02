@@ -14,7 +14,7 @@ c.url.searchengines = { 'DEFAULT': 'https://www.duckduckgo.com/lite/?q={}' }
 
 c.content.blocking.method = 'both'
 c.content.headers.referer = 'same-domain'
-c.content.cookies.accept = 'never'
+c.content.cookies.accept = 'no-3rdparty'
 c.content.javascript.enabled = False
 
 # Add something like https://*.youtube.com/* to whitelist.txt to enable
