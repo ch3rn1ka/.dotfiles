@@ -16,6 +16,7 @@ hyprpicker
 qutebrowser
 python-adblock
 mpv
+mpv-mpris
 yt-dlp
 xdg-desktop-portal-wlr
 zsh
