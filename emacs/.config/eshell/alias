@@ -3,4 +3,6 @@ alias wget              wget --hsts-file $XDG_STATE_HOME/.wget_hosts $@*
 alias tmux              tmux -T 256 $@*
 alias ff                find-file $@*
 alias cl                clear 1
+alias ytd               yt-dlp -f bestaudio $@*
+alias el                find-file ~/.config/eshell/alias
 alias al                eshell-read-aliases-list
