@@ -165,6 +165,11 @@
 
   <libinput>
     <device category="touchpad">
+      <!-- 
+      The touchpad on my machine is broken, so I disabled it.
+      Comment the following line to re-enable it.
+      -->
+      <sendEventsMode>no</sendEventsMode>
       <tap>yes</tap>
       <tapAndDrag>yes</tapAndDrag>
       <naturalScroll>yes</naturalScroll>
