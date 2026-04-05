@@ -2,6 +2,17 @@
 
 <labwc_config>
   <desktops number="9">
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+      <name>5</name>
+      <name>6</name>
+      <name>7</name>
+      <name>8</name>
+      <name>9</name>
+    </names>
     <popupTime>0</popupTime>
   </desktops>
 
@@ -165,7 +176,7 @@
 
   <libinput>
     <device category="touchpad">
-      <!-- 
+      <!--
       The touchpad on my machine is broken, so I disabled it.
       Comment the following line to re-enable it.
       -->
