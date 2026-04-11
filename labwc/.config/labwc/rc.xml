@@ -30,6 +30,9 @@
     <keybind key="W-w"><action name="ToggleMaximize" /></keybind>
     <keybind key="W-e"><action name="Iconify" /></keybind>
 
+    <keybind key="W-s"><action name="ShowMenu" menu="root-menu" /></keybind>
+    <keybind key="W-S-s"><action name="ShowMenu" menu="client-menu" /></keybind>
+
     <keybind key="W-S-e"><action name="Exit" /></keybind>
     <keybind key="W-S-r"><action name="Reconfigure" /></keybind>
     <keybind key="W-S-u"><action name="Execute" command="swaylock -f -c 282828" /></keybind>

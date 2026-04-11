@@ -166,7 +166,7 @@
     (c-set-offset 'arglist-cont-nonempty 'rc/c-lineup-arglist-smart-offset)
     (c-set-offset 'arglist-close 0)
     (c-set-offset 'substatement '+)
-    (c-set-offset 'case-label '+))
+    (c-set-offset 'case-label '+)
     (c-set-offset 'statement-block-intro '+))
 
   (add-hook 'c-mode-common-hook 'rc/c-mode-setup))

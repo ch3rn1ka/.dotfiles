@@ -12,7 +12,7 @@
       </action>
     </item>
 
-    <item label="qutebrowser" icon="qutebrowser">
+    <item label="qut_ebrowser" icon="qutebrowser">
       <action name="Execute">
         <command>qutebrowser</command>
       </action>
@@ -33,7 +33,5 @@
     <item label="Exit">
       <action name="Exit"/>
     </item>
-
   </menu>
 </labwc:menu>
-
