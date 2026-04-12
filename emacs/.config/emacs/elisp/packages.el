@@ -89,6 +89,13 @@
   (doom-themes-org-config))
 
 
+(use-package multiple-cursors
+  :bind
+  ("C-c [" . mc/edit-lines)
+  ("C-c ]" . mc/mark-all-like-this)
+  ("C->" . mc/mark-next-like-this)
+  ("C-<" . mc/mark-previous-like-this))
+
 (use-package elfeed
   :custom
   (elfeed-db-directory (expand-file-name "elfeed/" user-emacs-directory))
@@ -97,8 +104,8 @@
   (elfeed-feeds
       '("https://archlinux.org/feeds/news/"
         "https://9to5linux.com/feed/atom"))
-  :config
-  (global-set-key (kbd "C-c e") 'elfeed))
+  :bind
+  ("C-c e" . elfeed))
 
 (use-package markdown-mode)
 
