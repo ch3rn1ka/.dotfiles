@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labwc:menu xmlns:labwc="https://labwc.github.io/labwc">
-  <theme>
-    <name>default</name>
-    <iconTheme>Delft-Dark</iconTheme>
-  </theme>
+  <!-- <theme> -->
+  <!--   <name>default</name> -->
+  <!--   <iconTheme>Delft-Dark</iconTheme> -->
+  <!-- </theme> -->
 
   <menu id="root-menu" label="Root Menu">
     <item label="foot" icon="foot">
