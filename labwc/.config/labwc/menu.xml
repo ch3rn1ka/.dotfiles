@@ -12,7 +12,7 @@
       </action>
     </item>
 
-    <item label="qut_ebrowser" icon="qutebrowser">
+    <item label="qutebrowser" icon="qutebrowser">
       <action name="Execute">
         <command>qutebrowser</command>
       </action>
@@ -24,13 +24,25 @@
       </action>
     </item>
 
+    <item label="steam" icon="steam">
+      <action name="Execute">
+        <command>steam</command>
+      </action>
+    </item>
+
+    <item label="librewolf" icon="librewolf">
+      <action name="Execute">
+        <command>librewolf</command>
+      </action>
+    </item>
+
     <separator/>
 
-    <item label="Reconfigure">
+    <item label="reconfigure">
       <action name="Reconfigure"/>
     </item>
 
-    <item label="Exit">
+    <item label="E_xit">
       <action name="Exit"/>
     </item>
   </menu>
