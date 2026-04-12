@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# mpdris2-rs leaves a dangling process after leaving the graphical session
+killall -e 'mpdris2-rs' >/dev/null 2>&1
