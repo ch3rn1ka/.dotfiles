@@ -1,2 +1,6 @@
+#!/bin/sh
+
 XKB_DEFAULT_LAYOUT=us,ru
 XKB_DEFAULT_OPTIONS=grp:win_space_toggle,ctrl:nocaps
+XCURSOR_THEME=default
+XCURSOR_SIZE=24

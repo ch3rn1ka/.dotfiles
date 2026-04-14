@@ -38,7 +38,7 @@
 
     <separator/>
 
-    <item label="reconfigure">
+    <item label="Reconfigure">
       <action name="Reconfigure"/>
     </item>
 
