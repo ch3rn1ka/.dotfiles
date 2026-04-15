@@ -1,7 +1,9 @@
 #!/bin/sh
-# dispensing -9 to lousy bastards in need of permanent rest since 1968
-# accepts '-a' as an optional argument to run 'killall' instead of 'kill'
-# accepts '-s VALUE' to send a specific signal
+# Dispensing -9 to lousy bastards in need of permanent rest since 1968.
+# Options:
+# -a to run 'killall' instead of 'kill'
+# -s VALUE to send a specific signal
+
 set -e
 
 spawn_menu()
@@ -9,14 +11,12 @@ spawn_menu()
     printf "%s" "$1" | bemenu --prompt "$2" --list 20
 }
 
-# gets all processes owned by the current user
-# that aren't related to this script itself (filters by pgid)
-current_PGID=$(ps -p $$ -o pgid= | tr -d ' ')
-processes=$(ps -u "$(whoami)" -o pgid,pid,args |
-                awk -v pgid="$current_PGID" '$1 != pgid' |
-                tail -n +2 |
-                awk '{print $2, $3}' |
-                sed 's|\([0-9]\+\) .*/|\1 |' |
+# Gets all processes owned by the current user that aren't related to
+# this script itself (filters by pgid).
+current_pgid=$(ps -p $$ -o pgid= | tr -d ' ')
+processes=$(ps -u "$USER" -o pgid=,pid=,args= |
+                awk -v pgid="$current_pgid" '$1 != pgid {print $2, $3}' |
+                sed 's|\([0-9]\+\) .*/|\1 |' | # strip paths
                 tac)
 
 kill_command=''
@@ -31,12 +31,12 @@ while getopts "aks:" opt; do
 done
 
 if [ -z "$kill_command" ]; then
-    options=$(printf "%s\n%s" 'kill' 'killall')
+    options=$(printf '%s\n%s' 'kill' 'killall')
     kill_command=$(spawn_menu "$options" 'Select a command:')
 fi
 
 if [ -z "$kill_signal" ]; then
-    options=$(printf "%s -9 (SIGKILL)\n%s -15 (SIGTERM)" "$kill_command" "$kill_command")
+    options=$(printf '%s -9 (SIGKILL)\n%s -15 (SIGTERM)' "$kill_command" "$kill_command")
     user_response=$(spawn_menu "$options" 'How would you like to kill?')
     kill_signal=$(echo "$user_response" | awk '{print $2}')
     kill_signal="${kill_signal#?}"

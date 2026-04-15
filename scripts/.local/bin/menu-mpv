@@ -30,7 +30,7 @@ main()
             echo "$file" ;;
         'Select a directory')
             selection=$(select_dir)
-            echo "$dir";;
+            echo "$dir" ;;
     esac
 
     mpv "$selection" >/dev/null 2>&1
