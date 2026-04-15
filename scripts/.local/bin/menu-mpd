@@ -58,7 +58,7 @@ choose_playlist()
 
 run_queue_command()
 {
-    options=$(printf "%s\n" \
+    options=$(printf '%s\n' \
                      'Add an album to the queue' \
                      'Add a song to the queue' \
                      'Insert a song to the queue' \
