@@ -1,0 +1,2 @@
+set "EDITOR" "emacsclient" >/dev/null
+set "VISUAL" "emacsclient" >/dev/null
