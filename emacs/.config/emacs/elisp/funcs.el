@@ -64,4 +64,13 @@
     (yank)
     (indent-region beg (point))))
 
+(defun rc/compile-preselect ()
+  "Call `compile` with the default command pre-selected."
+  (interactive)
+  (minibuffer-with-setup-hook
+      (lambda ()
+        (push-mark (minibuffer-prompt-end) t t)
+        (goto-char (point-max)))
+    (call-interactively 'compile)))
+
 (provide 'funcs)
