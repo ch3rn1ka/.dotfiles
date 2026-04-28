@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labwc:menu xmlns:labwc="https://labwc.github.io/labwc">
-  <!-- <theme> -->
-  <!--   <name>default</name> -->
-  <!--   <iconTheme>Delft-Dark</iconTheme> -->
-  <!-- </theme> -->
-
   <menu id="root-menu" label="Root Menu">
-    <item label="foot" icon="foot">
-      <action name="Execute">
-        <command>foot</command>
-      </action>
-    </item>
-
     <item label="qutebrowser" icon="qutebrowser">
       <action name="Execute">
         <command>qutebrowser</command>
@@ -24,15 +13,21 @@
       </action>
     </item>
 
-    <item label="steam" icon="steam">
+    <item label="es_hell" icon="emacs">
       <action name="Execute">
-        <command>steam</command>
+        <command>emacsclient -c -a '' -e (eshell)</command>
       </action>
     </item>
 
-    <item label="librewolf" icon="librewolf">
+    <item label="discord" icon="discord">
       <action name="Execute">
         <command>librewolf</command>
+      </action>
+    </item>
+
+    <item label="steam" icon="steam">
+      <action name="Execute">
+        <command>steam</command>
       </action>
     </item>
 
