@@ -76,6 +76,7 @@
                   old-res)))))
 
 (use-package haskell-mode)
+
 (use-package tuareg)
 
 (use-package doom-themes
@@ -84,10 +85,8 @@
   (doom-themes-enable-italic t)
   :config
   (load-theme 'doom-gruvbox t)
-
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
-
 
 (use-package multiple-cursors
   :bind
@@ -109,6 +108,12 @@
 
 (use-package markdown-mode)
 
+(use-package reverse-im
+  :custom
+  (reverse-im-input-methods '("russian-computer"))
+  :config
+  (reverse-im-mode t))
+
 ;;; Built-ins
 (setq use-package-always-ensure nil)
 
@@ -120,7 +125,10 @@
 (use-package dired
   :custom
   (dired-listing-switches "-ABhl --sort=extension --group-directories-first")
+  (dired-isearch-filenames 'dwim)
   (dired-dwim-target t)
+  (dired-create-destination-dirs t)
+  (dired-create-destination-dirs-on-trailing-dirsep t)
   (dired-kill-when-opening-new-dired-buffer t))
 
 (use-package ido
