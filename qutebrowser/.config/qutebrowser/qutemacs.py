@@ -148,7 +148,7 @@ config.bind('<Ctrl-r>', 'search-prev', mode='command')
 config.bind('<Ctrl-w>', 'hint')
 config.bind('<Ctrl-g>', 'mode-leave', mode='hint')
 
-config.bind('<Ctrl-u><Ctrl-w>', 'hint --rapid links tab-bg')
+config.bind('<Ctrl-u><Ctrl-w>', 'hint --rapid')
 config.bind('<Ctrl-B>', 'hint all tab-bg', mode='hint')
 config.bind('<Ctrl-F>', 'hint links', mode='hint')
 config.bind('<Return>', 'follow-hint', mode='hint')
