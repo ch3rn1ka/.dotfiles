@@ -7,7 +7,7 @@
       </action>
     </item>
 
-    <item label="emacs" icon="emacs">
+    <item label="emacsclient" icon="emacs">
       <action name="Execute">
         <command>emacsclient -c -a ''</command>
       </action>
@@ -19,9 +19,21 @@
       </action>
     </item>
 
+    <item label="ardour" icon="ardour9">
+      <action name="Execute">
+        <command>ardour9</command>
+      </action>
+    </item>
+
     <item label="discord" icon="discord">
       <action name="Execute">
         <command>librewolf</command>
+      </action>
+    </item>
+
+    <item label="telegram" icon="org.telegram.desktop">
+      <action name="Execute">
+        <command>Telegram</command>
       </action>
     </item>
 
