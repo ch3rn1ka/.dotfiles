@@ -1,0 +1,4 @@
+#!/bin/sh
+# A simple script to list all available icons in /usr/share/icons.
+
+find /usr/share/icons/ -iname '*.png' -or -iname '*.svg' -printf '%h %f %p\n' | sed -r 's;^/usr/share/icons/([^/]*)/[^ ]* ;\1 ;' | sort -u -k1,2 | column -t
