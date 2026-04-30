@@ -27,7 +27,7 @@
 
     <item label="discord" icon="discord">
       <action name="Execute">
-        <command>librewolf</command>
+        <command>discord</command>
       </action>
     </item>
 
