@@ -27,6 +27,8 @@
                   (ignore-errors
                     (apply old-fun args))))))
 
+(use-package org-present)
+
 (use-package eshell-syntax-highlighting
   :hook (eshell-mode . eshell-syntax-highlighting-mode))
 
@@ -192,6 +194,11 @@
 (use-package mu4e
   :config
   (setq mu4e-change-filenames-when-moving t)
+
+  (setq mu4e-headers-sort-field :date)
+  (setq mu4e-headers-sort-direction 'descending)
+  (setq mu4e-headers-date-format "%d/%m/%Y")
+  (setq mu4e-headers-time-format "%H:%M")
 
   (setq mu4e-update-interval (* 10 60))
   (setq mu4e-get-mail-command "mbsync -a")
