@@ -37,3 +37,8 @@ playerctl
 mu
 rsync
 stow
+
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
