@@ -1,5 +1,3 @@
-import os
-
 config.load_autoconfig()
 
 c.window.title_format = 'qutebrowser'
