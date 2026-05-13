@@ -3,7 +3,7 @@
 # or whatever via rsync.
 # Some paths are hardcoded. Symlinks are ignored.
 
-PROJECTS="$HOME/projects"
+PROJECTS="$(xdg-user-dir PROJECTS)/programming"
 MUSIC=$(xdg-user-dir MUSIC)
 DOCS=$(xdg-user-dir DOCUMENTS)
 PASS="$PASSWORD_STORE_DIR"
