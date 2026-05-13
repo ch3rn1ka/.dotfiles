@@ -19,9 +19,8 @@ get_processes_except_current_pgid()
     current_pgid=$(ps -p $$ -o pgid= | tr -d ' ')
     processes=$(ps -u "$USER" -o pgid=,pid=,args= |
                     awk -v pgid="$current_pgid" '$1 != pgid {print $2, $3}' |
-                    sed 's|\([0-9]\+\) .*/|\1 |' | # strip paths
-                    tac)
-    echo "$processes"
+                    sed 's|\([0-9]\+\) .*/|\1 |')
+    echo "$processes" | tac
 }
 
 # Define $kill_command and $kill_signal either from commandline options
