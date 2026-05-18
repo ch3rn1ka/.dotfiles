@@ -1,3 +1,5 @@
+# A simple qutebrowser configuration by Alex Chernika <me@chernika.dev>
+
 config.load_autoconfig()
 
 c.window.title_format = 'qutebrowser'
@@ -15,5 +17,5 @@ c.content.headers.referer = 'same-domain'
 c.content.cookies.accept = 'no-3rdparty'
 c.content.javascript.enabled = True
 
-config.source('qutemacs.py')
-config.source('gruvbox.py')
+config.source('qutemacs.py') # keybinds
+config.source('gruvbox.py')  # colorscheme
