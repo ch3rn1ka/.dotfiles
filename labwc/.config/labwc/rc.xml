@@ -100,20 +100,49 @@
     <keybind key="W-S-8"><action name="SendToDesktop" to="8" /></keybind>
     <keybind key="W-S-9"><action name="SendToDesktop" to="9" /></keybind>
 
-    <keybind key="XF86AudioMute"><action name="Execute" command="wpctl set-mute @DEFAULT_SINK@ toggle" /></keybind>
-    <keybind key="XF86AudioMicMute"><action name="Execute" command="wpctl set-mute @DEFAULT_SOURCE@ toggle" /></keybind>
-    <keybind key="XF86AudioLowerVolume"><action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%-" /></keybind>
-    <keybind key="XF86AudioRaiseVolume"><action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%+" /></keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute" command="wpctl set-mute @DEFAULT_SINK@ toggle" />
+    </keybind>
 
-    <keybind key="W-XF86AudioLowerVolume"><action name="Execute" command="playerctl volume 0.05-" /></keybind>
-    <keybind key="W-XF86AudioRaiseVolume"><action name="Execute" command="playerctl volume 0.05+" /></keybind>
+    <keybind key="XF86AudioMicMute">
+      <action name="Execute" command="wpctl set-mute @DEFAULT_SOURCE@ toggle" />
+    </keybind>
 
-    <keybind key="XF86AudioPrev"><action name="Execute" command="playerctl previous" /></keybind>
-    <keybind key="XF86AudioPlay"><action name="Execute" command="playerctl play-pause" /></keybind>
-    <keybind key="XF86AudioNext"><action name="Execute" command="playerctl next" /></keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%-" />
+    </keybind>
 
-    <keybind key="XF86MonBrightnessDown"><action name="Execute" command="brightnessctl -n -e set 10%-" /></keybind>
-    <keybind key="XF86MonBrightnessUp"><action name="Execute" command="brightnessctl -n -e set 10%+" /></keybind>
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%+" />
+    </keybind>
+
+    <keybind key="W-XF86AudioLowerVolume">
+      <action name="Execute" command="playerctl volume 0.05-" />
+    </keybind>
+
+    <keybind key="W-XF86AudioRaiseVolume">
+      <action name="Execute" command="playerctl volume 0.05+" />
+    </keybind>
+
+    <keybind key="XF86AudioPrev">
+      <action name="Execute" command="playerctl previous" />
+    </keybind>
+
+    <keybind key="XF86AudioPlay">
+      <action name="Execute" command="playerctl play-pause" />
+    </keybind>
+
+    <keybind key="XF86AudioNext">
+      <action name="Execute" command="playerctl next" />
+    </keybind>
+
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute" command="brightnessctl -n -e set 10%-" />
+    </keybind>
+
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute" command="brightnessctl -n -e set 10%+" />
+    </keybind>
 
     <repeatDelay>400</repeatDelay>
     <repeatRate>40</repeatRate>
@@ -160,10 +189,21 @@
   <mouse>
     <default />
     <context name="All">
-      <mousebind direction="W-Up" action="Scroll"><action name="GoToDesktop" to="right" /></mousebind>
-      <mousebind direction="W-Down" action="Scroll"><action name="GoToDesktop" to="left" /></mousebind>
-      <mousebind direction="W-S-Up" action="Scroll"><action name="ZoomIn" /></mousebind>
-      <mousebind direction="W-S-Down" action="Scroll"><action name="ZoomOut" /></mousebind>
+      <mousebind direction="W-Up" action="Scroll">
+        <action name="GoToDesktop" to="right" />
+      </mousebind>
+
+      <mousebind direction="W-Down" action="Scroll">
+        <action name="GoToDesktop" to="left" />
+      </mousebind>
+
+      <mousebind direction="W-S-Up" action="Scroll">
+        <action name="ZoomIn" />
+      </mousebind>
+
+      <mousebind direction="W-S-Down" action="Scroll">
+        <action name="ZoomOut" />
+      </mousebind>
     </context>
   </mouse>
 
@@ -179,15 +219,19 @@
 
   <libinput>
     <device category="touchpad">
-      <!--
-      The touchpad on my machine is broken, so I disabled it.
-      Comment the following line to re-enable it.
-      -->
-      <sendEventsMode>no</sendEventsMode>
       <tap>yes</tap>
       <tapAndDrag>yes</tapAndDrag>
       <naturalScroll>yes</naturalScroll>
       <disableWhileTyping>yes</disableWhileTyping>
+    </device>
+
+    <!--
+    My touchpad gets recognized as this for no apparent reason.
+    It's broken, so I disabled it. If you're also an unlucky owner of a
+    DELL laptop, you should probably remove the following block.
+    -->
+    <device category="ImPS/2 Logitech Wheel Mouse">
+      <sendEventsMode>no</sendEventsMode>
     </device>
   </libinput>
 </labwc_config>
