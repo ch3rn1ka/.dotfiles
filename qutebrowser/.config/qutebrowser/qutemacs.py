@@ -1,5 +1,4 @@
-# Emacs-like binds for qutebrowser with cross-layout translation
-# by Alex Chernika <me@chernika.dev>
+# Emacs-like binds for qutebrowser by Alex Chernika <me@chernika.dev>
 #
 # Originally based on:
 # qutebrowser-emacs-config by @Kaligule
@@ -16,12 +15,12 @@ for i in range(len(us)):
 
 keywords = ['Ctrl', 'Control', 'Alt', 'Mod1', 'Meta', 'Windows', 'Mod4',
             'Shift', 'Tab', 'Down', 'Up', 'Left', 'Right', 'Space', 'Return',
-            'Enter', 'Backspace', 'Delete', '<', '>']
+            'Enter', 'Backspace', 'Delete', 'Escape', 'Home', 'End', '<', '>']
 
 def translate(word):
     """
     Translate an English word to its Russian cross-layout equivalent
-    using the US/RU translation table
+    using the US/RU translation table.
     """
 
     if word in keywords: return word
@@ -33,7 +32,7 @@ def translate(word):
 def config_bind_multilang(keybind, cmd, mode='normal'):
     """
     Given `keybind` in English, bind it to `cmd` in the `mode` mode,
-    and mirror it for the Russian layout
+    and mirror it for the Russian layout.
     """
 
     parts = re.split(r'(<|-|>)', keybind)
@@ -41,15 +40,11 @@ def config_bind_multilang(keybind, cmd, mode='normal'):
     for part in parts:
         translated_keybind += translate(part)
 
-    # print(f'{keybind}\n{translated_keybind}')
-
     config.bind(keybind, cmd, mode)
     config.bind(translated_keybind, cmd, mode)
 
 # Unbind everything
-# c.bindings.default = {}
-config.unbind('<Ctrl-x>')
-config.unbind('<Ctrl-u>')
+c.bindings.default = {}
 
 ### Normal mode
 config_bind_multilang('<Ctrl-x><Ctrl-l>', 'config-source')
@@ -68,12 +63,15 @@ config_bind_multilang('p', 'fake-key <Up>')
 config_bind_multilang('<Ctrl-/>', 'undo')
 config_bind_multilang('<Ctrl-u><Ctrl-/>', 'undo --window')
 
-# Note: it's impossible to bind Alt-Shift-, or Alt-Shift-. because the < and >
-# characters are reserved for bind syntax, and you can't even escape them
+# Note: it's impossible to bind Alt-< or Alt-> because the '<' and '>'
+# characters are reserved for bind syntax, and you can't even escape them.
 config_bind_multilang('<Alt-,>', 'scroll-to-perc 0')
 config_bind_multilang('<Alt-.>', 'scroll-to-perc')
 
 config_bind_multilang('<Ctrl-x><Ctrl-f>', 'cmd-set-text -s :open')
+config_bind_multilang('<Ctrl-x>4<Ctrl-f>', 'cmd-set-text -s :open -b')
+config_bind_multilang('<Ctrl-x>5<Ctrl-f>', 'cmd-set-text -s :open -w')
+config_bind_multilang('<Ctrl-x>6<Ctrl-f>', 'cmd-set-text -s :open -p')
 config_bind_multilang('<Ctrl-u><Ctrl-x><Ctrl-f>', 'cmd-set-text -s :open -t')
 config_bind_multilang('<Ctrl-x><Ctrl-c>', 'quit')
 config_bind_multilang('<Ctrl-x>z', 'cmd-repeat-last')
@@ -96,24 +94,32 @@ config_bind_multilang('<Ctrl-r>', 'cmd-set-text ?')
 config_bind_multilang('+', 'zoom-in')
 config_bind_multilang('-', 'zoom-out')
 
-config_bind_multilang('<Alt-w>', 'yank')
-config_bind_multilang('<Ctrl-u><Alt-w>d', 'yank domain')
-config_bind_multilang('<Ctrl-u><Alt-w>p', 'yank pretty-url')
-config_bind_multilang('<Ctrl-u><Alt-w>t', 'yank title')
+config_bind_multilang('<Alt-w>', 'yank url')
+config_bind_multilang('<Ctrl-c>cs', 'yank selection --sel')
+config_bind_multilang('<Ctrl-c>cd', 'yank domain')
+config_bind_multilang('<Ctrl-c>cp', 'yank pretty-url')
+config_bind_multilang('<Ctrl-c>ct', 'yank title')
 
 config_bind_multilang('<Ctrl-x>c',
-            'config-cycle colors.webpage.darkmode.enabled true false')
+                      'config-cycle colors.webpage.darkmode.enabled true false')
 
-config_bind_multilang('<Ctrl-x><Ctrl-m>', 'spawn mpv {url}')
-config_bind_multilang('<Ctrl-u><Ctrl-x><Ctrl-m>',
-                      'hint links spawn mpv {hint-url}')
+config_bind_multilang('<Ctrl-c>mu', 'spawn mpv {url}')
+config_bind_multilang('<Ctrl-c>mh', 'hint links spawn mpv {hint-url}')
+
+config_bind_multilang('<Ctrl-c>dr', 'download-remove')
+config_bind_multilang('<Ctrl-c>dR', 'download-clear')
+config_bind_multilang('<Ctrl-c>dc', 'download-cancel')
+config_bind_multilang('<Ctrl-c>do', 'download-open')
+config_bind_multilang('<Ctrl-c>dd', 'download-delete')
+config_bind_multilang('<Ctrl-c>dr', 'download-retry')
 
 ### Insert mode
 config_bind_multilang('<Ctrl-m>', 'mode-enter insert')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='insert')
+config_bind_multilang('<Escape>', 'mode-leave', mode='insert')
 
-config_bind_multilang('<Alt-w>', 'fake-key <Ctrl-c>', mode='insert')
-config_bind_multilang('<Ctrl-w>', 'fake-key <Ctrl-x>', mode='insert')
+config_bind_multilang('<Alt-w>', 'yank selection --sel', mode='insert')
+config_bind_multilang('<Ctrl-w>', 'yank selection --sel ;; fake-key <Ctrl-x>', mode='insert')
 config_bind_multilang('<Ctrl-y>', 'fake-key <Ctrl-v>', mode='insert')
 config_bind_multilang('<Ctrl-/>', 'fake-key <Ctrl-z>', mode='insert')
 config_bind_multilang('<Alt-Backspace>',
@@ -122,14 +128,18 @@ config_bind_multilang('<Alt-d>', 'fake-key <Ctrl-Delete>', mode='insert')
 config_bind_multilang('<Ctrl-k>', 'fake-key <Shift-End><Delete>', mode='insert')
 config_bind_multilang('<Ctrl-x><Ctrl-p>',
                       'fake-key <Ctrl-Home><Ctrl-Shift-End>', mode='insert')
+
+# This doesn't behave *exactly* like C-S-<backspace> in Emacs since it would
+# trip on empty lines otherwise. It's basically like pressing C-a C-k.
 config_bind_multilang('<Ctrl-Shift-Backspace>',
-                      'fake-key <Home><Shift-End><Delete>', mode='insert')
+                      'fake-key <Home><Home><Shift-End><Delete>', mode='insert')
+
 config_bind_multilang('<Ctrl-Alt-Space>',
                       'fake-key <Ctrl-Shift-Right>', mode='insert')
 config_bind_multilang('<Ctrl-h>', 'edit-text', mode='insert')
 
-config_bind_multilang('<Ctrl-e>', 'fake-key <End>', mode='insert')
-config_bind_multilang('<Ctrl-a>', 'fake-key <Home>', mode='insert')
+config_bind_multilang('<Ctrl-e>', 'fake-key <End><End>', mode='insert')
+config_bind_multilang('<Ctrl-a>', 'fake-key <Home><Home>', mode='insert')
 config_bind_multilang('<Ctrl-n>', 'fake-key <Down>', mode='insert')
 config_bind_multilang('<Ctrl-p>', 'fake-key <Up>', mode='insert')
 config_bind_multilang('<Ctrl-d>', 'fake-key <Delete>', mode='insert')
@@ -160,6 +170,7 @@ config_bind_multilang('<Alt-Ctrl-,>',
 ### Caret mode
 config_bind_multilang('<Ctrl-Space>', 'mode-enter caret')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='caret')
+config_bind_multilang('<Escape>', 'mode-leave', mode='caret')
 
 config_bind_multilang('<Ctrl-e>', 'move-to-end-of-line', mode='caret')
 config_bind_multilang('<Ctrl-a>', 'move-to-start-of-line', mode='caret')
@@ -181,6 +192,7 @@ config_bind_multilang('<Ctrl-x>rj', 'mode-enter jump_mark')
 ### Command mode
 config_bind_multilang('<Alt-x>', 'cmd-set-text :')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='command')
+config_bind_multilang('<Escape>', 'mode-leave', mode='command')
 
 config_bind_multilang('<Up>', 'command-history-prev', mode='command')
 config_bind_multilang('<Ctrl-p>', 'command-history-prev', mode='command')
@@ -193,14 +205,26 @@ config_bind_multilang('<Shift-Tab>',
 config_bind_multilang('<Ctrl-p>', 'completion-item-focus prev', mode='command')
 config_bind_multilang('<Tab>', 'completion-item-focus next', mode='command')
 config_bind_multilang('<Ctrl-n>', 'completion-item-focus next', mode='command')
-config_bind_multilang('<Ctrl-y>', 'fake-key --global <Ctrl-v>', mode='command')
 
 config_bind_multilang('<Ctrl-s>', 'search-next', mode='command')
 config_bind_multilang('<Ctrl-r>', 'search-prev', mode='command')
 
+config_bind_multilang('<Ctrl-b>', 'rl-backward-char', mode='command')
+config_bind_multilang('<Ctrl-f>', 'rl-forward-char', mode='command')
+config_bind_multilang('<Alt-b>',  'rl-backward-word', mode='command')
+config_bind_multilang('<Alt-f>',  'rl-forward-word', mode='command')
+config_bind_multilang('<Alt-Backspace>', 'rl-backward-kill-word', mode='command')
+config_bind_multilang('<Alt-d>',  'rl-kill-word', mode='command')
+config_bind_multilang('<Ctrl-k>',  'rl-kill-line', mode='command')
+config_bind_multilang('<Ctrl-a>',  'rl-beginning-of-line', mode='command')
+config_bind_multilang('<Ctrl-e>',  'rl-end-of-line', mode='command')
+
+config_bind_multilang('<Ctrl-y>', 'fake-key --global <Ctrl-v>', mode='command')
+
 ### Hint mode
 config_bind_multilang('<Ctrl-w>', 'hint')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='hint')
+config_bind_multilang('<Escape>', 'mode-leave', mode='hint')
 
 config_bind_multilang('<Ctrl-u><Ctrl-w>', 'hint --rapid')
 config_bind_multilang('<Ctrl-B>', 'hint all tab-bg', mode='hint')
@@ -210,3 +234,4 @@ config_bind_multilang('<Ctrl-m>', 'follow-hint', mode='hint')
 
 ### Passthrough mode
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='passthrough')
+config_bind_multilang('<Escape>', 'mode-leave', mode='passthrough')
