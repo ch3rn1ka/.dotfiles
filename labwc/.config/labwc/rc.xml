@@ -218,13 +218,6 @@
   </focus>
 
   <libinput>
-    <device category="touchpad">
-      <tap>yes</tap>
-      <tapAndDrag>yes</tapAndDrag>
-      <naturalScroll>yes</naturalScroll>
-      <disableWhileTyping>yes</disableWhileTyping>
-    </device>
-
     <!--
     My touchpad gets recognized as this for no apparent reason.
     It's broken, so I disabled it. If you're also an unlucky owner of a
@@ -232,6 +225,15 @@
     -->
     <device category="ImPS/2 Logitech Wheel Mouse">
       <sendEventsMode>no</sendEventsMode>
+    </device>
+
+    <device category="touchpad">
+      <!-- Enable the following line too if your touchpad works -->
+      <sendEventsMode>no</sendEventsMode>
+      <tap>yes</tap>
+      <tapAndDrag>yes</tapAndDrag>
+      <naturalScroll>yes</naturalScroll>
+      <disableWhileTyping>yes</disableWhileTyping>
     </device>
   </libinput>
 </labwc_config>
