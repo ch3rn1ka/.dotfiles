@@ -227,9 +227,7 @@ config_bind_multilang('<Ctrl-w>', 'hint')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='hint')
 config_bind_multilang('<Escape>', 'mode-leave', mode='hint')
 
-config_bind_multilang('<Ctrl-u><Ctrl-w>', 'hint --rapid')
-config_bind_multilang('<Ctrl-B>', 'hint all tab-bg', mode='hint')
-config_bind_multilang('<Ctrl-F>', 'hint links', mode='hint')
+config_bind_multilang('<Ctrl-u><Ctrl-w>', 'hint --rapid all tab-bg')
 config_bind_multilang('<Return>', 'follow-hint', mode='hint')
 config_bind_multilang('<Ctrl-m>', 'follow-hint', mode='hint')
 
