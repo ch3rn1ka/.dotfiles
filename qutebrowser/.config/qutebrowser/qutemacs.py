@@ -129,8 +129,9 @@ config_bind_multilang('<Ctrl-k>', 'fake-key <Shift-End><Delete>', mode='insert')
 config_bind_multilang('<Ctrl-x><Ctrl-p>',
                       'fake-key <Ctrl-Home><Ctrl-Shift-End>', mode='insert')
 
-# This doesn't behave *exactly* like C-S-<backspace> in Emacs since it would
-# trip on empty lines otherwise. It's basically like pressing C-a C-k.
+# This doesn't behave *exactly* like C-S-<backspace> in Emacs since it doesn't
+# delete the line itself. If I put anoter <Delete> in the keybind, it would trip
+# on empty lines. So it's basically like pressing C-a C-k.
 config_bind_multilang('<Ctrl-Shift-Backspace>',
                       'fake-key <Home><Home><Shift-End><Delete>', mode='insert')
 
@@ -152,19 +153,19 @@ config_bind_multilang('<Alt-,>', 'fake-key <Ctrl-Home>', mode='insert')
 
 # Since there are no marks in texboxes, I'm forced to use these awkward binds
 # to continiously select text (I wonder if nyxt can do it any better)
-config_bind_multilang('<Ctrl-Shift-e>', 'fake-key <Shift-End>', mode='insert')
-config_bind_multilang('<Ctrl-Shift-a>', 'fake-key <Shift-Home>', mode='insert')
-config_bind_multilang('<Alt-Shift-f>',
+config_bind_multilang('<Ctrl-Space><Ctrl-e>', 'fake-key <Shift-End>', mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-a>', 'fake-key <Shift-Home>', mode='insert')
+config_bind_multilang('<Ctrl-Space><Alt-f>',
                       'fake-key <Ctrl-Shift-Right>', mode='insert')
-config_bind_multilang('<Alt-Shift-b>',
+config_bind_multilang('<Ctrl-Space><Alt-b>',
                       'fake-key <Ctrl-Shift-Left>', mode='insert')
-config_bind_multilang('<Ctrl-Shift-n>', 'fake-key <Shift-Down>', mode='insert')
-config_bind_multilang('<Ctrl-Shift-b>', 'fake-key <Shift-Left>', mode='insert')
-config_bind_multilang('<Ctrl-Shift-f>', 'fake-key <Shift-Right>', mode='insert')
-config_bind_multilang('<Ctrl-Shift-p>', 'fake-key <Shift-Up>', mode='insert')
-config_bind_multilang('<Alt-Ctrl-.>',
+config_bind_multilang('<Ctrl-Space><Ctrl-n>', 'fake-key <Shift-Down>', mode='insert')
+config_bind_multilang('<Ctrl-Alt-b>', 'fake-key <Shift-Left>', mode='insert')
+config_bind_multilang('<Ctrl-Alt-f>', 'fake-key <Shift-Right>', mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-p>', 'fake-key <Shift-Up>', mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-.>',
                       'fake-key <Ctrl-Shift-End>', mode='insert')
-config_bind_multilang('<Alt-Ctrl-,>',
+config_bind_multilang('<Ctrl-Space><Ctrl-,>',
                       'fake-key <Ctrl-Shift-Home>', mode='insert')
 
 ### Caret mode
