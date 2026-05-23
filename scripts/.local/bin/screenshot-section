@@ -1,3 +1,4 @@
 #!/bin/sh
 
 grim -g "$(slurp -d)" - | wl-copy
+notify-send "Screenshot taken!" "Saved in clipboard."

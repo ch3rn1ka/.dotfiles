@@ -1,3 +1,6 @@
 #!/bin/sh
 
-grim $(xdg-user-dir PICTURES)/$(date +'screenshot-%d_%m_%Y-%H:%M:%S.png')
+name=$(date +'screenshot-%d_%m_%Y-%H:%M:%S.png')
+path=$(xdg-user-dir PICTURES)/"$name"
+grim "$path"
+notify-send "Screenshot taken!" "Saved at $path"
