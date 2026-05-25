@@ -150,38 +150,47 @@
 
   <windowRules>
     <windowRule identifier="*qutebrowser*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="1" follow="no" />
     </windowRule>
 
     <windowRule identifier="*emacs*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="2" follow="no" />
     </windowRule>
 
     <windowRule identifier="*telegram*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="3" follow="no" />
     </windowRule>
 
     <windowRule identifier="*discord*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="4" follow="no" />
     </windowRule>
 
     <windowRule identifier="*libreoffice*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="5" follow="no" />
     </windowRule>
 
     <windowRule identifier="*gimp*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="6" follow="no" />
     </windowRule>
 
     <windowRule identifier="*Ardour*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="7" follow="no" />
     </windowRule>
 
     <windowRule identifier="*steam*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="8" follow="no" />
     </windowRule>
 
     <windowRule identifier="*obsproject*">
+      <ignoreFocusRequest>yes</ignoreFocusRequest>
       <action name="SendToDesktop" to="9" follow="no" />
     </windowRule>
   </windowRules>
