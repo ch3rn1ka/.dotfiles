@@ -27,18 +27,19 @@ alias fetch='fastfetch'
 
 autoload -Uz compinit
 compinit -C -d "$XDG_CACHE_HOME/zsh_zcompdump"
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
-       'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#fb4934'
 
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
+       'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] &&
+[[ -z "$EAT_SHELL_INTEGRATION_DIR" ]] ||
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 OPAM_INIT="$OPAMROOT/opam-init/init.zsh"
