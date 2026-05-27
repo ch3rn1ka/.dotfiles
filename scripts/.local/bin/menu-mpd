@@ -2,6 +2,7 @@
 # A simple menu-driven frontend for mpd via playerctl and mpc
 set -e
 
+music_dir=$(xdg-user-dir MUSIC)
 playlists=$(mpc -q lsplaylists)
 queue=$(mpc -q playlist)
 database=$(mpc -q ls)
@@ -33,8 +34,21 @@ album_choose_song()
 {
     album="$1"
     songs=$(mpc -q ls "$album" | sed 's|.*/||' | sort -V)
-    song=$(spawn_menu "$songs" 'Choose a song:')
-    echo "$album/$song"
+    selection=$(spawn_menu "$songs" 'Choose a file/go down a directory:')
+
+    selection_path="$album/$selection"
+    selection_list=$(mpc -q ls "$mpd_path")
+
+    if [ "$selection_path" = "$selection_list" ]; then
+        # $selection_path is a file
+        echo "$mpd_path"
+    elif [ -n "$selection_list" ]; then
+        # $selection_path is a directory, go down recursively until the user
+        # selects a file
+        album_choose_song "$selection_path"
+    else
+        exit 1
+    fi
 }
 
 queue_choose_song()
