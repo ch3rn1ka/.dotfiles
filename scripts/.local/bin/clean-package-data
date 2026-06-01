@@ -1,6 +1,13 @@
 #!/bin/sh
+# A simple script for my dotfiles repo that helps clean up the mess my configs made.
+# It should be run after unstowing all dotfiles and uninstalling the programs.
 
-clean_path() {
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}"
+CACHE="${XDG_CACHE_HOME:-$HOME/.cache}"
+
+clean_path()
+{
     path="$1"
     if [ -e "$path" ]; then
         echo "rm -rf $path"
@@ -8,35 +15,45 @@ clean_path() {
     fi
 }
 
-DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
-STATE="${XDG_STATE_HOME:-$HOME/.local/state}"
-CACHE="${XDG_CACHE_HOME:-$HOME/.cache}"
+main()
+{
+    pkgs=''
+    if [ ! -z "$DOTFILES" ] && [ -r "$DOTFILES"/PACKAGES.md ]; then
+        pkgs=$(cat "$DOTFILES"/PACKAGES.md)
+    elif [ $# -gt 0 ]; then
+        pkgs="$@"
+    else
+        pkgs="nvim emacs qutebrowser zsh"
+    fi
 
-if [ $# -gt 0 ]; then
-    PKGS="$@"
-else
-    printf "%s" "Do you want to clean data and cache for ALL packages in the repo? [y/N] "
+    pkg_count=$(echo "$pkgs" | wc -w)
+    printf 'Persistent data will be deleted for %d programs. Proceed? [y/N] ' \
+           "$pkg_count"
     IFS= read -r yn
     [ ! "$yn" = 'y' ] && [ ! "$yn" = 'Y' ] && exit 0
-    PKGS="nvim emacs qutebrowser zsh"
-fi
 
-for pkg in $PKGS; do
-    case "$pkg" in
-        emacs)
-            clean_path "$STATE/eshell_history"
-            ;;
-        zsh)
-            clean_path "$STATE/zsh_history"
-            clean_path "$CACHE/zsh_zcompdump"
-            ;;
-        sway | labwc)
-            clean_path "$STATE/current_kbd_layout"
-            ;;
-        *) ;;
-    esac
+    for pkg in $pkgs; do
+        case "$pkg" in
+            emacs)
+                clean_path "$STATE/eshell_history" ;;
+            zsh)
+                clean_path "$STATE/zsh_history" ;;
+            sway | labwc)
+                clean_path "$STATE/current_kbd_layout" ;;
+            *) ;;
+        esac
 
-    clean_path "$DATA/$pkg"
-    clean_path "$STATE/$pkg"
-    clean_path "$CACHE/$pkg"
-done
+        clean_path "$DATA/$pkg"
+        clean_path "$STATE/$pkg"
+        clean_path "$CACHE/$pkg"
+    done
+
+    printf 'Clean %s?' "$CACHE"
+    IFS= read -r yn
+    [ ! "$yn" = 'y' ] && [ ! "$yn" = 'Y' ] && exit 0
+
+    echo "rm -rf $CACHE/*"
+    rm -rf "$CACHE"/*
+}
+
+main "$@"
