@@ -27,10 +27,9 @@
 (add-to-list 'auto-mode-alist '("/tmp/qutebrowser-" . text-mode))
 
 (require 'funcs)
+(global-set-key (kbd "C-c m") 'compile)
 (global-set-key (kbd "C-c r") 'recompile)
 (global-set-key (kbd "C-c c") 'rc/copy-files-to-clipboard)
-(global-set-key (kbd "C-c m") 'rc/compile-preselect)
-(global-set-key (kbd "C-c M") 'compile)
 (global-set-key (kbd "C-c k") 'rc/close-other-buffers)
 (global-set-key (kbd "C-c y") 'rc/yank-and-indent)
 (global-set-key (kbd "C-,") 'rc/duplicate-line)
