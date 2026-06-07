@@ -4,6 +4,8 @@ swaylock
 swaybg
 swayidle
 labwc
+xfce4-panel
+xfce4-battery-plugin
 xdg-desktop-portal-wlr
 mako
 
