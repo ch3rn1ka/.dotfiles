@@ -91,27 +91,29 @@ config_bind_multilang('<Ctrl-Alt-e>', 'tab-move +')
 config_bind_multilang('<Ctrl-s>', 'cmd-set-text /')
 config_bind_multilang('<Ctrl-r>', 'cmd-set-text ?')
 
-config_bind_multilang('+', 'zoom-in')
+# I know this looks counterintuitive, but i don't like holding Shift to zoom in.
+config_bind_multilang('=', 'zoom-in')
 config_bind_multilang('-', 'zoom-out')
+config_bind_multilang('+', 'zoom 100')
 
-config_bind_multilang('<Alt-w>', 'yank url ;; yank selection')
-config_bind_multilang('<Ctrl-c>cs', 'yank selection')
-config_bind_multilang('<Ctrl-c>cd', 'yank domain')
-config_bind_multilang('<Ctrl-c>cp', 'yank pretty-url')
-config_bind_multilang('<Ctrl-c>ct', 'yank title')
+config_bind_multilang('<Alt-w>', 'yank url -q ;; yank selection -q')
+config_bind_multilang('<Ctrl-x>cs', 'yank selection')
+config_bind_multilang('<Ctrl-x>cd', 'yank domain')
+config_bind_multilang('<Ctrl-x>cp', 'yank pretty-url')
+config_bind_multilang('<Ctrl-x>ct', 'yank title')
 
-config_bind_multilang('<Ctrl-x>c',
+config_bind_multilang('<Ctrl-x><Ctrl-d>',
                       'config-cycle colors.webpage.darkmode.enabled true false')
 
-config_bind_multilang('<Ctrl-c>mu', 'spawn mpv {url}')
-config_bind_multilang('<Ctrl-c>mh', 'hint links spawn mpv {hint-url}')
+config_bind_multilang('<Ctrl-x>mu', 'spawn mpv {url}')
+config_bind_multilang('<Ctrl-x>mh', 'hint links spawn mpv {hint-url}')
 
-config_bind_multilang('<Ctrl-c>dr', 'download-remove')
-config_bind_multilang('<Ctrl-c>dR', 'download-clear')
-config_bind_multilang('<Ctrl-c>dc', 'download-cancel')
-config_bind_multilang('<Ctrl-c>do', 'download-open')
-config_bind_multilang('<Ctrl-c>dd', 'download-delete')
-config_bind_multilang('<Ctrl-c>dr', 'download-retry')
+config_bind_multilang('<Ctrl-x>dr', 'download-remove')
+config_bind_multilang('<Ctrl-x>dR', 'download-clear')
+config_bind_multilang('<Ctrl-x>dc', 'download-cancel')
+config_bind_multilang('<Ctrl-x>do', 'download-open')
+config_bind_multilang('<Ctrl-x>dd', 'download-delete')
+config_bind_multilang('<Ctrl-x>dr', 'download-retry')
 
 ### Insert mode
 config_bind_multilang('<Ctrl-m>', 'mode-enter insert')
@@ -236,6 +238,14 @@ config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='passthrough')
 config_bind_multilang('<Escape>', 'mode-leave', mode='passthrough')
 
 ### Prompt mode
+config_bind_multilang('y', 'prompt-accept', mode='prompt')
 config_bind_multilang('<Return>', 'prompt-accept', mode='prompt')
 config_bind_multilang('<Escape>', 'mode-leave', mode='prompt')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='prompt')
+
+### Yesno mode
+config_bind_multilang('n', 'prompt-accept no', mode='yesno')
+config_bind_multilang('y', 'prompt-accept yes', mode='yesno')
+config_bind_multilang('<Return>', 'prompt-accept yes', mode='yesno')
+config_bind_multilang('<Escape>', 'mode-leave', mode='yesno')
+config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='yesno')
