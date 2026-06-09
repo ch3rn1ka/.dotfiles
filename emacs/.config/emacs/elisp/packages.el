@@ -1,5 +1,5 @@
 ;;; packages.el -- configuration for built-in and (m)elpa packages
-;; for general configuration, check config.el
+;; For general configuration, check config.el
 
 (require 'package)
 (require 'use-package)
@@ -19,7 +19,7 @@
 (use-package pdf-tools
   :config
   (pdf-loader-install)
-  ;; silence non-critical warnings
+  ;; Silence non-critical warnings
   (with-eval-after-load 'pdf-cache
     (advice-add 'pdf-cache--prefetch-start
                 :around
@@ -93,14 +93,19 @@
 (use-package multiple-cursors
   :bind
   ("C-c [" . mc/edit-lines)
-  ("C-c ]" . mc/mark-all-like-this)
+  ;; Without this wrapper, Emacs would crash when matching empty string
+  ("C-c ]" . (lambda ()
+               (interactive)
+               (when (and (use-region-p)
+                          (> (- (region-end) (region-beginning)) 0))
+                 (mc/mark-all-like-this))))
   ("C->" . mc/mark-next-like-this)
   ("C-<" . mc/mark-previous-like-this))
 
 (use-package elfeed
   :custom
   (elfeed-db-directory (expand-file-name "elfeed/" user-emacs-directory))
-  ;; template for yt videos rss stream (replace CHANNEL_ID with actual id):
+  ;; Template for yt videos rss stream (replace CHANNEL_ID with actual id):
   ;; https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
   (elfeed-feeds
       '("https://archlinux.org/feeds/news/"
