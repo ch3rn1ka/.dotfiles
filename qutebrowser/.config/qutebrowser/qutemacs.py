@@ -96,7 +96,7 @@ config_bind_multilang('=', 'zoom-in')
 config_bind_multilang('-', 'zoom-out')
 config_bind_multilang('+', 'zoom 100')
 
-config_bind_multilang('<Alt-w>', 'yank url -q ;; yank selection -q')
+config_bind_multilang('<Alt-w>', 'yank url ;; yank selection')
 config_bind_multilang('<Ctrl-x>cs', 'yank selection')
 config_bind_multilang('<Ctrl-x>cd', 'yank domain')
 config_bind_multilang('<Ctrl-x>cp', 'yank pretty-url')
