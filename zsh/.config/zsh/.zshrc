@@ -18,6 +18,7 @@ alias ec="TERM=xterm-direct emacsclient -nw -a ''"
 alias ff="emacsclient -c -a ''"
 alias wget="wget --hsts-file $XDG_STATE_HOME/wget_hosts"
 alias ghci="ghci -ghci-script $XDG_CONFIG_HOME/ghci"
+alias swm="sway --config $XDG_CONFIG_HOME/sway/config-minimal"
 alias ytd='yt-dlp -f bestaudio'
 alias tmux='tmux -T 256'
 alias fetch='fastfetch'
