@@ -9,7 +9,7 @@ set $right l
 # Basics:
 smart_gaps on
 smart_borders on
-default_border none
+default_border pixel 1
 font pango:"UbuntuMono Nerd Font" 10
 
 # Colors:
@@ -176,23 +176,5 @@ bindsym --locked $mod+XF86AudioRaiseVolume exec playerctl volume 0.05+
 # Brightness controls:
 bindsym --locked XF86MonBrightnessDown exec brightnessctl -n -e set 10%-
 bindsym --locked XF86MonBrightnessUp exec brightnessctl -n -e set 10%+
-
-### Status Bar:
-bar {
-        position bottom
-        height 26
-        font UbuntuMono Nerd Font
-
-        colors {
-                statusline #ebdbb2
-                separator #fbf1c7
-                background #222222
-                active_workspace #458588  #285577 #fbf1c7
-                inactive_workspace #3c3836 #3c3836 #ebdbb2
-                urgent_workspace #fb4934 #cc231d #fbf1c7
-        }
-
-        status_command none
-}
 
 include /etc/sway/config.d/*
