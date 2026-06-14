@@ -2,10 +2,10 @@
 # A simple menu-driven frontend for mpd via playerctl and mpc
 set -e
 
-music_dir=$(xdg-user-dir MUSIC)
-playlists=$(mpc -q lsplaylists)
-queue=$(mpc -q playlist)
-database=$(mpc -q ls)
+MUSIC_DIR=$(xdg-user-dir MUSIC)
+PLAYLISTS=$(mpc -q lsplaylists)
+QUEUE=$(mpc -q playlist)
+DATABASE=$(mpc -q ls)
 
 spawn_menu()
 {
@@ -26,7 +26,7 @@ playerctl_make_active()
 
 choose_album()
 {
-    album=$(spawn_menu "$database" 'Choose an album:')
+    album=$(spawn_menu "$DATABASE" 'Choose an album:')
     echo "$album"
 }
 
@@ -53,20 +53,20 @@ album_choose_song()
 
 queue_choose_song()
 {
-    song=$(spawn_menu "$queue" 'Choose a song:')
+    song=$(spawn_menu "$QUEUE" 'Choose a song:')
     echo "$song"
 }
 
 queue_get_song_position()
 {
     song="$1"
-    song_pos=$(echo "$queue" | grep -F -n "$song" | sed 's|:.*||')
+    song_pos=$(echo "$QUEUE" | grep -F -n "$song" | sed 's|:.*||')
     echo "$song_pos"
 }
 
 choose_playlist()
 {
-    playlist=$(spawn_menu "$playlists" 'Choose a playlist:')
+    playlist=$(spawn_menu "$PLAYLISTS" 'Choose a playlist:')
     echo "$playlist"
 }
 
