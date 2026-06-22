@@ -13,5 +13,17 @@ text-color=#ebdbb2
 border-color=#d79921
 margin=0
 
+[mode=sway]
+background-color=#285577
+border-color=#458588
+text-color=#fbf1c7
+border-size=2
+
+[mode=labwc]
+background-color=#282828
+border-color=#d79921
+text-color=#fbf1c7
+width=292
+
 [mode=dnd]
 invisible=1

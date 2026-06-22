@@ -40,6 +40,7 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
 
 ### Autostart
 exec mako >/dev/null 2>&1
+exec makoctl mode -s sway >/dev/null 2>&1
 exec emacs --daemon >/dev/null 2>&1
 exec wl-paste --watch cliphist store
 exec ydotoold >/dev/null 2>&1

@@ -46,8 +46,8 @@
     <keybind key="W-j"><action name="ToggleSnapToEdge" direction="down" combine="yes" /></keybind>
     <keybind key="W-k"><action name="ToggleSnapToEdge" direction="up" combine="yes" /></keybind>
 
-    <keybind key="W-Tab"><action name="NextWindow" /></keybind>
-    <keybind key="W-S-Tab"><action name="PreviousWindow" /></keybind>
+    <keybind key="W-Tab"><action name="GoToDesktop" to="last" /></keybind>
+    <!-- <keybind key="W-S-Tab"><action name="PreviousWindow" /></keybind> -->
     <keybind key="W-n"><action name="NextWindow" /></keybind>
     <keybind key="W-p"><action name="PreviousWindow" /></keybind>
 
@@ -200,11 +200,11 @@
     <default />
     <context name="All">
       <mousebind direction="W-Up" action="Scroll">
-        <action name="GoToDesktop" to="right" />
+        <action name="NextWindow" />
       </mousebind>
 
       <mousebind direction="W-Down" action="Scroll">
-        <action name="GoToDesktop" to="left" />
+        <action name="PreviousWindow" />
       </mousebind>
 
       <mousebind direction="W-S-Up" action="Scroll">
