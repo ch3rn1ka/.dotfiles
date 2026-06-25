@@ -29,6 +29,7 @@
     <keybind key="W-q"><action name="Close" /></keybind>
     <keybind key="W-w"><action name="ToggleMaximize" /></keybind>
     <keybind key="W-e"><action name="Iconify" /></keybind>
+    <keybind key="W-r"><action name="ToggleShowDesktop" /></keybind>
     <keybind key="W-f"><action name="ToggleFullscreen" /></keybind>
 
     <keybind key="W-s"><action name="ShowMenu" menu="root-menu" /></keybind>
@@ -47,7 +48,6 @@
     <keybind key="W-k"><action name="ToggleSnapToEdge" direction="up" combine="yes" /></keybind>
 
     <keybind key="W-Tab"><action name="GoToDesktop" to="last" /></keybind>
-    <!-- <keybind key="W-S-Tab"><action name="PreviousWindow" /></keybind> -->
     <keybind key="W-n"><action name="NextWindow" /></keybind>
     <keybind key="W-p"><action name="PreviousWindow" /></keybind>
 
