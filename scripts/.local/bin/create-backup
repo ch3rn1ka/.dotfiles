@@ -1,22 +1,22 @@
 #!/bin/sh
 # My pocket script to save the contents of $HOME i care about to a usb
-# or whatever via rsync.
-# Some paths are hardcoded. Symlinks are ignored.
+# or whatnot via rsync. Some paths are hardcoded. Symlinks are ignored.
 
-PROJECTS="$(xdg-user-dir PROJECTS)/programming"
+PROGRAMMING="$(xdg-user-dir PROJECTS)/programming"
 MUSIC=$(xdg-user-dir MUSIC)
 DOCS=$(xdg-user-dir DOCUMENTS)
 PASS="$PASSWORD_STORE_DIR"
 UNI="$HOME/uni"
 
+# Package a git repo into a bundle, then copy
 backup_projects()
 {
-    printf '%s\n' "Backing up $PROJECTS"
+    printf '%s\n' "Backing up $PROGRAMMING"
 
     dest="$BACKUP_ROOT/clonebay"
     [ -d "$dest" ] || mkdir "$dest"
 
-    for repo in "$PROJECTS/"*/; do
+    for repo in "$PROGRAMMING/"*/; do
         repo_name=$(printf '%s\n' "$repo" | sed 's|.$||; s|.*/||g')
         printf '\t%s\n' "Creating a bundle for $repo_name"
         git -C "$repo" bundle create "$repo_name.bundle" --all >/dev/null 2>&1
@@ -25,49 +25,35 @@ backup_projects()
     done
 }
 
-backup_music()
+# Make a simple recursive copy of a directory
+backup_generic()
 {
-    printf '%s\n' "Backing up $MUSIC"
-    rsync -q --archive "$MUSIC" "$BACKUP_ROOT"
-}
-
-backup_docs()
-{
-    printf '%s\n' "Backing up $DOCS"
-    rsync -q --archive --no-links "$DOCS" "$BACKUP_ROOT"
-}
-
-backup_pass()
-{
-    printf '%s\n' "Backing up $PASS"
-    rsync -q --archive --no-links "$PASS" "$BACKUP_ROOT"
-}
-
-backup_uni()
-{
-    printf '%s\n' "Backing up $UNI"
-    rsync -q --archive --no-links "$UNI" "$BACKUP_ROOT"
+    printf '%s\n' "Backing up $1"
+    rsync -q --archive --no-links "$1" "$BACKUP_ROOT"
 }
 
 main()
 {
     [ $# -eq 0 ] || [ $# -gt 1 ] && {
-        printf '%s\n' "Usage: ./create-backup DEST"
+        printf '%s\n' 'Usage: ./create-backup DEST'
         exit 1
     }
 
     BACKUP_ROOT="$1"
     [ -d "$BACKUP_ROOT" ] && [ -w "$BACKUP_ROOT" ] || {
-        printf '%s\n' "Cannot write to $path. Make sure the path is correct, and check permissions"
+        printf 'Cannot write to %s.\n' "$path"
         exit 1
     }
-
     printf '%s\n' "Target: $BACKUP_ROOT"
+
+    # Back up git repos
     backup_projects
-    backup_music
-    backup_docs
-    backup_pass
-    backup_uni
+
+    # Back up everything else
+    set -- "$MUSIC" "$PROGRAMMING" "$DOCS" "$PASS" "$UNI"
+    for path in "$@"; do
+        backup_generic "$path"
+    done
     printf '%s\n' 'Finished.'
 }
 
