@@ -39,7 +39,7 @@ choose_kill_command_and_signal()
     done
 
     if [ -z "$kill_command" ]; then
-        options=$(printf '%s\n%s' 'kill' 'killall')
+        options=$(printf '%s\n%s' 'killall' 'kill')
         kill_command=$(spawn_menu "$options" 'Select a command:')
     fi
 
