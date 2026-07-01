@@ -30,6 +30,15 @@ choose_album()
     echo "$album"
 }
 
+# Add an album to the queue, sorting the tracks alphabetically. May be useful
+# if you want to cram a song with no metadata into the album folder.
+add_sorted_album()
+{
+    album="$1"
+    mpc -q ls "$album" | grep -Ei '\.(flac|mp3|ogg|opus|m4a|wav)$' \
+        | sort -V | mpc -q add
+}
+
 album_choose_song()
 {
     album="$1"
@@ -74,6 +83,7 @@ run_queue_command()
 {
     options=$(printf '%s\n' \
                      'Add an album to the queue' \
+                     'Add an album to the queue (sort alphabetically)' \
                      'Add a song to the queue' \
                      'Insert a song to the queue' \
                      'Jump to a song in the queue' \
@@ -94,6 +104,8 @@ run_queue_command()
         'Add an album to the queue')
             album=$(choose_album)
             mpc -q add "$album" ;;
+        'Add an album to the queue (sort alphabetically)')
+            add_sorted_album "$(choose_album)" ;;
         'Add a song to the queue')
             album=$(choose_album)
             song=$(album_choose_song "$album")
