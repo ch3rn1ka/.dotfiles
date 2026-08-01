@@ -12,11 +12,11 @@ spawn_menu()
     printf '%s' "$1" | bemenu --prompt "$2" --list 20
 }
 
+# Change volume ever so slightly to focus mpd
 playerctl_make_active()
 {
-    # change volume ever so slightly to focus mpd
-    VOL=$(playerctl -p mpd volume)
-    is_max=$(echo "$VOL" | awk '{if ($1 >= 1.0) print "true"; else print "false"}')
+    volume=$(playerctl -p mpd volume)
+    is_max=$(echo "$volume" | awk '{if ($1 >= 1.0) print "true"; else print "false"}')
     if [ "$is_max" = "true" ]; then
         playerctl -s -p mpd volume 0.01- && playerctl -s -p mpd volume 0.01+
     else
@@ -39,21 +39,19 @@ add_sorted_album()
         | sort -V | mpc -q add
 }
 
+# Choose an arbitrarily nested song in a given album
 album_choose_song()
 {
     album="$1"
-    songs=$(mpc -q ls "$album" | sed 's|.*/||' | sort -V)
-    selection=$(spawn_menu "$songs" 'Choose a file/go down a directory:')
+    songs=$(mpc -q ls "$1" | sed 's|.*/||' | sort -V)
 
+    selection=$(spawn_menu "$songs" 'Choose a file/go down a directory:')
     selection_path="$album/$selection"
-    selection_list=$(mpc -q ls "$mpd_path")
+    selection_list=$(mpc -q ls "$selection_path")
 
     if [ "$selection_path" = "$selection_list" ]; then
-        # $selection_path is a file
-        echo "$mpd_path"
+        echo "$selection_path"
     elif [ -n "$selection_list" ]; then
-        # $selection_path is a directory, go down recursively until the user
-        # selects a file
         album_choose_song "$selection_path"
     else
         exit 1
@@ -93,12 +91,13 @@ run_queue_command()
                      'Crop the queue' \
                      'Update the database')
 
-    current_song=$(mpc current)
+    current_song=$(mpc current | sed 's|\..*||')
     if [ -z "$current_song" ]; then
         prompt='No songs playing.'
     else
         prompt="Current song: $current_song"
     fi
+
     response=$(spawn_menu "$options" "$prompt")
     case "$response" in
         'Add an album to the queue')
@@ -144,6 +143,7 @@ run_player_command()
 
     prompt=$(mpc status | sed -n 's|].*|]|; s| \+| |g; s|: |:|g; 2p; 3p')
     [ -z "$prompt" ] && prompt="No songs playing."
+
     response=$(spawn_menu "$options" "$prompt")
     case "$response" in
         'Toggle play/pause') mpc -q toggle;;
@@ -161,6 +161,7 @@ main()
     options=$(printf '%s\n' \
                      'Queue commands' \
                      'Player commands')
+
     response=$(spawn_menu "$options" 'Send a queue or a player command?')
     case "$response" in
         'Queue commands') run_queue_command ;;
