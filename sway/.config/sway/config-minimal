@@ -46,7 +46,7 @@ input "type:touchpad" {
 
 input "type:keyboard" {
       xkb_layout us,ru
-      xkb_options "ctrl:nocaps"
+      xkb_options "grp:win_space_toggle,ctrl:nocaps"
       repeat_delay 400
       repeat_rate 40
 }
@@ -59,7 +59,6 @@ bindsym $mod+q kill
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec swaymsg exit
 bindsym $mod+Shift+u exec swaylock -f -c 282828
-bindsym --locked $mod+Space exec switch-keyboard-layout
 
 # Launchers:
 bindsym $mod+bracketleft exec emacsclient -c -a ''

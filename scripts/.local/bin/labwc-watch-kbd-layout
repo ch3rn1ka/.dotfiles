@@ -1,0 +1,6 @@
+#!/bin/sh
+
+xkb-monitor | while read -r layout; do
+    echo "${layout:2:7}" > "$XDG_STATE_HOME/current_kbd_layout"
+    killall -USR1 i3status 
+done

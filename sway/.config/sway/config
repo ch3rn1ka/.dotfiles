@@ -75,7 +75,7 @@ bindsym $mod+q kill
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec swaymsg exit
 bindsym $mod+Shift+u exec swaylock -f -c 282828
-bindsym --locked $mod+Space exec switch-keyboard-layout
+bindsym --locked $mod+Space exec sway-switch-kbd-layout
 
 # Launchers:
 bindsym $mod+bracketleft exec emacsclient -c -a ''

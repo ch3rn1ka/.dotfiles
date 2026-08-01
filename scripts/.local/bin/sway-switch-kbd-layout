@@ -1,0 +1,8 @@
+#!/bin/sh
+
+swaymsg input 'type:keyboard' xkb_switch_layout next && {
+    current_kbd_layout=$(swaymsg -t get_inputs | jq 'map(select(has("xkb_active_layout_name")))[0].xkb_active_layout_name' | sed 's|"||g; s| (.*||')
+    echo "$current_kbd_layout" > "$XDG_STATE_HOME/current_kbd_layout"
+}
+
+killall -USR1 i3status
