@@ -72,10 +72,10 @@
   (advice-add 'lua-calculate-indentation-block-modifier
               :around
               (lambda (old-fun &rest args)
-              (let ((old-res (apply old-fun args)))
-                (if (> old-res lua-indent-level)
-                    lua-indent-level
-                  old-res)))))
+                (let ((old-res (apply old-fun args)))
+                  (if (> old-res lua-indent-level)
+                      lua-indent-level
+                    old-res)))))
 
 (use-package haskell-mode)
 
@@ -108,8 +108,8 @@
   ;; Template for yt videos rss stream (replace CHANNEL_ID with actual id):
   ;; https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
   (elfeed-feeds
-      '("https://archlinux.org/feeds/news/"
-        "https://9to5linux.com/feed/atom"))
+   '("https://archlinux.org/feeds/news/"
+     "https://9to5linux.com/feed/atom"))
   :bind
   ("C-c e" . elfeed))
 
@@ -166,23 +166,23 @@
   (c-backspace-function 'delete-backward-char)
   :config
   (defun rc/c-lineup-arglist-smart-offset (langelem)
-  (save-excursion
-    (save-match-data
-      (let* ((paren-pos (c-langelem-pos langelem))
-             (base-indent
-              (save-excursion
-                (goto-char paren-pos)
-                (back-to-indentation)
-                (current-column)))
-             (is-block
-              (save-excursion
-                (goto-char paren-pos)
-                (if (c-syntactic-re-search-forward "[{;]" (+ (point) 1000) t)
-                    (string= (match-string 0) "{")
-                  nil))))
-        (if is-block
-            (vector (+ base-indent (* 2 c-basic-offset)))
-          (vector (+ base-indent c-basic-offset)))))))
+    (save-excursion
+      (save-match-data
+        (let* ((paren-pos (c-langelem-pos langelem))
+               (base-indent
+                (save-excursion
+                  (goto-char paren-pos)
+                  (back-to-indentation)
+                  (current-column)))
+               (is-block
+                (save-excursion
+                  (goto-char paren-pos)
+                  (if (c-syntactic-re-search-forward "[{;]" (+ (point) 1000) t)
+                      (string= (match-string 0) "{")
+                    nil))))
+          (if is-block
+              (vector (+ base-indent (* 2 c-basic-offset)))
+            (vector (+ base-indent c-basic-offset)))))))
 
   (defun rc/c-mode-setup ()
     (c-set-offset 'arglist-intro 'rc/c-lineup-arglist-smart-offset)
