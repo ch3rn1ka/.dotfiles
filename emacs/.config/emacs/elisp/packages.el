@@ -93,7 +93,7 @@
 (use-package multiple-cursors
   :bind
   ("C-c [" . mc/edit-lines)
-  ;; Without this wrapper, Emacs would crash when matching empty string
+  ;; Without this wrapper, Emacs would hang when matching empty string
   ("C-c ]" . (lambda ()
                (interactive)
                (when (and (use-region-p)
@@ -166,7 +166,8 @@
   (c-backspace-function 'delete-backward-char)
   :config
   (defun rc/c-lineup-arglist-smart-offset (langelem)
-    (save-excursion
+  (save-excursion
+    (save-match-data
       (let* ((paren-pos (c-langelem-pos langelem))
              (base-indent
               (save-excursion
@@ -176,12 +177,12 @@
              (is-block
               (save-excursion
                 (goto-char paren-pos)
-                (if (c-syntactic-re-search-forward "[{;]" nil t)
+                (if (c-syntactic-re-search-forward "[{;]" (+ (point) 1000) t)
                     (string= (match-string 0) "{")
                   nil))))
         (if is-block
             (vector (+ base-indent (* 2 c-basic-offset)))
-          (vector (+ base-indent c-basic-offset))))))
+          (vector (+ base-indent c-basic-offset)))))))
 
   (defun rc/c-mode-setup ()
     (c-set-offset 'arglist-intro 'rc/c-lineup-arglist-smart-offset)
