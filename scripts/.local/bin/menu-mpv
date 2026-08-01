@@ -1,23 +1,34 @@
 #!/bin/sh
 set -e
 
+VIDEOS_DIR=$(xdg-user-dir VIDEOS)
+VIDEOS_LIST=$(ls "$VIDEOS_DIR")
+
 spawn_menu()
 {
     printf '%s' "$1" | bemenu --prompt "$2" --list 20
 }
 
+# Select an arbitrarily nested file in a given folder
 select_file()
 {
-    dir=$(select_dir)
-    file=$(ls "$dir" | bemenu)
-    echo "$dir/$file"
+    selection=$(spawn_menu "$(ls "$1")" 'Choose a file/go down a directory:')
+    selection_path="$1/$selection"
+    selection_list=$(ls "$selection_path")
+
+    if [ -f "$selection_path" ]; then
+        echo "$selection_path"
+    elif [ -n "$selection_list" ]; then
+        select_file "$selection_path"
+    else
+        exit 1
+    fi
 }
 
 select_dir()
 {
-    vidsdir=$(xdg-user-dir VIDEOS)
-    dir=$(ls -d "$vidsdir"/* | bemenu)
-    echo "$dir"
+    dir=$(spawn_menu "$VIDEOS_LIST" 'Select a directory:')
+    echo "$VIDEOS_DIR/$dir"
 }
 
 main()
@@ -26,12 +37,8 @@ main()
     response=$(spawn_menu "$options" 'Play one or multiple files?')
     selection=''
     case "$response" in
-        'Select a file')
-            selection=$(select_file)
-            echo "$file" ;;
-        'Select a directory')
-            selection=$(select_dir)
-            echo "$dir" ;;
+        'Select a file') selection=$(select_file "$VIDEOS_DIR") ;;
+        'Select a directory') selection=$(select_dir) ;;
     esac
 
     mpv "$selection" >/dev/null 2>&1
