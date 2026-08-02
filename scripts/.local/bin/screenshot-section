@@ -1,4 +1,8 @@
 #!/bin/sh
+# A script to grab a screenshot of a selected section
+# by Alex Chernika <me@chernika.dev>
+
+set -e
 
 grim -g "$(slurp -d)" - | wl-copy
 notify-send "Screenshot taken!" "Saved in clipboard."

@@ -1,6 +1,6 @@
 #!/bin/sh
-# A simple script for my dotfiles repo that helps clean up the mess my configs made.
-# It should be run after unstowing all dotfiles and uninstalling the programs.
+# A simple clean-up script for my personal dotfiles repo
+# by Alex Chernika <me@chernika.dev>
 
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}"

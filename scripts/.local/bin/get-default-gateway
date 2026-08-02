@@ -1,4 +1,12 @@
 #!/bin/sh
+# A script to grab the IP of the default getaway on a Wi-Fi network
+# by Alex Chernika <me@chernika.dev>
+
+# Options:
+# -c to copy it to the clipboard
+# -t to type it using ydotool
+
+set -e
 
 gateway=$(ip route | head -n 1 | awk '{print $3}')
 while getopts "ct" opt; do

@@ -1,4 +1,6 @@
 #!/bin/sh
+# A script that toggles mako's custom dnd mode
+# by Alex Chernika <me@chernika.dev>
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}"
 
@@ -10,5 +12,5 @@ else
     makoctl mode -s dnd
 fi
 
-# update i3status
+# Update i3status
 killall -USR1 i3status

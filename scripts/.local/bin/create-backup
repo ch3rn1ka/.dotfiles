@@ -1,6 +1,6 @@
 #!/bin/sh
-# My pocket script to save the contents of $HOME i care about to a usb
-# or whatnot via rsync. Some paths are hardcoded. Symlinks are ignored.
+# My pocket script to save the contents of $HOME i care about to a USB via rsync
+# by Alex Chernika <me@chernika.dev>
 
 PROGRAMMING="$(xdg-user-dir PROJECTS)/programming"
 MUSIC=$(xdg-user-dir MUSIC)

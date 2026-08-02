@@ -1,4 +1,8 @@
 #!/bin/sh
+# A script to toggle sway's keyboard layout
+# by Alex Chernika <me@chernika.dev>
+
+set -e
 
 swaymsg input 'type:keyboard' xkb_switch_layout next && {
     current_kbd_layout=$(swaymsg -t get_inputs | jq 'map(select(has("xkb_active_layout_name")))[0].xkb_active_layout_name' | sed 's|"||g; s| (.*||')

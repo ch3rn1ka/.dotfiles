@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # A rewrite of the passmenu script bundled with the pass password manager,
-# but with bemenu instead of dmenu.
+# but with bemenu instead of dmenu, by Alex Chernika <me@chernika.dev>
 
 shopt -s nullglob globstar
 

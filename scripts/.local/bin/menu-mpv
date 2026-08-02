@@ -1,4 +1,7 @@
 #!/bin/sh
+# A script to select a file in `xdg-user-dir VIDEOS` and pass it to mpv
+# by Alex Chernika <me@chernika.dev>
+
 set -e
 
 VIDEOS_DIR=$(xdg-user-dir VIDEOS)

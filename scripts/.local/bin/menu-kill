@@ -1,12 +1,14 @@
 #!/bin/sh
-# Dispensing -9 to lousy bastards in need of permanent rest since 1968.
+# A script to quickly see the list of running processes and choose a kill target
+# by Alex Chernika <me@chernika.dev>
+
 # Options:
-# -a to run 'killall' instead of 'kill'
+# -a to run `killall` without prompting
 # -s VALUE to send a specific signal
 
 set -e
 
-# A simple wrapper around bemenu. Should probably make it a separate script.
+# A simple wrapper around bemenu. Should probably make it a separate script
 spawn_menu()
 {
     printf "%s" "$1" | bemenu --prompt "$2" --list 20
@@ -17,14 +19,14 @@ spawn_menu()
 get_processes_except_current_pgid()
 {
     current_pgid=$(ps -p $$ -o pgid= | tr -d ' ')
-    processes=$(ps -u "$USER" -o pgid=,pid=,args= |
-                    awk -v pgid="$current_pgid" '$1 != pgid {print $2, $3}' |
-                    sed 's|\([0-9]\+\) .*/|\1 |')
+    processes=$(ps -u "$USER" -o pgid=,pid=,args= \
+                    | awk -v pgid="$current_pgid" '$1 != pgid {print $2, $3}' \
+                    | sed 's|\([0-9]\+\) .*/|\1 |')
     echo "$processes" | tac
 }
 
 # Define $kill_command and $kill_signal either from commandline options
-# or, if they weren't specified, by prompting the user in a menu.
+# or, if they weren't specified, by prompting the user in a menu
 choose_kill_command_and_signal()
 {
     kill_command=''
@@ -58,7 +60,7 @@ main()
 
     processes=$(get_processes_except_current_pgid)
     prompt=''
-    if [ $kill_command = 'killall' ]; then
+    if [ "$kill_command" = 'killall' ]; then
         # Filter duplicates since we're killing all instances
         processes=$(echo "$processes" | awk '!seen[$2]++')
         prompt="Select a process to kill all instances of (-$kill_signal):"

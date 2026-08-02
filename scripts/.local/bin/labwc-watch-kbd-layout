@@ -1,6 +1,10 @@
 #!/bin/sh
+# A launcher for a keyboard layout switch listener under Labwc
+# by Alex Chernika <me@chernika.dev>
+
+set -e
 
 xkb-monitor | while read -r layout; do
     echo "${layout:2:7}" > "$XDG_STATE_HOME/current_kbd_layout"
-    killall -USR1 i3status 
+    killall -USR1 i3status
 done

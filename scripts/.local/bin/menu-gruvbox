@@ -1,4 +1,8 @@
 #!/bin/sh
+# A script to fetch the Gruvbox colorscheme colors
+# by Alex Chernika <me@chernika.dev>
+
+set -e
 
 colors='bg0       #282828
 bg0_h     #1d2021

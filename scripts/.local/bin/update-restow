@@ -1,4 +1,8 @@
 #!/bin/sh
+# A script to update the system packages and restow the dotfiles dir
+# by Alex Chernika <me@chernika.dev>
+
+set -e
 
 sudo pacman -Syu || {
     echo "Some packages couldn't be updated!"
@@ -10,7 +14,7 @@ while true; do
 
     case $yn in
         [Nn]* ) exit;;
-        * ) 
+        * )
             command -v stow >/dev/null 2>&1 || {
                 echo "'stow' executable not found."
                 exit 1
@@ -18,9 +22,9 @@ while true; do
 
             cd "$DOTFILES" || "$HOME/.dotfiles" || {
                 echo "Can't find the ~/.dotfiles folder."
-                exit 1 
+                exit 1
             }
-            
+
             stow --restow --ignore "README.md" --verbose 1 */
 
             break;;

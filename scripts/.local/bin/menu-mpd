@@ -1,5 +1,7 @@
 #!/bin/sh
-# A simple menu-driven frontend for mpd via playerctl and mpc
+# A simple menu-driven frontend for mpd via mpc and playerctl
+# by Alex Chernika <me@chernika.dev>
+
 set -e
 
 MUSIC_DIR=$(xdg-user-dir MUSIC)
@@ -31,7 +33,7 @@ choose_album()
 }
 
 # Add an album to the queue, sorting the tracks alphabetically. May be useful
-# if you want to cram a song with no metadata into the album folder.
+# if you want to cram a song with no metadata into the album folder
 add_sorted_album()
 {
     album="$1"

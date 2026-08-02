@@ -1,4 +1,8 @@
 #!/bin/sh
+# A script to grab a screenshot of the current output
+# by Alex Chernika <me@chernika.dev>
+
+set -e
 
 name=$(date +'screenshot-%d_%m_%Y-%H:%M:%S.png')
 path=$(xdg-user-dir PICTURES)/"$name"
