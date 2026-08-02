@@ -1,0 +1,44 @@
+#!/bin/sh
+# A simple menu-based filepicker by Alex Chernika <me@chernika.dev>
+
+set -e
+
+spawn_menu()
+{
+    printf '%s' "$1" | bemenu --prompt "$2" --list 20
+}
+
+select_file()
+{
+    selection=$(spawn_menu "$(ls "$1")" 'Choose a file/go down a directory:')
+    selection_path="$1/$selection"
+    selection_list=$(ls "$selection_path")
+
+    if [ -f "$selection_path" ]; then
+        echo "$selection_path"
+    elif [ -n "$selection_list" ]; then
+        select_file "$selection_path"
+    else
+        exit 1
+    fi
+}
+
+main()
+{
+    if [ $# -eq 0 ] || [ ! -d "$1" ]; then
+        echo "Usage: menu-pick-file DIR" >&2
+        exit 1
+    fi
+
+    options=$(printf '%s\n' 'Copy as URI/file' 'Copy as filepath')
+    response=$(spawn_menu "$options" 'How would you like to copy?')
+
+    selection=$(select_file "$1")
+
+    case "$response" in
+        'Copy as URI/file') wl-copy -t text/uri-list "file://$selection" ;;
+        'Copy as filepath') wl-copy "$selection" ;;
+    esac
+}
+
+main "$@"
