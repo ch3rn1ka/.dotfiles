@@ -9,11 +9,6 @@ xfce4-battery-plugin
 xdg-desktop-portal-wlr
 mako
 
-pipewire
-pipewire-alsa
-pipewire-pulse
-pipewire-jack
-
 bemenu
 wl-clipboard
 cliphist
