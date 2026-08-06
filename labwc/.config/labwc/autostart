@@ -10,6 +10,8 @@ wl-paste --watch cliphist store &
 ydotoold &
 mpdris2-rs &
 playerctld daemon &
-#xfce4-panel &
+
 labwc-watch-kbd-layout &
-i3status | labline -f 'UbuntuMono Nerd Font 12' &
+i3status | labline -f 'UbuntuMono Nerd Font 12' -a top \
+                   --sbg '#282828' --sfg '#ebdbb2' \
+                   --pbg '#fabd2f' --pfg '#282828' &
