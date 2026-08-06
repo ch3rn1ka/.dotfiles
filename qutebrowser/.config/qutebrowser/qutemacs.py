@@ -37,8 +37,17 @@ def config_bind_multilang(keybind, cmd, mode='normal'):
 
     parts = re.split(r'(<|-|>)', keybind)
     translated_keybind = ''
+    should_translate = True
     for part in parts:
-        translated_keybind += translate(part)
+        if part == '<':
+            # QTWebEngine (and qutebrowser by extension) automatically 
+            # translates modified keys (see issue #8992)
+            should_translate = False
+        if part == '>':
+            should_translate = True
+
+        translated_part = translate(part) if should_translate else part
+        translated_keybind += translated_part
 
     config.bind(keybind, cmd, mode)
     config.bind(translated_keybind, cmd, mode)
