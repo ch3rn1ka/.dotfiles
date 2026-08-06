@@ -10,7 +10,7 @@ spawn_menu()
 
 select_file()
 {
-    selection=$(spawn_menu "$(ls "$1")" 'Choose a file/go down a directory:')
+    selection=$(spawn_menu "$(ls -A "$1")" 'Choose a file/go down a directory:')
     selection_path="$1/$selection"
     selection_list=$(ls "$selection_path")
 
