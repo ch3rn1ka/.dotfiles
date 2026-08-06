@@ -24,6 +24,7 @@ export STACK_XDG=1
 
 export BEMENU_OPTS="
 --fn \"UbuntuMono Nerd Font 14\" \
+--prefix '<*>' \
 --list 14 \
 --ignorecase \
 --line-height 26 \
