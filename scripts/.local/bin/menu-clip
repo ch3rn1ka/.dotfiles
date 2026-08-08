@@ -2,4 +2,4 @@
 # A dead-simple script to open the clipboard history generated with cliphist
 # by Alex Chernika <me@chernika.dev>
 
-cliphist list | bemenu -p 'Clipboard:' | cliphist decode | wl-copy
+cliphist list | sed 's|\t| |' | bemenu -p 'Clipboard:' | sed 's| |\t|' | cliphist decode | wl-copy

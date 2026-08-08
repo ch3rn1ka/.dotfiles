@@ -2,16 +2,25 @@
 
 exec >/dev/null 2>&1
 
+# Apps
 swaybg -i $(xdg-user-dir PICTURES)/wallpapers/the-ninth-wave-gruvbox.jpg &
+emacs --daemon &
+
+# Notifs
 mako &
 makoctl mode -s labwc
-emacs --daemon &
-wl-paste --watch cliphist store &
+
+# Music daemon
 ydotoold &
 mpdris2-rs &
 playerctld daemon &
 
+# Clipboard history
+wl-clip-persist --clipboard regular &
+wl-paste --watch cliphist store &
+
+# Panel & statusline
 labwc-watch-kbd-layout &
-i3status | labline -f 'UbuntuMono Nerd Font 12' -a top \
+i3status | labline -f 'UbuntuMono Nerd Font 12' \
                    --sbg '#282828' --sfg '#ebdbb2' \
                    --pbg '#fabd2f' --pfg '#282828' &

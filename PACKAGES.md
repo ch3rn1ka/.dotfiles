@@ -11,6 +11,7 @@ mako
 
 bemenu
 wl-clipboard
+wl-clip-persist
 cliphist
 ydotool
 pass
