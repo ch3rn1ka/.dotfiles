@@ -4,5 +4,6 @@
 
 set -e
 
-grim -g "$(slurp -d)" - | wl-copy
-notify-send "Screenshot taken!" "Saved in clipboard."
+AREA=$(slurp -d) \
+    && grim -g "$AREA" - | wl-copy \
+    && notify-send "Screenshot taken!" "Saved in clipboard."
