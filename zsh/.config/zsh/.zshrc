@@ -21,6 +21,7 @@ alias ghci="ghci -ghci-script $XDG_CONFIG_HOME/ghci"
 alias swm="sway --config $XDG_CONFIG_HOME/sway/config-minimal"
 alias ytd='yt-dlp -f bestaudio'
 alias tmux='tmux -T 256'
+alias mnt="sudo mount -o uid=$(id -u),gid=$(id -g)"
 alias fetch='fastfetch'
 
 [ "$TERM" = "linux" ] ||
@@ -48,3 +49,5 @@ OPAM_INIT="$OPAMROOT/opam-init/init.zsh"
 
 GHCUP_ENV="$XDG_DATA_DIR/ghcup/env"
 [[ ! -r "$GHCUP_ENV" ]] || source "$GHCUP_ENV"
+
+echo '(@_ @;)'
