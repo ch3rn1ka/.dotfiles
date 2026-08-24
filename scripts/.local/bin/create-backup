@@ -2,7 +2,7 @@
 # My pocket script to save the contents of $HOME i care about to a USB via rsync
 # by Alex Chernika <me@chernika.dev>
 
-PROGRAMMING="$(xdg-user-dir PROJECTS)/programming"
+#PROGRAMMING="$(xdg-user-dir PROJECTS)/programming"
 MUSIC=$(xdg-user-dir MUSIC)
 DOCS=$(xdg-user-dir DOCUMENTS)
 PASS="$PASSWORD_STORE_DIR"
@@ -50,7 +50,7 @@ main()
     backup_projects
 
     # Back up everything else
-    set -- "$MUSIC" "$PROGRAMMING" "$DOCS" "$PASS" "$UNI"
+    set -- "$MUSIC" "$DOCS" "$PASS" "$UNI"
     for path in "$@"; do
         backup_generic "$path"
     done
