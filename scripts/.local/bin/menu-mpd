@@ -37,7 +37,7 @@ choose_album()
 add_sorted_album()
 {
     album="$1"
-    mpc -q ls "$album" | grep -Ei '\.(flac|mp3|ogg|opus|m4a|wav)$' \
+    mpc -q ls "$album" | grep -Ei '\.(flac|mp3|ogg|opus|m4a|wav|webm)$' \
         | sort -V | mpc -q add
 }
 
