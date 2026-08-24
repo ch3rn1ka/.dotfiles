@@ -25,7 +25,8 @@ alias mnt="sudo mount -o uid=$(id -u),gid=$(id -g)"
 alias fetch='fastfetch'
 
 [ "$TERM" = "linux" ] ||
-    PROMPT='%B%F{10}[I]%f%b %F{15}[%F{12}%n%F{15}@%F{11}%m%F{15}]%F{9}[%~]%f$ '
+    source "$XDG_CONFIG_HOME/zsh/aphrodite.zsh-theme"
+    #PROMPT='%B%F{10}[I]%f%b %F{15}[%F{12}%n%F{15}@%F{11}%m%F{15}]%F{9}[%~]%f$ '
 
 autoload -Uz compinit
 compinit -C -d "$XDG_CACHE_HOME/zsh_zcompdump"
@@ -50,4 +51,4 @@ OPAM_INIT="$OPAMROOT/opam-init/init.zsh"
 GHCUP_ENV="$XDG_DATA_DIR/ghcup/env"
 [[ ! -r "$GHCUP_ENV" ]] || source "$GHCUP_ENV"
 
-echo '(@_ @;)'
+#echo '(@_ @;)'
