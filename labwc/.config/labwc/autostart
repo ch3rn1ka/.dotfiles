@@ -16,7 +16,6 @@ mpdris2-rs &
 playerctld daemon &
 
 # Clipboard history
-wl-clip-persist --clipboard regular &
 wl-paste --watch cliphist store &
 
 # Panel & statusline
