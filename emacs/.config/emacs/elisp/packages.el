@@ -1,4 +1,5 @@
-;;; packages.el -- configuration for built-in and (m)elpa packages
+;; -*- lexical-binding: t; -*-
+;; packages.el -- configuration for built-in and (m)elpa packages
 ;; For general configuration, check config.el
 
 (require 'package)
@@ -10,57 +11,19 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;;; External packages
+;; External packages
 (setq use-package-always-ensure t)
+
+(use-package haskell-mode)
+(use-package markdown-mode)
+(use-package tuareg)
+(use-package magit)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package pdf-tools
-  :config
-  (pdf-loader-install)
-  ;; Silence non-critical warnings
-  (with-eval-after-load 'pdf-cache
-    (advice-add 'pdf-cache--prefetch-start
-                :around
-                (lambda (old-fun &rest args)
-                  (ignore-errors
-                    (apply old-fun args))))))
-
-(use-package org-present)
-
 (use-package eshell-syntax-highlighting
   :hook (eshell-mode . eshell-syntax-highlighting-mode))
-
-(use-package eat
-  :ensure t
-  :hook
-  (eshell-load . eat-eshell-mode)
-  (eshell-load . eat-eshell-visual-command-mode)
-  :config
-  (defun rc/set-eat-gruvbox-dark-colors ()
-    (set-face-attribute 'eat-term-color-black nil :foreground "#282828")
-    (set-face-attribute 'eat-term-color-red nil :foreground "#cc241d")
-    (set-face-attribute 'eat-term-color-green nil :foreground "#98971a")
-    (set-face-attribute 'eat-term-color-yellow nil :foreground "#d79921")
-    (set-face-attribute 'eat-term-color-blue nil :foreground "#458588")
-    (set-face-attribute 'eat-term-color-magenta nil :foreground "#b16286")
-    (set-face-attribute 'eat-term-color-cyan nil :foreground "#689d6a")
-    (set-face-attribute 'eat-term-color-white nil :foreground "#a89984")
-    (set-face-attribute 'eat-term-color-bright-black nil :foreground "#928374")
-    (set-face-attribute 'eat-term-color-bright-red nil :foreground "#fb4934")
-    (set-face-attribute 'eat-term-color-bright-green nil :foreground "#b8bb26")
-    (set-face-attribute 'eat-term-color-bright-yellow nil :foreground "#fabd2f")
-    (set-face-attribute 'eat-term-color-bright-blue nil :foreground "#83a598")
-    (set-face-attribute 'eat-term-color-bright-magenta nil :foreground "#d3869b")
-    (set-face-attribute 'eat-term-color-bright-cyan nil :foreground "#8ec07c")
-    (set-face-attribute 'eat-term-color-bright-white nil :foreground "#ebdbb2"))
-  (rc/set-eat-gruvbox-dark-colors)
-  :custom
-  (eat-enable-shell-prompt-annotation t)
-  (eat-shell-prompt-annotation-position 'right-margin))
-
-(use-package magit)
 
 (use-package lua-mode
   :custom
@@ -76,10 +39,6 @@
                   (if (> old-res lua-indent-level)
                       lua-indent-level
                     old-res)))))
-
-(use-package haskell-mode)
-
-(use-package tuareg)
 
 (use-package doom-themes
   :custom
@@ -105,15 +64,15 @@
 (use-package elfeed
   :custom
   (elfeed-db-directory (expand-file-name "elfeed/" user-emacs-directory))
+  (elfeed-search-filter "@6-months-ago")
   ;; Template for yt videos rss stream (replace CHANNEL_ID with actual id):
   ;; https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
   (elfeed-feeds
-   '("https://archlinux.org/feeds/news/"
-     "https://9to5linux.com/feed/atom"))
+   (with-temp-buffer
+     (insert-file-contents "~/.feeds")
+     (split-string (buffer-string) "\n" t)))
   :bind
   ("C-c e" . elfeed))
-
-(use-package markdown-mode)
 
 (use-package reverse-im
   :custom
@@ -121,7 +80,7 @@
   :config
   (reverse-im-mode t))
 
-;;; Built-ins
+;; Built-ins
 (setq use-package-always-ensure nil)
 
 (use-package recentf

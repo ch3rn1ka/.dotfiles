@@ -1,4 +1,5 @@
-;;; config.el -- general configuration
+;; -*- lexical-binding: t; -*-
+;; config.el -- general configuration
 ;; for package-specific settings, check packages.el
 ;; for custom function definitions, check funcs.el
 

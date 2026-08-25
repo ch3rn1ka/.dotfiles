@@ -1,4 +1,5 @@
-;;; funcs.el -- custom function definitions
+;; -*- lexical-binding: t; -*-
+;; funcs.el -- custom function definitions
 
 (defun rc/duplicate-line ()
   "Duplicate current line"
