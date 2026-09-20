@@ -97,18 +97,50 @@
   (dired-create-destination-dirs-on-trailing-dirsep t)
   (dired-kill-when-opening-new-dired-buffer t))
 
-(use-package ido
-  :init (ido-mode 1)
-  :custom
-  (ido-enable-flex-matching t)
-  (ido-use-virtual-buffers t)
-  (ido-everywhere t)
-  (read-file-name-completion-ignore-case t))
+;; (use-package ido
+;;   :init (ido-mode 1)
+;;   :custom
+;;   (ido-enable-flex-matching t)
+;;   (ido-use-virtual-buffers t)
+;;   (ido-everywhere t)
+;;   (read-file-name-completion-ignore-case t))
+
+(use-package icomplete
+  :ensure nil
+  :config
+  (fido-mode 1)
+  (add-hook 'icomplete-minibuffer-setup-hook
+            (lambda ()
+              ;; Disable no-input matching for some commands
+              (when (memq this-command '(execute-extended-command man))
+                (setq-local icomplete-show-matches-on-no-input nil)
+                (setq-local icomplete-compute-delay 0.5)
+                (setq-local icomplete-max-delay-chars 2)))
+            t))
 
 (use-package eshell
   :custom
   (eshell-directory-name (expand-file-name "eshell/" (or (getenv "XDG_CONFIG_HOME") "~/.config")))
-  (eshell-history-file-name (expand-file-name "eshell_history" (or (getenv "XDG_STATE_HOME") "~/.local/state"))))
+  (eshell-history-file-name (expand-file-name "eshell_history" (or (getenv "XDG_STATE_HOME") "~/.local/state")))
+  :config
+  (defun rc/git-prompt-branch-name ()
+    (let ((args '("symbolic-ref" "HEAD" "--short")))
+      (with-temp-buffer
+        (apply #'process-file "git" nil (list t nil) nil args)
+        (unless (bobp)
+          (goto-char (point-min))
+          (buffer-substring-no-properties (point) (line-end-position))))))
+
+  (defun rc/eshell-prompt ()
+    (let ((branch-name (rc/git-prompt-branch-name)))
+      (concat
+       (abbreviate-file-name (eshell/pwd))
+       (if branch-name (format " ‹%s›" branch-name))
+       " $ "
+       )))
+
+  (setq eshell-prompt-function 'rc/eshell-prompt))
+
 
 (use-package whitespace
   :bind ("C-c w" . whitespace-mode)

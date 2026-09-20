@@ -17,7 +17,8 @@
       inhibit-startup-screen 1
       display-line-numbers-type 'relative
       display-line-numbers-width-start 1
-      vc-follow-symlinks 1)
+      vc-follow-symlinks 1
+      split-width-threshold nil)
 
 (setq-default indent-tabs-mode nil
               fringe-indicator-alist
