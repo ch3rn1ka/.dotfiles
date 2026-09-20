@@ -1,5 +1,5 @@
 #!/bin/sh
-# A simple menu-driven frontend for mpd via mpc and playerctl
+# menu-mpd - a menu-driven frontend for mpd via mpc and playerctl
 # by Alex Chernika <me@chernika.dev>
 
 set -e
@@ -28,16 +28,14 @@ playerctl_make_active()
 
 choose_album()
 {
-    album=$(spawn_menu "$DATABASE" 'Choose an album:')
-    echo "$album"
+    echo $(spawn_menu "$DATABASE" 'Choose an album:')
 }
 
 # Add an album to the queue, sorting the tracks alphabetically. May be useful
 # if you want to cram a song with no metadata into the album folder
 add_sorted_album()
 {
-    album="$1"
-    mpc -q ls "$album" | grep -Ei '\.(flac|mp3|ogg|opus|m4a|wav|webm)$' \
+    mpc -q ls "$1" | grep -Ei '\.(flac|mp3|ogg|opus|m4a|wav|webm)$' \
         | sort -V | mpc -q add
 }
 
@@ -62,28 +60,30 @@ album_choose_song()
 
 queue_choose_song()
 {
-    song=$(spawn_menu "$QUEUE" 'Choose a song:')
-    echo "$song"
+    echo $(spawn_menu "$QUEUE" 'Choose a song:')
 }
 
 queue_get_song_position()
 {
-    song="$1"
-    song_pos=$(echo "$QUEUE" | grep -F -n "$song" | sed 's|:.*||')
-    echo "$song_pos"
+    echo $(echo "$QUEUE" | grep -F -n "$1" | sed 's|:.*||')
 }
 
 choose_playlist()
 {
-    playlist=$(spawn_menu "$PLAYLISTS" 'Choose a playlist:')
-    echo "$playlist"
+    echo $(spawn_menu "$PLAYLISTS" 'Choose a playlist:')
 }
 
 run_queue_command()
 {
+    current_song=$(mpc current | sed 's|.*/||; s|\..*||')
+    if [ -z "$current_song" ]; then
+        prompt='No songs playing.'
+    else
+        prompt="Current song: $current_song"
+    fi
+
     options=$(printf '%s\n' \
                      'Add an album to the queue' \
-                     'Add an album to the queue (sort alphabetically)' \
                      'Add a song to the queue' \
                      'Insert a song to the queue' \
                      'Jump to a song in the queue' \
@@ -93,21 +93,19 @@ run_queue_command()
                      'Crop the queue' \
                      'Update the database')
 
-    current_song=$(mpc current | sed 's|\..*||')
-    if [ -z "$current_song" ]; then
-        prompt='No songs playing.'
-    else
-        prompt="Current song: $current_song"
-    fi
-
     response=$(spawn_menu "$options" "$prompt")
     case "$response" in
         'Add an album to the queue')
+            prompt='Choose a way to sort the tracks:'
+            options=$(printf '%s\n' 'Sort alphabetically' 'Sort using metadata')
+            response=$(spawn_menu "$options" "$prompt")
+
             album=$(choose_album)
-            mpc -q add "$album" ;;
-        'Add an album to the queue (sort alphabetically)')
-            add_sorted_album "$(choose_album)" ;;
-        'Add a song to the queue')
+            case "$response" in
+                'Sort alphabetically') add_sorted_album "$album" ;;
+                'Sort using metadata') mpc -q add "$album" ;;
+            esac ;;
+        'Add a song to the queue (sort using metadata)')
             album=$(choose_album)
             song=$(album_choose_song "$album")
             mpc -q add "$song" ;;
@@ -126,14 +124,22 @@ run_queue_command()
         'Load a playlist')
             playlist=$(choose_playlist)
             mpc -q load "$playlist" ;;
-        'Clear the queue') mpc -q clear ;;
-        'Crop the queue') mpc -q crop ;;
-        'Update the database') mpc -q update ;;
+        'Clear the queue') 
+            mpc -q clear ;;
+        'Crop the queue') 
+            mpc -q crop ;;
+        'Update the database') 
+            mpc -q update ;;
     esac
 }
 
 run_player_command()
 {
+    # Save player info in the following format:
+    # [playing]\nvolume:40% repeat:on random:off single:off consume:off
+    prompt=$(mpc status | sed -n 's|].*|]|; s| \+| |g; s|: |:|g; 2p; 3p')
+    [ -z "$prompt" ] && prompt="No songs playing."
+
     options=$(printf '%s\n' \
                      'Toggle play/pause' \
                      'Next song' \
@@ -143,18 +149,15 @@ run_player_command()
                      'Toggle repeat' \
                      'Toggle single')
 
-    prompt=$(mpc status | sed -n 's|].*|]|; s| \+| |g; s|: |:|g; 2p; 3p')
-    [ -z "$prompt" ] && prompt="No songs playing."
-
     response=$(spawn_menu "$options" "$prompt")
     case "$response" in
         'Toggle play/pause') mpc -q toggle;;
-        'Next song') mpc -q next ;;
-        'Previous song') mpc -q prev ;;
-        'Next album') mpd-next-album ;;
-        'Previous album') mpd-prev-album ;;
-        'Toggle repeat') mpc -q repeat ;;
-        'Toggle single') mpc -q single ;;
+        'Next song')         mpc -q next ;;
+        'Previous song')     mpc -q prev ;;
+        'Next album')        mpd-next-album ;;
+        'Previous album')    mpd-prev-album ;;
+        'Toggle repeat')     mpc -q repeat ;;
+        'Toggle single')     mpc -q single ;;
     esac
 }
 
