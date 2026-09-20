@@ -247,7 +247,7 @@ config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='passthrough')
 config_bind_multilang('<Escape>', 'mode-leave', mode='passthrough')
 
 ### Prompt mode
-config_bind_multilang('y', 'prompt-accept', mode='prompt')
+#config_bind_multilang('y', 'prompt-accept', mode='prompt')
 config_bind_multilang('<Return>', 'prompt-accept', mode='prompt')
 config_bind_multilang('<Escape>', 'mode-leave', mode='prompt')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='prompt')
