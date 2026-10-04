@@ -2,7 +2,7 @@
 # pacman-find-missing-libs - find missing libs providers in arch repos
 # by Alex Chernika <me@chernika.dev>
 
-set -e
+set -eu
 
 list_libs_filepath()
 {
@@ -16,7 +16,7 @@ list_libs_missing()
 
 main()
 {
-    if [ -z "$1" ]; then
+    if [ "$#" -eq 0 ]; then
         echo "Usage: $0 <binary>"
         exit 1
     fi
