@@ -1,0 +1,48 @@
+#!/bin/sh
+# pacman-find-missing-libs - find missing libs providers in arch repos
+# by Alex Chernika <me@chernika.dev>
+
+set -e
+
+list_libs_filepath()
+{
+    ldd "$1" | sed '\|/|!d; s|.*=> ||; s| .*||' | xargs -r pacman -Qqo | sort -u
+}
+
+list_libs_missing()
+{
+    ldd "$1" | grep 'not found' | awk '!seen[$2]++ {print $1}'
+}
+
+main()
+{
+    if [ -z "$1" ]; then
+        echo "Usage: $0 <binary>"
+        exit 1
+    fi
+
+    target="$1"
+
+    if ! ldd "$target" >/dev/null 2>&1; then
+        echo "Error: '$target' is not a dynamic executable or not found."
+        exit 1
+    fi
+
+    libs_filepath=$(list_libs_filepath "$target")
+    libs_missing=$(list_libs_missing "$target")
+
+    if [ -n "$libs_missing" ]; then
+        echo 'Searching Arch database for missing libraries...'
+        echo '(Note: if this returns nothing, you may need to run `sudo pacman -Fy` first)'
+        echo
+
+        for lib in $libs_missing; do
+            echo "-> $lib can be installed via:"
+            pacman -Fq "$lib" 2>/dev/null | sort -u | sed 's|^|   - |'
+        done
+    else
+        echo "No missing libraries! All dependencies are satisfied."
+    fi
+}
+
+main "$@"

@@ -105,7 +105,7 @@ run_queue_command()
                 'Sort alphabetically') add_sorted_album "$album" ;;
                 'Sort using metadata') mpc -q add "$album" ;;
             esac ;;
-        'Add a song to the queue (sort using metadata)')
+        'Add a song to the queue')
             album=$(choose_album)
             song=$(album_choose_song "$album")
             mpc -q add "$song" ;;
