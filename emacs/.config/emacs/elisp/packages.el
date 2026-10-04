@@ -144,7 +144,7 @@
 
 (use-package whitespace
   :bind ("C-c w" . whitespace-mode)
-  :custom (whitespace-line-column 80))
+  :custom (whitespace-line-column 100))
 
 (use-package man
   :config
