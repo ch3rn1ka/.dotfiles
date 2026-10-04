@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labwc:menu xmlns:labwc="https://labwc.github.io/labwc">
+
   <menu id="root-menu" label="Root Menu">
     <item label="qutebrowser" icon="qutebrowser">
       <action name="Execute">
@@ -45,6 +46,12 @@
 
     <separator/>
 
+    <menu id="client-list-combined-menu" label="Window list" />
+
+    <menu id="client-send-to-menu" label="Send _window to" />
+
+    <separator/>
+
     <item label="Reconfigure">
       <action name="Reconfigure"/>
     </item>
@@ -52,5 +59,8 @@
     <item label="E_xit">
       <action name="Exit"/>
     </item>
+
+  <!-- root-menu -->
   </menu>
+
 </labwc:menu>
