@@ -48,7 +48,7 @@
 
     <menu id="client-list-combined-menu" label="Window list" />
 
-    <menu id="client-send-to-menu" label="Send _window to" />
+    <menu id="client-send-to-menu" label="Send _window" />
 
     <separator/>
 
