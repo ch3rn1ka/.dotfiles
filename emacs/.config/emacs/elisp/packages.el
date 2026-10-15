@@ -197,20 +197,21 @@
   (setq mu4e-headers-date-format "%d/%m/%Y")
   (setq mu4e-headers-time-format "%H:%M")
 
-  (setq mu4e-update-interval (* 10 60))
+  (setq mu4e-update-interval (* 60 60))
   (setq mu4e-get-mail-command "mbsync -a")
   (setq mu4e-maildir "~/mail")
 
-  (setq mu4e-drafts-folder "/[Gmail]/Drafts")
-  (setq mu4e-sent-folder "/[Gmail]/Sent Mail")
-  (setq mu4e-refile-folder "/[Gmail]/All Mail")
-  (setq mu4e-trash-folder "/[Gmail]/Trash")
+  (setq mu4e-drafts-folder "/Drafts")
+  (setq mu4e-sent-folder "/Sent")
+  (setq mu4e-refile-folder "/Archive")
+  (setq mu4e-trash-folder "/Trash")
 
   (setq mu4e-maildir-shortcuts
-        '(("/Inbox"             . ?i)
-          ("/[Gmail]/Sent Mail" . ?s)
-          ("/[Gmail]/Trash"     . ?t)
-          ("/[Gmail]/Drafts"    . ?d)
-          ("/[Gmail]/All Mail"  . ?a))))
+        '(("/Inbox"   . ?i)
+          ("/Drafts"  . ?d)
+          ("/Sent"    . ?s)
+          ("/Archive" . ?a)
+          ("/Trash"   . ?t)))
+  )
 
 (provide 'packages)
