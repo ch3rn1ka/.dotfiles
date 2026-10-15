@@ -34,8 +34,10 @@ choose_album()
 # if you want to cram a song with no metadata into the album folder
 add_sorted_album()
 {
-    mpc -q ls "$1" | grep -Ei '\.(flac|mp3|ogg|opus|m4a|wav|webm)$' \
-        | sort -V | mpc -q add
+    mpc -q ls "$1"                                       \
+        | grep -Ei '\.(flac|mp3|ogg|opus|m4a|wav|webm)$' \
+        | sort -V                                        \
+        | mpc -q add
 }
 
 # Choose an arbitrarily nested song in a given album
@@ -81,15 +83,15 @@ run_queue_command()
         prompt="Current song: $current_song"
     fi
 
-    options=$(printf '%s\n' \
-                     'Add an album to the queue' \
-                     'Add a song to the queue' \
-                     'Insert a song to the queue' \
-                     'Jump to a song in the queue' \
+    options=$(printf '%s\n'                         \
+                     'Add an album to the queue'    \
+                     'Add a song to the queue'      \
+                     'Insert a song to the queue'   \
+                     'Jump to a song in the queue'  \
                      'Remove a song from the queue' \
-                     'Load a playlist' \
-                     'Clear the queue' \
-                     'Crop the queue' \
+                     'Load a playlist'              \
+                     'Clear the queue'              \
+                     'Crop the queue'               \
                      'Update the database')
 
     response=$(spawn_menu "$options" "$prompt")
@@ -139,13 +141,13 @@ run_player_command()
     prompt=$(mpc status | sed -n 's|].*|]|; s| \+| |g; s|: |:|g; 2p; 3p')
     [ -z "$prompt" ] && prompt="No songs playing."
 
-    options=$(printf '%s\n' \
+    options=$(printf '%s\n'              \
                      'Toggle play/pause' \
-                     'Next song' \
-                     'Previous song' \
-                     'Next album' \
-                     'Previous album' \
-                     'Toggle repeat' \
+                     'Next song'         \
+                     'Previous song'     \
+                     'Next album'        \
+                     'Previous album'    \
+                     'Toggle repeat'     \
                      'Toggle single')
 
     response=$(spawn_menu "$options" "$prompt")
@@ -162,7 +164,7 @@ run_player_command()
 
 main()
 {
-    options=$(printf '%s\n' \
+    options=$(printf '%s\n'           \
                      'Queue commands' \
                      'Player commands')
 
