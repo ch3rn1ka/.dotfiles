@@ -66,7 +66,7 @@ queue_choose_song()
 
 queue_get_song_position()
 {
-    echo $(echo "$QUEUE" | grep -F -n "$1" | sed 's|:.*||')
+    echo $(echo "$QUEUE" | grep -F -n -x "$1" | sed 's|:.*||')
 }
 
 choose_playlist()
@@ -117,6 +117,8 @@ run_queue_command()
         'Jump to a song in the queue')
             song=$(queue_choose_song)
             song_pos=$(queue_get_song_position "$song")
+            echo "asd" >&2
+            echo "$song_pos" >&2
             mpc -q play "$song_pos" ;;
         'Remove a song from the queue')
             song=$(queue_choose_song)
