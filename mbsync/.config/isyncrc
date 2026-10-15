@@ -1,0 +1,23 @@
+IMAPAccount purelymail
+Host imap.purelymail.com
+Port 993
+User me@chernika.dev
+PassCmd "pass purelymail/inbox"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore purelymail-remote
+Account purelymail
+
+MaildirStore purelymail-local
+Path ~/mail/
+Inbox ~/mail/Inbox
+SubFolders Verbatim
+
+Channel purelymail
+Far :purelymail-remote:
+Near :purelymail-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
