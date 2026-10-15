@@ -64,7 +64,7 @@
 (use-package elfeed
   :custom
   (elfeed-db-directory (expand-file-name "elfeed/" user-emacs-directory))
-  (elfeed-search-filter "@6-months-ago")
+  (elfeed-search-filter "@6-months-ago -junk")
   ;; Template for yt videos rss stream (replace CHANNEL_ID with actual id):
   ;; https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
   (elfeed-feeds
