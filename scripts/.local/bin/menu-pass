@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
-# A rewrite of the passmenu script bundled with the pass password manager,
-# but with bemenu instead of dmenu, by Alex Chernika <me@chernika.dev>
+# menu-pass - a rewrite of the passmenu script bundled with pass using bemenu
 
 shopt -s nullglob globstar
-
-typeit=0
-if [[ $1 == "--type" ]]; then
-    typeit=1
-    shift
-fi
 
 prefix="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
 password_files=( "$prefix"/**/*.gpg )
@@ -19,10 +12,6 @@ password=$(printf '%s\n' "${password_files[@]}" | bemenu "$@")
 
 [[ -n $password ]] || exit
 
-if [[ $typeit -eq 0 ]]; then
-    pass show -c "$password" 2>/dev/null
-else
-    pass show "$password" |
-        { IFS= read -r pass; printf %s "$pass"; } |
-        ydotool type -d 1 --file -
-fi
+pass show "$password"                           \
+    | { IFS= read -r pass; printf %s "$pass"; } \
+    | ydotool type -d 1 --file -

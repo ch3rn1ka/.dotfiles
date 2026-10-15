@@ -1,6 +1,5 @@
 #!/bin/sh
-# A script to toggle sway's keyboard layout
-# by Alex Chernika <me@chernika.dev>
+# sway-switch-kbd-layout - toggle sway keyboard layout and write to file
 
 set -e
 

@@ -1,6 +1,8 @@
 #!/bin/sh
 # TODO: fix bug with infinite loop when there's only one album in the queue
 
+set -e
+
 current_album="$(playerctl -s -p mpd metadata -f '{{ album }}')"
 
 while true; do

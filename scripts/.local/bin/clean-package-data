@@ -1,6 +1,7 @@
 #!/bin/sh
-# A simple clean-up script for my personal dotfiles repo
-# by Alex Chernika <me@chernika.dev>
+# clean-package-data - remove persistent data from $XDG_DATA_HOME
+
+set -e
 
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}"

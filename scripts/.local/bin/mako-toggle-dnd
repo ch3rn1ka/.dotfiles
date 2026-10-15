@@ -1,6 +1,7 @@
 #!/bin/sh
-# A script that toggles mako's custom dnd mode
-# by Alex Chernika <me@chernika.dev>
+# mako-toggle-dnd - toggle mako's dnd mode (defined manually)
+
+set -e
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}"
 

@@ -1,6 +1,5 @@
 #!/bin/sh
-# A script to grab a screenshot of the current output
-# by Alex Chernika <me@chernika.dev>
+# screenshot-full - grab a screenshot of the current output
 
 set -e
 

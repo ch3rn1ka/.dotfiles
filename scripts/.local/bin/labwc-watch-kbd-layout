@@ -1,6 +1,5 @@
 #!/bin/sh
-# A launcher for a keyboard layout switch listener under Labwc
-# by Alex Chernika <me@chernika.dev>
+# labwc-watch-kbd-layout - launch xkb-monitor and write to file
 
 set -e
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-# A simple menu-based filepicker by Alex Chernika <me@chernika.dev>
+# menu-pick-file - a simple menu-based filepicker
 
 set -e
 

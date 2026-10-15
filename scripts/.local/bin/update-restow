@@ -1,6 +1,5 @@
 #!/bin/sh
-# A script to update the system packages and restow the dotfiles dir
-# by Alex Chernika <me@chernika.dev>
+# update-restow - update the system packages and restow the dotfiles dir
 
 set -e
 
@@ -20,7 +19,7 @@ while true; do
                 exit 1
             }
 
-            cd "$DOTFILES" || "$HOME/.dotfiles" || {
+            cd "$DOTFILES" || cd "$HOME/.dotfiles" || {
                 echo "Can't find the ~/.dotfiles folder."
                 exit 1
             }

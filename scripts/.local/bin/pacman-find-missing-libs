@@ -1,6 +1,5 @@
 #!/bin/sh
-# pacman-find-missing-libs - find missing libs providers in arch repos
-# by Alex Chernika <me@chernika.dev>
+# pacman-find-missing-libs - find missing lib providers in arch repos
 
 set -eu
 

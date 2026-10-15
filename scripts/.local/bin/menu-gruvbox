@@ -1,6 +1,5 @@
 #!/bin/sh
-# A script to fetch the Gruvbox colorscheme colors
-# by Alex Chernika <me@chernika.dev>
+# menu-gruvbox - fetch the Gruvbox colorscheme colors
 
 set -e
 

@@ -1,6 +1,5 @@
 #!/bin/sh
-# A script to grab a screenshot of a selected section
-# by Alex Chernika <me@chernika.dev>
+# screenshot-section - grab a screenshot of the selected section
 
 set -e
 

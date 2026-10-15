@@ -1,6 +1,11 @@
 #!/bin/sh
-# Lists all linux-firmware-* packages used by the system.
+# firmware-deps-used - list all linux-firmware-* packages used by the system
+
+set -e
+
 # For this to work, add the following line to your kernel cmdline:
 # dydnbg=\"func fw_log_firmware_info +p\"
-
-journalctl -b | sed -n 's;.*Loaded FW: \(.*\),.*;/usr/lib/firmware/\1.zst;p' | xargs pacman -Qoq | sort -u
+journalctl -b                                                      \
+    | sed -n 's;.*Loaded FW: \(.*\),.*;/usr/lib/firmware/\1.zst;p' \
+    | xargs pacman -Qoq                                            \
+    | sort -u

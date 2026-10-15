@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 current_album="$(playerctl -s -p mpd metadata -f '{{ album }}')"
 
 while true; do

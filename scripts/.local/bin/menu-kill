@@ -1,6 +1,5 @@
 #!/bin/sh
-# A script to quickly see the list of running processes and choose a kill target
-# by Alex Chernika <me@chernika.dev>
+# menu-kill - see the list of running processes and choose a kill target
 
 # Options:
 # -a to run `killall` without prompting
@@ -8,7 +7,6 @@
 
 set -e
 
-# A simple wrapper around bemenu. Should probably make it a separate script
 spawn_menu()
 {
     printf "%s" "$1" | bemenu --prompt "$2" --list 20

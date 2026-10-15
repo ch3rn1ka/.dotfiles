@@ -1,6 +1,5 @@
 #!/bin/sh
-# A script to grab the IP of the default getaway on a Wi-Fi network
-# by Alex Chernika <me@chernika.dev>
+# get-default-getaway - grab the IP of the default getaway on a Wi-Fi network
 
 # Options:
 # -c to copy it to the clipboard

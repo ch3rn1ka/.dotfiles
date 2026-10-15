@@ -1,8 +1,8 @@
 #!/bin/sh
-# My pocket script to save the contents of $HOME i care about to a USB via rsync
-# by Alex Chernika <me@chernika.dev>
+# create-backup - save important files to a USB via rsync
 
-#PROGRAMMING="$(xdg-user-dir PROJECTS)/programming"
+set -e
+
 MUSIC=$(xdg-user-dir MUSIC)
 DOCS=$(xdg-user-dir DOCUMENTS)
 PASS="$PASSWORD_STORE_DIR"
@@ -25,7 +25,6 @@ backup_projects()
     done
 }
 
-# Make a simple recursive copy of a directory
 backup_generic()
 {
     printf '%s\n' "Backing up $1"
@@ -46,10 +45,8 @@ main()
     }
     printf '%s\n' "Target: $BACKUP_ROOT"
 
-    # Back up git repos
     backup_projects
 
-    # Back up everything else
     set -- "$MUSIC" "$DOCS" "$PASS" "$UNI"
     for path in "$@"; do
         backup_generic "$path"
