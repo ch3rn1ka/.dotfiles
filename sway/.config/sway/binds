@@ -23,8 +23,7 @@ bindsym --to-code {
      $mod+c exec menu-clip                                    
      $mod+Shift+c exec cliphist wipe
                                                               
-     $mod+v exec menu-pass --type -p 'Choose a password:'     
-     $mod+Shift+v exec menu-pass
+     $mod+v exec menu-pass -p 'Choose a password:'     
                                                               
      $mod+m exec menu-mpd                                     
      $mod+Shift+m exec mpc clear
