@@ -11,7 +11,6 @@ mako
 
 bemenu
 wl-clipboard
-wl-clip-persist
 cliphist
 ydotool
 pass
@@ -33,6 +32,7 @@ playerctl
 
 emacs-wayland
 mu
+isync
 
 zsh
 zsh-autosuggestions
