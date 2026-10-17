@@ -10,7 +10,6 @@ order += "volume master"
 order += "read_file kbd_layout"
 order += "read_file mako_dnd_status"
 order += "wireless _first_"
-order += "ethernet _first_"
 order += "disk /"
 order += "memory"
 order += "battery all"
@@ -70,5 +69,5 @@ load {
 }
 
 tztime local {
-        format = "%d-%m-%Y %H:%M:%S"
+        format = "%d.%m.%Y %H:%M:%S"
 }
