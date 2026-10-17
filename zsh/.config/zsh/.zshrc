@@ -1,6 +1,7 @@
 setopt share_history
 setopt extendedglob
 setopt NO_CASE_GLOB
+setopt HIST_IGNORE_SPACE
 
 bindkey -e
 
