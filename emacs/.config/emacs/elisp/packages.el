@@ -80,8 +80,45 @@
   :config
   (reverse-im-mode t))
 
+(use-package mu4e
+  :config
+  (setq mu4e-change-filenames-when-moving t)
+
+  (setq mu4e-headers-sort-field :date)
+  (setq mu4e-headers-sort-direction 'descending)
+  (setq mu4e-headers-date-format "%d/%m/%Y")
+  (setq mu4e-headers-time-format "%H:%M")
+
+  (setq mu4e-update-interval (* 60 60))
+  (setq mu4e-get-mail-command "mbsync -a")
+  (setq mu4e-maildir "~/mail")
+
+  (setq mu4e-drafts-folder "/Drafts")
+  (setq mu4e-sent-folder "/Sent")
+  (setq mu4e-refile-folder "/Archive")
+  (setq mu4e-trash-folder "/Trash")
+
+  (setq mu4e-maildir-shortcuts
+        '(("/Inbox"   . ?i)
+          ("/Drafts"  . ?d)
+          ("/Sent"    . ?s)
+          ("/Archive" . ?a)
+          ("/Trash"   . ?t))))
+
 ;; Built-ins
 (setq use-package-always-ensure nil)
+
+(use-package message
+  :custom
+  (user-full-name "Alex C.")
+  (user-mail-address "me@chernika.dev")
+  (message-send-mail-function 'smtpmail-send-it))
+
+(use-package smtpmail
+  :custom
+  (smtpmail-smtp-server "smtp.purelymail.com")
+  (smtpmail-smtp-service 465)
+  (smtpmail-stream-type 'ssl))
 
 (use-package recentf
   :bind ("C-c o" . recentf-open-files)
@@ -96,14 +133,6 @@
   (dired-create-destination-dirs t)
   (dired-create-destination-dirs-on-trailing-dirsep t)
   (dired-kill-when-opening-new-dired-buffer t))
-
-;; (use-package ido
-;;   :init (ido-mode 1)
-;;   :custom
-;;   (ido-enable-flex-matching t)
-;;   (ido-use-virtual-buffers t)
-;;   (ido-everywhere t)
-;;   (read-file-name-completion-ignore-case t))
 
 (use-package icomplete
   :ensure nil
@@ -187,31 +216,5 @@
 
 (use-package which-key
   :init (which-key-mode 1))
-
-(use-package mu4e
-  :config
-  (setq mu4e-change-filenames-when-moving t)
-
-  (setq mu4e-headers-sort-field :date)
-  (setq mu4e-headers-sort-direction 'descending)
-  (setq mu4e-headers-date-format "%d/%m/%Y")
-  (setq mu4e-headers-time-format "%H:%M")
-
-  (setq mu4e-update-interval (* 60 60))
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-maildir "~/mail")
-
-  (setq mu4e-drafts-folder "/Drafts")
-  (setq mu4e-sent-folder "/Sent")
-  (setq mu4e-refile-folder "/Archive")
-  (setq mu4e-trash-folder "/Trash")
-
-  (setq mu4e-maildir-shortcuts
-        '(("/Inbox"   . ?i)
-          ("/Drafts"  . ?d)
-          ("/Sent"    . ?s)
-          ("/Archive" . ?a)
-          ("/Trash"   . ?t)))
-  )
 
 (provide 'packages)
