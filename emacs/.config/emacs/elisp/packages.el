@@ -80,31 +80,6 @@
   :config
   (reverse-im-mode t))
 
-(use-package mu4e
-  :config
-  (setq mu4e-change-filenames-when-moving t)
-
-  (setq mu4e-headers-sort-field :date)
-  (setq mu4e-headers-sort-direction 'descending)
-  (setq mu4e-headers-date-format "%d/%m/%Y")
-  (setq mu4e-headers-time-format "%H:%M")
-
-  (setq mu4e-update-interval (* 60 60))
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-maildir "~/mail")
-
-  (setq mu4e-drafts-folder "/Drafts")
-  (setq mu4e-sent-folder "/Sent")
-  (setq mu4e-refile-folder "/Archive")
-  (setq mu4e-trash-folder "/Trash")
-
-  (setq mu4e-maildir-shortcuts
-        '(("/Inbox"   . ?i)
-          ("/Drafts"  . ?d)
-          ("/Sent"    . ?s)
-          ("/Archive" . ?a)
-          ("/Trash"   . ?t))))
-
 ;; Built-ins
 (setq use-package-always-ensure nil)
 
@@ -216,5 +191,31 @@
 
 (use-package which-key
   :init (which-key-mode 1))
+
+;; Installed externally, not through (m)elpa
+(use-package mu4e
+  :config
+  (setq mu4e-change-filenames-when-moving t)
+
+  (setq mu4e-headers-sort-field :date)
+  (setq mu4e-headers-sort-direction 'descending)
+  (setq mu4e-headers-date-format "%d/%m/%Y")
+  (setq mu4e-headers-time-format "%H:%M")
+
+  (setq mu4e-update-interval (* 60 60))
+  (setq mu4e-get-mail-command "mbsync -a")
+  (setq mu4e-maildir "~/mail")
+
+  (setq mu4e-drafts-folder "/Drafts")
+  (setq mu4e-sent-folder "/Sent")
+  (setq mu4e-refile-folder "/Archive")
+  (setq mu4e-trash-folder "/Trash")
+
+  (setq mu4e-maildir-shortcuts
+        '(("/Inbox"   . ?i)
+          ("/Drafts"  . ?d)
+          ("/Sent"    . ?s)
+          ("/Archive" . ?a)
+          ("/Trash"   . ?t))))
 
 (provide 'packages)
