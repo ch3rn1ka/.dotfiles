@@ -224,6 +224,13 @@
   (mu4e-attachment-dir
    (if (executable-find "xdg-user-dir")
        (replace-regexp-in-string "\n\\'" "" (shell-command-to-string "xdg-user-dir DOWNLOAD"))
-     "~/Downloads")))
+     "~/Downloads"))
+
+  (mu4e-bookmarks
+   '((:name "Unread" :query "flag:unread AND NOT maildir:\"/Trash\"" :key ?u)
+     (:name "Today" :query "date:today..now AND NOT maildir:\"/Trash\"" :key ?t)
+
+     (:name "Business" :query "to:business@chernika.dev AND NOT maildir:\"/Trash\"" :key ?b)
+     (:name "Personal" :query "to:me@chernika.dev AND NOT maildir:\"/Trash\"" :key ?p))))
 
 (provide 'packages)
