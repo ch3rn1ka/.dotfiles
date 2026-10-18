@@ -87,7 +87,9 @@
   :custom
   (user-full-name "Alex C.")
   (user-mail-address "me@chernika.dev")
-  (message-send-mail-function 'smtpmail-send-it))
+  (message-send-mail-function 'smtpmail-send-it)
+  :bind (:map message-mode-map
+              ("C-c e" . mml-secure-message-encrypt-pgpmime)))
 
 (use-package smtpmail
   :custom
@@ -110,7 +112,6 @@
   (dired-kill-when-opening-new-dired-buffer t))
 
 (use-package icomplete
-  :ensure nil
   :config
   (fido-mode 1)
   (add-hook 'icomplete-minibuffer-setup-hook
@@ -144,7 +145,6 @@
        )))
 
   (setq eshell-prompt-function 'rc/eshell-prompt))
-
 
 (use-package whitespace
   :bind ("C-c w" . whitespace-mode)
@@ -194,28 +194,36 @@
 
 ;; Installed externally, not through (m)elpa
 (use-package mu4e
-  :config
-  (setq mu4e-change-filenames-when-moving t)
+  :ensure nil
+  :custom
+  (mu4e-change-filenames-when-moving t)
 
-  (setq mu4e-headers-sort-field :date)
-  (setq mu4e-headers-sort-direction 'descending)
-  (setq mu4e-headers-date-format "%d/%m/%Y")
-  (setq mu4e-headers-time-format "%H:%M")
+  (mu4e-headers-sort-field :date)
+  (mu4e-headers-sort-direction 'descending)
+  (mu4e-headers-date-format "%d/%m/%Y")
+  (mu4e-headers-time-format "%H:%M")
 
-  (setq mu4e-update-interval (* 60 60))
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-maildir "~/mail")
+  (mu4e-update-interval (* 60 60))
+  (mu4e-get-mail-command "mbsync -a")
+  (mu4e-maildir "~/mail")
 
-  (setq mu4e-drafts-folder "/Drafts")
-  (setq mu4e-sent-folder "/Sent")
-  (setq mu4e-refile-folder "/Archive")
-  (setq mu4e-trash-folder "/Trash")
+  (mu4e-drafts-folder "/Drafts")
+  (mu4e-sent-folder "/Sent")
+  (mu4e-refile-folder "/Archive")
+  (mu4e-trash-folder "/Trash")
 
-  (setq mu4e-maildir-shortcuts
+  (mu4e-maildir-shortcuts
         '(("/Inbox"   . ?i)
           ("/Drafts"  . ?d)
           ("/Sent"    . ?s)
           ("/Archive" . ?a)
-          ("/Trash"   . ?t))))
+          ("/Trash"   . ?t)))
+
+  (mu4e-compose-format-flowed t)
+
+  (mu4e-attachment-dir
+   (if (executable-find "xdg-user-dir")
+       (replace-regexp-in-string "\n\\'" "" (shell-command-to-string "xdg-user-dir DOWNLOAD"))
+     "~/Downloads")))
 
 (provide 'packages)
