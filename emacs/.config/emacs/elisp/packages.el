@@ -203,7 +203,7 @@
   (mu4e-headers-date-format "%d/%m/%Y")
   (mu4e-headers-time-format "%H:%M")
 
-  (mu4e-update-interval (* 60 60))
+  (mu4e-update-interval (* 180 60))
   (mu4e-get-mail-command "mbsync -a")
   (mu4e-maildir "~/mail")
 
