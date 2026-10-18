@@ -85,7 +85,7 @@
 
 (use-package message
   :custom
-  (user-full-name "Alex C.")
+  (user-full-name "A. Chernika")
   (user-mail-address "me@chernika.dev")
   (message-send-mail-function 'smtpmail-send-it)
   :bind (:map message-mode-map
