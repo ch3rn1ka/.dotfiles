@@ -1,34 +1,43 @@
 #!/bin/sh
-# create-backup - save important files to a USB via rsync
 
 set -e
 
 MUSIC=$(xdg-user-dir MUSIC)
 DOCS=$(xdg-user-dir DOCUMENTS)
+PROJECTS=$(xdg-user-dir PROJECTS)
 PASS="$PASSWORD_STORE_DIR"
 UNI="$HOME/uni"
 
-# Package a git repo into a bundle, then copy
 backup_projects()
 {
+    PROGRAMMING="$PROJECTS/programming"
     printf '%s\n' "Backing up $PROGRAMMING"
 
     dest="$BACKUP_ROOT/clonebay"
     [ -d "$dest" ] || mkdir "$dest"
 
     for repo in "$PROGRAMMING/"*/; do
+        [ -e "$repo" ] || continue
+
+        git -C "$repo" rev-parse --is-inside-work-tree >/dev/null 2>&1 || continue
+
         repo_name=$(printf '%s\n' "$repo" | sed 's|.$||; s|.*/||g')
         printf '\t%s\n' "Creating a bundle for $repo_name"
-        git -C "$repo" bundle create "$repo_name.bundle" --all >/dev/null 2>&1
-        rsync -q "$repo/$repo_name.bundle" "$dest"
-        rm "$repo/$repo_name.bundle"
+
+        git -C "$repo" bundle create "$repo_name.bundle" --all >/dev/null 2>&1 || true
+
+        if [ -f "$repo/$repo_name.bundle" ]; then
+            rsync -q "$repo/$repo_name.bundle" "$dest" || true
+            rm "$repo/$repo_name.bundle"
+        fi
     done
 }
 
 backup_generic()
 {
+    [ -e "$1" ] || return 0
     printf '%s\n' "Backing up $1"
-    rsync -q --archive --no-links "$1" "$BACKUP_ROOT"
+    rsync -q --archive --no-links "$1" "$BACKUP_ROOT" || true
 }
 
 main()
@@ -40,7 +49,7 @@ main()
 
     BACKUP_ROOT="$1"
     [ -d "$BACKUP_ROOT" ] && [ -w "$BACKUP_ROOT" ] || {
-        printf 'Cannot write to %s.\n' "$path"
+        printf 'Cannot write to %s.\n' "$BACKUP_ROOT"
         exit 1
     }
     printf '%s\n' "Target: $BACKUP_ROOT"
