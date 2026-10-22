@@ -1,11 +1,14 @@
 #!/bin/sh
 # pacman-find-missing-libs - find missing lib providers in arch repos
 
-set -eu
+# Options:
+# -p to make the output easily pipeable into pacman
+
+set -u
 
 list_libs_filepath()
 {
-    ldd "$1" | sed '\|/|!d; s|.*=> ||; s| .*||' | xargs -r pacman -Qqo | sort -u
+    ldd "$1" | sed '\|/|!d; s|.*=> ||; s| .*||'
 }
 
 list_libs_missing()
@@ -16,31 +19,52 @@ list_libs_missing()
 main()
 {
     if [ "$#" -eq 0 ]; then
-        echo "Usage: $0 <binary>"
+        echo "Usage: $0 [-p] <binary>"
         exit 1
     fi
 
-    target="$1"
-
-    if ! ldd "$target" >/dev/null 2>&1; then
-        echo "Error: '$target' is not a dynamic executable or not found."
-        exit 1
-    fi
-
-    libs_filepath=$(list_libs_filepath "$target")
-    libs_missing=$(list_libs_missing "$target")
-
-    if [ -n "$libs_missing" ]; then
-        echo 'Searching Arch database for missing libraries...'
-        echo '(Note: if this returns nothing, you may need to run `sudo pacman -Fy` first)'
-        echo
-
-        for lib in $libs_missing; do
-            echo "-> $lib can be installed via:"
-            pacman -Fq "$lib" 2>/dev/null | sort -u | sed 's|^|   - |'
-        done
+    if [ "$1" = '-p' ]; then
+        # Output just the missing packages for easy piping
+        # Example: pacman-find-missing-libs -p <binary> | xargs -r sudo pacman -S
+        shift
+        target="$1"
+        libs_missing=$(list_libs_missing "$target")
+        if [ -n "$libs_missing" ]; then
+            for lib in $libs_missing; do
+                pacman -Fq "$lib"
+            done
+        fi
     else
-        echo "No missing libraries! All dependencies are satisfied."
+        target="$1"
+
+        if ! ldd "$target" >/dev/null 2>&1; then
+            echo "Error: '$target' is not a dynamic executable or not found."
+            exit 1
+        fi
+
+        libs_filepath=$(list_libs_filepath "$target")
+        num_providers=0
+        for lib in $libs_filepath; do
+            provider=$(pacman -Qo "$lib" --color=always) || {
+                echo "$lib: provider not found"
+                continue
+            }
+
+            echo "$provider"
+        done
+
+        libs_missing=$(list_libs_missing "$target")
+        if [ -n "$libs_missing" ]; then
+            echo
+            echo 'Make sure to update the database with `pacman -Fy`!'
+
+            for lib in $libs_missing; do
+                printf '\n-> %s can be installed via:\n' "$lib"
+                pacman -F "$lib" || echo 'no providers found.'
+            done
+        else
+            echo "No missing libraries! All dependencies are satisfied."
+        fi
     fi
 }
 
