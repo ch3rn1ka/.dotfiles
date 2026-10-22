@@ -10,7 +10,7 @@ list_libs_filepath()
 
 list_libs_missing()
 {
-    ldd "$1" | grep 'not found' | awk '!seen[$2]++ {print $1}'
+    ldd "$1" | grep 'not found' | awk '!seen[$3]++ {print $1}'
 }
 
 main()
