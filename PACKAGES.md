@@ -8,6 +8,7 @@ xfce4-panel
 xfce4-battery-plugin
 xdg-desktop-portal-wlr
 xorg-xwayland
+brightnessctl
 mako
 bemenu
 wl-clipboard
