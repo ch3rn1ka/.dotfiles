@@ -173,20 +173,6 @@ config_bind_multilang('<Ctrl-Shift-Backspace>',   'fake-key <Home><Home><Shift-E
 config_bind_multilang('<Ctrl-Alt-Space>',         'fake-key <Ctrl-Shift-Right>',              mode='insert')
 config_bind_multilang('<Ctrl-h>',                 'edit-text',                                mode='insert')
 
-# Emacs-like text copying
-# Since there are no marks in texboxes, I'm forced to use these awkward binds
-# to continiously select text (I wonder if nyxt can do it any better)
-config_bind_multilang('<Ctrl-Space><Ctrl-e>',     'fake-key <Shift-End>',                     mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-a>',     'fake-key <Shift-Home>',                    mode='insert')
-config_bind_multilang('<Ctrl-Space><Alt-f>',      'fake-key <Ctrl-Shift-Right>',              mode='insert')
-config_bind_multilang('<Ctrl-Space><Alt-b>',      'fake-key <Ctrl-Shift-Left>',               mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-n>',     'fake-key <Shift-Down>',                    mode='insert')
-config_bind_multilang('<Ctrl-Alt-b>',             'fake-key <Shift-Left>',                    mode='insert')
-config_bind_multilang('<Ctrl-Alt-f>',             'fake-key <Shift-Right>',                   mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-p>',     'fake-key <Shift-Up>',                      mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-.>',     'fake-key <Ctrl-Shift-End>',                mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-,>',     'fake-key <Ctrl-Shift-Home>',               mode='insert')
-
 ### Caret mode
 
 # Enter caret mode
