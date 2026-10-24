@@ -39,9 +39,9 @@ def config_bind_multilang(keybind, cmd, mode='normal'):
     translated_keybind = ''
     should_translate = True
     for part in parts:
-        if part == '<':
-            # QTWebEngine (and qutebrowser by extension) automatically 
-            # translates modified keys (see issue #8992)
+        if part == 'Ctrl':
+            # QTWebEngine (and qutebrowser by extension) automatically
+            # translates keys modified with Ctrl (see issue #8992)
             should_translate = False
         if part == '>':
             should_translate = True
