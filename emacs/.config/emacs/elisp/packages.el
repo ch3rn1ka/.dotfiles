@@ -205,7 +205,7 @@
 
   (mu4e-update-interval (* 180 60))
   (mu4e-get-mail-command "mbsync -a")
-  (mu4e-maildir "~/mail")
+  (mu4e-maildir (or (getenv "XDG_CONFIG_HOME") "~/Mail"))
 
   (mu4e-drafts-folder "/Drafts")
   (mu4e-sent-folder "/Sent")
