@@ -24,6 +24,7 @@ def translate(word):
     """
 
     if word in keywords: return word
+
     res = ''
     for letter in word:
         res += lookup.get(letter, letter)
@@ -56,67 +57,80 @@ def config_bind_multilang(keybind, cmd, mode='normal'):
 c.bindings.default = {}
 
 ### Normal mode
-config_bind_multilang('<Ctrl-x><Ctrl-l>', 'config-source')
-config_bind_multilang('<Ctrl-g>', 'fake-key --global <Escape>')
 
+config_bind_multilang('<Ctrl-x><Ctrl-l>', 'config-source')
+config_bind_multilang('<Ctrl-g>',         'fake-key --global <Escape>')
+
+# Scroll
 config_bind_multilang('<Ctrl-b>', 'scroll-px -100 0')
 config_bind_multilang('<Ctrl-n>', 'scroll-px 0 100')
 config_bind_multilang('<Ctrl-p>', 'scroll-px 0 -100')
 config_bind_multilang('<Ctrl-f>', 'scroll-px 0 100')
 config_bind_multilang('<Ctrl-a>', 'back')
 config_bind_multilang('<Ctrl-e>', 'forward')
+config_bind_multilang('n',        'fake-key <Down>')
+config_bind_multilang('p',        'fake-key <Up>')
 
-config_bind_multilang('n', 'fake-key <Down>')
-config_bind_multilang('p', 'fake-key <Up>')
+# Note: it's impossible to bind 'Alt-Shift-,' or 'Alt-Shift-.'
+# because the '<' and '>' characters are reserved for bind syntax.
+config_bind_multilang('<Alt-,>',  'scroll-to-perc 0')
+config_bind_multilang('<Alt-.>',  'scroll-to-perc')
 
-config_bind_multilang('<Ctrl-/>', 'undo')
+# Undo/redo
+config_bind_multilang('<Ctrl-/>',         'undo')
 config_bind_multilang('<Ctrl-u><Ctrl-/>', 'undo --window')
 
-# Note: it's impossible to bind Alt-< or Alt-> because the '<' and '>'
-# characters are reserved for bind syntax, and you can't even escape them.
-config_bind_multilang('<Alt-,>', 'scroll-to-perc 0')
-config_bind_multilang('<Alt-.>', 'scroll-to-perc')
-
-config_bind_multilang('<Ctrl-x><Ctrl-f>', 'cmd-set-text -s :open')
-config_bind_multilang('<Ctrl-x>4<Ctrl-f>', 'cmd-set-text -s :open -b')
-config_bind_multilang('<Ctrl-x>5<Ctrl-f>', 'cmd-set-text -s :open -w')
-config_bind_multilang('<Ctrl-x>6<Ctrl-f>', 'cmd-set-text -s :open -p')
+# Open links
+config_bind_multilang('<Ctrl-x><Ctrl-f>',         'cmd-set-text -s :open')
+config_bind_multilang('<Ctrl-x>4<Ctrl-f>',        'cmd-set-text -s :open -b')
+config_bind_multilang('<Ctrl-x>5<Ctrl-f>',        'cmd-set-text -s :open -w')
+config_bind_multilang('<Ctrl-x>6<Ctrl-f>',        'cmd-set-text -s :open -p')
 config_bind_multilang('<Ctrl-u><Ctrl-x><Ctrl-f>', 'cmd-set-text -s :open -t')
-config_bind_multilang('<Ctrl-x><Ctrl-c>', 'quit')
-config_bind_multilang('<Ctrl-x>z', 'cmd-repeat-last')
-config_bind_multilang('<Ctrl-x>l', 'reload')
+config_bind_multilang('<Ctrl-x><Ctrl-c>',         'quit')
+config_bind_multilang('<Ctrl-x>z',                'cmd-repeat-last')
+config_bind_multilang('<Ctrl-x>l',                'reload')
 
+# Tabs
 config_bind_multilang('<Ctrl-x><Ctrl-b>', 'tab-select')
-config_bind_multilang('<Ctrl-x>b', 'cmd-set-text -s :tab-select')
-config_bind_multilang('<Ctrl-x>k', 'tab-close')
-config_bind_multilang('<Ctrl-x>0', 'tab-close')
-config_bind_multilang('<Ctrl-x>1', 'tab-only')
-config_bind_multilang('<Ctrl-x>o', 'tab-next')
-config_bind_multilang('<Alt-a>', 'tab-prev')
-config_bind_multilang('<Alt-e>', 'tab-next')
-config_bind_multilang('<Ctrl-Alt-a>', 'tab-move -')
-config_bind_multilang('<Ctrl-Alt-e>', 'tab-move +')
+config_bind_multilang('<Ctrl-x>b',        'cmd-set-text -s :tab-select')
+config_bind_multilang('<Ctrl-x>k',        'tab-close')
+config_bind_multilang('<Ctrl-x>0',        'tab-close')
+config_bind_multilang('<Ctrl-x>1',        'tab-only')
+config_bind_multilang('<Ctrl-x>o',        'tab-next')
+config_bind_multilang('<Alt-a>',          'tab-prev')
+config_bind_multilang('<Alt-e>',          'tab-next')
+config_bind_multilang('<Ctrl-Alt-a>',     'tab-move -')
+config_bind_multilang('<Ctrl-Alt-e>',     'tab-move +')
 
+# Bookmarks
+config_bind_multilang('<Ctrl-x>rm', 'bookmark-add')
+config_bind_multilang('<Ctrl-x>rl', 'bookmark-list')
+
+# Text search
 config_bind_multilang('<Ctrl-s>', 'cmd-set-text /')
 config_bind_multilang('<Ctrl-r>', 'cmd-set-text ?')
 
-# I know this looks counterintuitive, but i don't like holding Shift to zoom in.
-config_bind_multilang('=', 'zoom-in')
+# Zoom
+config_bind_multilang('+', 'zoom-in')
 config_bind_multilang('-', 'zoom-out')
-config_bind_multilang('+', 'zoom 100')
+config_bind_multilang('=', 'zoom 100')
 
-config_bind_multilang('<Alt-w>', 'yank url ;; yank selection')
+# URL copying
+config_bind_multilang('<Alt-w>',    'yank url ;; yank selection')
 config_bind_multilang('<Ctrl-x>cs', 'yank selection')
 config_bind_multilang('<Ctrl-x>cd', 'yank domain')
 config_bind_multilang('<Ctrl-x>cp', 'yank pretty-url')
 config_bind_multilang('<Ctrl-x>ct', 'yank title')
 
+# Darkmode toggle
 config_bind_multilang('<Ctrl-x><Ctrl-d>',
                       'config-cycle colors.webpage.darkmode.enabled true false')
 
+# Opening links in external programs
 config_bind_multilang('<Ctrl-x>mu', 'spawn mpv {url}')
 config_bind_multilang('<Ctrl-x>mh', 'hint links spawn mpv {hint-url}')
 
+# Downloads
 config_bind_multilang('<Ctrl-x>dr', 'download-remove')
 config_bind_multilang('<Ctrl-x>dR', 'download-clear')
 config_bind_multilang('<Ctrl-x>dc', 'download-cancel')
@@ -125,20 +139,32 @@ config_bind_multilang('<Ctrl-x>dd', 'download-delete')
 config_bind_multilang('<Ctrl-x>dr', 'download-retry')
 
 ### Insert mode
+
+# Enter insert
 config_bind_multilang('<Ctrl-m>', 'mode-enter insert')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='insert')
 config_bind_multilang('<Escape>', 'mode-leave', mode='insert')
 
-config_bind_multilang('<Alt-w>', 'yank selection', mode='insert')
-config_bind_multilang('<Ctrl-w>', 'yank selection ;; fake-key <Ctrl-x>', mode='insert')
-config_bind_multilang('<Ctrl-y>', 'fake-key <Ctrl-v>', mode='insert')
-config_bind_multilang('<Ctrl-/>', 'fake-key <Ctrl-z>', mode='insert')
-config_bind_multilang('<Alt-Backspace>',
-                      'fake-key <Ctrl-Backspace>', mode='insert')
-config_bind_multilang('<Alt-d>', 'fake-key <Ctrl-Delete>', mode='insert')
-config_bind_multilang('<Ctrl-k>', 'fake-key <Shift-End><Delete>', mode='insert')
-config_bind_multilang('<Ctrl-x><Ctrl-p>',
-                      'fake-key <Ctrl-Home><Ctrl-Shift-End>', mode='insert')
+# Emacs-like cursor movement
+config_bind_multilang('<Alt-w>',          'yank selection',                       mode='insert')
+config_bind_multilang('<Ctrl-w>',         'yank selection ;; fake-key <Ctrl-x>',  mode='insert')
+config_bind_multilang('<Ctrl-y>',         'fake-key <Ctrl-v>',                    mode='insert')
+config_bind_multilang('<Ctrl-/>',         'fake-key <Ctrl-z>',                    mode='insert')
+config_bind_multilang('<Alt-Backspace>',  'fake-key <Ctrl-Backspace>',            mode='insert')
+config_bind_multilang('<Alt-d>',          'fake-key <Ctrl-Delete>',               mode='insert')
+config_bind_multilang('<Ctrl-k>',         'fake-key <Shift-End><Delete>',         mode='insert')
+config_bind_multilang('<Ctrl-x><Ctrl-p>', 'fake-key <Ctrl-Home><Ctrl-Shift-End>', mode='insert')
+config_bind_multilang('<Ctrl-e>',         'fake-key <End><End>',                  mode='insert')
+config_bind_multilang('<Ctrl-a>',         'fake-key <Home><Home>',                mode='insert')
+config_bind_multilang('<Ctrl-n>',         'fake-key <Down>',                      mode='insert')
+config_bind_multilang('<Ctrl-p>',         'fake-key <Up>',                        mode='insert')
+config_bind_multilang('<Ctrl-d>',         'fake-key <Delete>',                    mode='insert')
+config_bind_multilang('<Alt-f>',          'fake-key <Ctrl-Right>',                mode='insert')
+config_bind_multilang('<Alt-b>',          'fake-key <Ctrl-Left>',                 mode='insert')
+config_bind_multilang('<Ctrl-f>',         'fake-key <Right>',                     mode='insert')
+config_bind_multilang('<Ctrl-b>',         'fake-key <Left>',                      mode='insert')
+config_bind_multilang('<Alt-.>',          'fake-key <Ctrl-End>',                  mode='insert')
+config_bind_multilang('<Alt-,>',          'fake-key <Ctrl-Home>',                 mode='insert')
 
 # This doesn't behave *exactly* like C-S-<backspace> in Emacs since it doesn't
 # delete the line itself. If I put anoter <Delete> in the keybind, it would trip
@@ -146,115 +172,110 @@ config_bind_multilang('<Ctrl-x><Ctrl-p>',
 config_bind_multilang('<Ctrl-Shift-Backspace>',
                       'fake-key <Home><Home><Shift-End><Delete>', mode='insert')
 
-config_bind_multilang('<Ctrl-Alt-Space>',
-                      'fake-key <Ctrl-Shift-Right>', mode='insert')
-config_bind_multilang('<Ctrl-h>', 'edit-text', mode='insert')
+# Type in external editor and paste
+config_bind_multilang('<Ctrl-Alt-Space>', 'fake-key <Ctrl-Shift-Right>', mode='insert')
+config_bind_multilang('<Ctrl-h>',         'edit-text',                   mode='insert')
 
-config_bind_multilang('<Ctrl-e>', 'fake-key <End><End>', mode='insert')
-config_bind_multilang('<Ctrl-a>', 'fake-key <Home><Home>', mode='insert')
-config_bind_multilang('<Ctrl-n>', 'fake-key <Down>', mode='insert')
-config_bind_multilang('<Ctrl-p>', 'fake-key <Up>', mode='insert')
-config_bind_multilang('<Ctrl-d>', 'fake-key <Delete>', mode='insert')
-config_bind_multilang('<Alt-f>', 'fake-key <Ctrl-Right>', mode='insert')
-config_bind_multilang('<Alt-b>', 'fake-key <Ctrl-Left>', mode='insert')
-config_bind_multilang('<Ctrl-f>', 'fake-key <Right>', mode='insert')
-config_bind_multilang('<Ctrl-b>', 'fake-key <Left>', mode='insert')
-config_bind_multilang('<Alt-.>', 'fake-key <Ctrl-End>', mode='insert')
-config_bind_multilang('<Alt-,>', 'fake-key <Ctrl-Home>', mode='insert')
-
+# Emacs-like text copying
 # Since there are no marks in texboxes, I'm forced to use these awkward binds
 # to continiously select text (I wonder if nyxt can do it any better)
-config_bind_multilang('<Ctrl-Space><Ctrl-e>', 'fake-key <Shift-End>', mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-a>', 'fake-key <Shift-Home>', mode='insert')
-config_bind_multilang('<Ctrl-Space><Alt-f>',
-                      'fake-key <Ctrl-Shift-Right>', mode='insert')
-config_bind_multilang('<Ctrl-Space><Alt-b>',
-                      'fake-key <Ctrl-Shift-Left>', mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-n>', 'fake-key <Shift-Down>', mode='insert')
-config_bind_multilang('<Ctrl-Alt-b>', 'fake-key <Shift-Left>', mode='insert')
-config_bind_multilang('<Ctrl-Alt-f>', 'fake-key <Shift-Right>', mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-p>', 'fake-key <Shift-Up>', mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-.>',
-                      'fake-key <Ctrl-Shift-End>', mode='insert')
-config_bind_multilang('<Ctrl-Space><Ctrl-,>',
-                      'fake-key <Ctrl-Shift-Home>', mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-e>', 'fake-key <Shift-End>',        mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-a>', 'fake-key <Shift-Home>',       mode='insert')
+config_bind_multilang('<Ctrl-Space><Alt-f>',  'fake-key <Ctrl-Shift-Right>', mode='insert')
+config_bind_multilang('<Ctrl-Space><Alt-b>',  'fake-key <Ctrl-Shift-Left>',  mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-n>', 'fake-key <Shift-Down>',       mode='insert')
+config_bind_multilang('<Ctrl-Alt-b>',         'fake-key <Shift-Left>',       mode='insert')
+config_bind_multilang('<Ctrl-Alt-f>',         'fake-key <Shift-Right>',      mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-p>', 'fake-key <Shift-Up>',         mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-.>', 'fake-key <Ctrl-Shift-End>',   mode='insert')
+config_bind_multilang('<Ctrl-Space><Ctrl-,>', 'fake-key <Ctrl-Shift-Home>',  mode='insert')
 
 ### Caret mode
+
+# Enter caret mode
 config_bind_multilang('<Ctrl-Space>', 'mode-enter caret')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='caret')
 config_bind_multilang('<Escape>', 'mode-leave', mode='caret')
 
-config_bind_multilang('<Ctrl-e>', 'move-to-end-of-line', mode='caret')
-config_bind_multilang('<Ctrl-a>', 'move-to-start-of-line', mode='caret')
-config_bind_multilang('<Ctrl-n>', 'move-to-next-line', mode='caret')
-config_bind_multilang('<Ctrl-p>', 'move-to-prev-line', mode='caret')
-config_bind_multilang('<Alt-f>', 'move-to-end-of-word', mode='caret')
-config_bind_multilang('<Alt-b>', 'move-to-prev-word', mode='caret')
-config_bind_multilang('<Ctrl-f>', 'move-to-next-char', mode='caret')
-config_bind_multilang('<Ctrl-b>', 'move-to-prev-char', mode='caret')
-config_bind_multilang('<Alt-a>', 'move-to-start-of-prev-block', mode='caret')
-config_bind_multilang('<Alt-e>', 'move-to-end-of-next-block', mode='caret')
-config_bind_multilang('<Alt-.>', 'move-to-end-of-document', mode='caret')
-config_bind_multilang('<Alt-,>', 'move-to-start-of-document', mode='caret')
+# Emacs-like cursor movement
+config_bind_multilang('<Ctrl-e>', 'move-to-end-of-line',         mode='caret')
+config_bind_multilang('<Ctrl-a>', 'move-to-start-of-line',       mode='caret')
+config_bind_multilang('<Ctrl-n>', 'move-to-next-line',           mode='caret')
+config_bind_multilang('<Ctrl-p>', 'move-to-prev-line',           mode='caret')
+config_bind_multilang('<Alt-f>',  'move-to-end-of-word',         mode='caret')
+config_bind_multilang('<Alt-b>',  'move-to-prev-word',           mode='caret')
+config_bind_multilang('<Ctrl-f>', 'move-to-next-char',           mode='caret')
+config_bind_multilang('<Ctrl-b>', 'move-to-prev-char',           mode='caret')
+config_bind_multilang('<Alt-a>',  'move-to-start-of-prev-block', mode='caret')
+config_bind_multilang('<Alt-e>',  'move-to-end-of-next-block',   mode='caret')
+config_bind_multilang('<Alt-.>',  'move-to-end-of-document',     mode='caret')
+config_bind_multilang('<Alt-,>',  'move-to-start-of-document',   mode='caret')
 
 ### *mark modes
+
 config_bind_multilang('<Ctrl-x>r ', 'mode-enter set_mark')
 config_bind_multilang('<Ctrl-x>rj', 'mode-enter jump_mark')
 
 ### Command mode
-config_bind_multilang('<Alt-x>', 'cmd-set-text :')
+
+# Enter command mode
+config_bind_multilang('<Alt-x>',  'cmd-set-text :')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='command')
 config_bind_multilang('<Escape>', 'mode-leave', mode='command')
 
-config_bind_multilang('<Up>', 'command-history-prev', mode='command')
-config_bind_multilang('<Ctrl-p>', 'command-history-prev', mode='command')
-config_bind_multilang('<Down>', 'command-history-next', mode='command')
-config_bind_multilang('<Ctrl-n>', 'command-history-next', mode='command')
-config_bind_multilang('<Return>', 'command-accept', mode='command')
-config_bind_multilang('<Ctrl-m>', 'command-accept', mode='command')
-config_bind_multilang('<Shift-Tab>',
-                      'completion-item-focus prev', mode='command')
-config_bind_multilang('<Ctrl-p>', 'completion-item-focus prev', mode='command')
-config_bind_multilang('<Tab>', 'completion-item-focus next', mode='command')
-config_bind_multilang('<Ctrl-n>', 'completion-item-focus next', mode='command')
+# History binds
+config_bind_multilang('<Up>',            'command-history-prev',       mode='command')
+config_bind_multilang('<Ctrl-p>',        'command-history-prev',       mode='command')
+config_bind_multilang('<Down>',          'command-history-next',       mode='command')
+config_bind_multilang('<Ctrl-n>',        'command-history-next',       mode='command')
+config_bind_multilang('<Return>',        'command-accept',             mode='command')
+config_bind_multilang('<Ctrl-m>',        'command-accept',             mode='command')
+config_bind_multilang('<Shift-Tab>',     'completion-item-focus prev', mode='command')
+config_bind_multilang('<Ctrl-p>',        'completion-item-focus prev', mode='command')
+config_bind_multilang('<Tab>',           'completion-item-focus next', mode='command')
+config_bind_multilang('<Ctrl-n>',        'completion-item-focus next', mode='command')
+config_bind_multilang('<Ctrl-s>',        'search-next',                mode='command')
+config_bind_multilang('<Ctrl-r>',        'search-prev',                mode='command')
 
-config_bind_multilang('<Ctrl-s>', 'search-next', mode='command')
-config_bind_multilang('<Ctrl-r>', 'search-prev', mode='command')
-
-config_bind_multilang('<Ctrl-b>', 'rl-backward-char', mode='command')
-config_bind_multilang('<Ctrl-f>', 'rl-forward-char', mode='command')
-config_bind_multilang('<Alt-b>',  'rl-backward-word', mode='command')
-config_bind_multilang('<Alt-f>',  'rl-forward-word', mode='command')
+# Emacs-like cursor movement
+config_bind_multilang('<Ctrl-b>',        'rl-backward-char',      mode='command')
+config_bind_multilang('<Ctrl-f>',        'rl-forward-char',       mode='command')
+config_bind_multilang('<Alt-b>',         'rl-backward-word',      mode='command')
+config_bind_multilang('<Alt-f>',         'rl-forward-word',       mode='command')
 config_bind_multilang('<Alt-Backspace>', 'rl-backward-kill-word', mode='command')
-config_bind_multilang('<Alt-d>',  'rl-kill-word', mode='command')
-config_bind_multilang('<Ctrl-k>',  'rl-kill-line', mode='command')
-config_bind_multilang('<Ctrl-a>',  'rl-beginning-of-line', mode='command')
-config_bind_multilang('<Ctrl-e>',  'rl-end-of-line', mode='command')
+config_bind_multilang('<Alt-d>',         'rl-kill-word',          mode='command')
+config_bind_multilang('<Ctrl-k>',        'rl-kill-line',          mode='command')
+config_bind_multilang('<Ctrl-a>',        'rl-beginning-of-line',  mode='command')
+config_bind_multilang('<Ctrl-e>',        'rl-end-of-line',        mode='command')
 
-config_bind_multilang('<Ctrl-y>', 'fake-key --global <Ctrl-v>', mode='command')
+# Paste
+config_bind_multilang('<Ctrl-y>',        'fake-key --global <Ctrl-v>', mode='command')
 
 ### Hint mode
+
 config_bind_multilang('<Ctrl-w>', 'hint')
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='hint')
 config_bind_multilang('<Escape>', 'mode-leave', mode='hint')
 
 config_bind_multilang('<Ctrl-u><Ctrl-w>', 'hint --rapid all tab-bg')
-config_bind_multilang('<Return>', 'follow-hint', mode='hint')
-config_bind_multilang('<Ctrl-m>', 'follow-hint', mode='hint')
+config_bind_multilang('<Return>',         'follow-hint', mode='hint')
+config_bind_multilang('<Ctrl-m>',         'follow-hint', mode='hint')
 
 ### Passthrough mode
+
 config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='passthrough')
 config_bind_multilang('<Escape>', 'mode-leave', mode='passthrough')
 
 ### Prompt mode
-#config_bind_multilang('y', 'prompt-accept', mode='prompt')
+
 config_bind_multilang('<Return>', 'prompt-accept', mode='prompt')
-config_bind_multilang('<Escape>', 'mode-leave', mode='prompt')
-config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='prompt')
+config_bind_multilang('<Escape>', 'mode-leave',    mode='prompt')
+config_bind_multilang('<Ctrl-g>', 'mode-leave',    mode='prompt')
 
 ### Yesno mode
-config_bind_multilang('n', 'prompt-accept no', mode='yesno')
-config_bind_multilang('y', 'prompt-accept yes', mode='yesno')
+
+config_bind_multilang('n',        'prompt-accept no',  mode='yesno')
+config_bind_multilang('y',        'prompt-accept yes', mode='yesno')
 config_bind_multilang('<Return>', 'prompt-accept yes', mode='yesno')
-config_bind_multilang('<Escape>', 'mode-leave', mode='yesno')
-config_bind_multilang('<Ctrl-g>', 'mode-leave', mode='yesno')
+config_bind_multilang('<Escape>', 'mode-leave',        mode='yesno')
+config_bind_multilang('<Ctrl-g>', 'mode-leave',        mode='yesno')
