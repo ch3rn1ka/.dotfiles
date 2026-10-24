@@ -8,6 +8,7 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export PDFREADER="emacsclient -c -a ''"
 export BROWSER='qutebrowser'
+export MAIL="$HOME/Mail"
 
 export PATH="$PATH:$XDG_BIN_HOME"
 export DOTFILES="$HOME/.dotfiles"
