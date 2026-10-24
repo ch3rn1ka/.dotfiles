@@ -10,8 +10,8 @@ IMAPStore purelymail-remote
 Account purelymail
 
 MaildirStore purelymail-local
-Path ~/mail/
-Inbox ~/mail/Inbox
+Path ~/Mail/
+Inbox ~/Mail/Inbox
 SubFolders Verbatim
 
 Channel purelymail
