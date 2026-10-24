@@ -1,8 +1,8 @@
 sway
-i3status
 swaylock
 swaybg
 swayidle
+i3status
 labwc
 xfce4-panel
 xfce4-battery-plugin
@@ -38,9 +38,12 @@ tmux
 fzf
 fastfetch
 neovim-nightly-bin
-noto-fonts
-ttf-ubuntu-nerd
-ttf-ubuntu-mono-nerd
+noto-fonts 
+noto-fonts-emoji
+ttf-ubuntu-nerd 
+ttf-ubuntu-mono-nerd 
+ttf-liberation 
+ttf-dejavu
 git
 rsync
 stow
