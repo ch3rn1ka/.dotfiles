@@ -1,0 +1,3 @@
+if !empty($XDG_STATE_HOME)
+    set viminfo+=n$XDG_STATE_HOME/viminfo
+endif
