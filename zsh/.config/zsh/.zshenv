@@ -1,16 +1,18 @@
+# XDG dirs
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_BIN_HOME="$HOME/.local/bin"
 
+# Default apps
 export EDITOR="nvim"
 export VISUAL="nvim"
-export PDFREADER="emacsclient -c -a ''"
 export BROWSER='qutebrowser'
-export MAIL="$HOME/Mail"
 
-export PATH="$PATH:$XDG_BIN_HOME"
+# Misc
+export MAIL="$HOME/Mail"
+export PULSE_COOKIE="$XDG_STATE_HOME/pulse-cookie"
 export DOTFILES="$HOME/.dotfiles"
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtkrc-2.0"
@@ -42,3 +44,5 @@ export BEMENU_OPTS="
 --cb #282828 --cf #ebdbb2 \
 --nb #504945 --nf #ebdbb2
 "
+
+export PATH="$PATH:$XDG_BIN_HOME"
